@@ -1,5 +1,5 @@
 {
-  "name": "ai-studio-angular-app",
+  "name": "devportfolio",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -38,6 +38,7 @@
     "@angular/build": "^21.0.0",
     "@angular/cli": "^21.0.0",
     "@angular/compiler-cli": "^21.0.0",
+    "@netlify/angular-runtime": "^3.0.1",
     "@tailwindcss/postcss": "^4.1.12",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
