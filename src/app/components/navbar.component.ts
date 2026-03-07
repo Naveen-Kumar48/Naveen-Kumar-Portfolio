@@ -43,21 +43,21 @@ import { StarBorderComponent } from './star-border.component';
           </button>
 
           <a href="#contact" (click)="scrollToSection($event, '#contact')" class="ml-2 relative z-10 group block">
-            <app-star-border color="#10b981" speed="4s">
-              <span class="font-medium text-[var(--text-primary)] group-hover:text-emerald-400 text-sm px-2">Contact Me</span>
+            <app-star-border color="#10b981" speed="4s" innerClass="bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-primary)] text-center text-sm py-2 px-4 group-hover:bg-[var(--bg-secondary)] transition-colors">
+              <span class="font-medium group-hover:text-emerald-400">Contact Me</span>
             </app-star-border>
           </a>
         </div>
 
         <!-- Mobile Menu Button -->
-        <div class="flex items-center gap-2 md:hidden">
+        <div class="flex items-center gap-1 md:hidden">
           <button (click)="toggleTheme()" class="p-2 rounded-full hover:bg-[var(--bg-secondary)] text-[var(--text-primary)] transition-colors shrink-0">
             <mat-icon class="text-sm">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
           </button>
           
           <a href="#contact" (click)="scrollToSection($event, '#contact')" class="shrink-0 block md:hidden">
-            <app-star-border color="#10b981" speed="4s" [thickness]="1">
-              <span class="font-medium text-[var(--text-primary)] group-hover:text-emerald-400 text-[10px] sm:text-xs px-2 py-1 whitespace-nowrap">Contact</span>
+            <app-star-border color="#10b981" speed="4s" [thickness]="1" innerClass="bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-primary)] text-center text-xs py-1.5 px-3 group-hover:bg-[var(--bg-secondary)] transition-colors">
+              <span class="font-medium group-hover:text-emerald-400 whitespace-nowrap">Contact</span>
             </app-star-border>
           </a>
           

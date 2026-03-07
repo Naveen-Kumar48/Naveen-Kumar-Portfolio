@@ -15,7 +15,7 @@ export const PROJECTS: Project[] = [
     id: 2,
     title: 'ThinkGPT',
     description: 'Multi-Modal AI Platform supporting text-to-image generation and conversational AI. Integrated Stripe Payment Gateway for subscriptions.',
-    image: 'https://private-user-images.githubusercontent.com/170291424/546284815-3ad64f7a-57e5-4831-9e61-997cef45b108.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzI4NjcyMDIsIm5iZiI6MTc3Mjg2NjkwMiwicGF0aCI6Ii8xNzAyOTE0MjQvNTQ2Mjg0ODE1LTNhZDY0ZjdhLTU3ZTUtNDgzMS05ZTYxLTk5N2NlZjQ1YjEwOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMwN1QwNzAxNDJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03NTY5N2ZkN2M5NDcwOTljZTAwN2QwNDRjZTRhOGI3YzU4YjFmNWFiZTRhODdjN2Q4ZWRlOTA3MzMzZWJmZmI2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.wuIv3gp-aA4Aj-aNb3Gcjx2ri9iXXBErLzpBw5Q8tQc',
+    image: '/Thinkgptimg.png',
     tags: ['MERN', 'Stripe', 'MongoDB', 'AI'],
     liveLink: 'https://thinkgpt-app.vercel.app/',
     githubLink: 'https://github.com/Naveen-Kumar48/Think-GPT',
@@ -25,7 +25,7 @@ export const PROJECTS: Project[] = [
     id: 3,
     title: 'ProLink-Connect',
     description: 'Professional Networking Suite built with Next.js and SSR for SEO. Features dynamic PDF resume generator and real-time profile management.',
-    image: 'https://private-user-images.githubusercontent.com/170291424/543379890-1ecb4873-1501-4fb3-8653-318360369bf5.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzI4NjczMjksIm5iZiI6MTc3Mjg2NzAyOSwicGF0aCI6Ii8xNzAyOTE0MjQvNTQzMzc5ODkwLTFlY2I0ODczLTE1MDEtNGZiMy04NjUzLTMxODM2MDM2OWJmNS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMwN1QwNzAzNDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lZjQyMTVjMGM4Y2Q1NzViMmUzNzUwOGVkNzllMWZjMGE3MzBkZWNlNzJlNzBiZDMyZjA0M2VlMjlmMGNhZWU3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.ckg36mnroPhf4ROVGRUAl_xp08-3XU81ytrNd1l0tOE',
+    image: '/Prolinkimg.png',
     tags: ['Next.js', 'SSR', 'MongoDB', 'Mongoose'],
     liveLink: 'https://prolink-network.vercel.app',
     githubLink: 'https://github.com/Naveen-Kumar48/Linkedin-Clone ',
@@ -40,6 +40,16 @@ export const PROJECTS: Project[] = [
     liveLink: 'https://book-store-e-commerce-five.vercel.app/',
     githubLink: 'https://github.com/Naveen-Kumar48/Book-Store-E-commerce',
     category: 'fullstack'
+  },
+  {
+    id: 5,
+    title: 'To-do List',
+    description: 'A responsive and intuitive To-do List application for managing daily tasks efficiently. Includes features to add, edit, delete, and mark tasks as complete.',
+    image: '/TodoImg.png',
+    tags: ['JavaScript', 'HTML', 'CSS'],
+    liveLink: 'https://naveen-kumar48.github.io/To-do-List/',
+    githubLink: 'https://github.com/Naveen-Kumar48/To-do-List',
+    category: 'frontend'
   }
 ];
 

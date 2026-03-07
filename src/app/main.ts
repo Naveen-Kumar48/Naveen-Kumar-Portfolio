@@ -30,7 +30,7 @@ import { CursorComponent } from './components/cursor.component';
   ],
   template: `
     <app-cursor />
-    <main class="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] selection:bg-emerald-500/30 selection:text-emerald-200 cursor-none">
+    <main class="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] selection:bg-emerald-500/30 selection:text-emerald-200 cursor-none overflow-x-hidden">
       <app-navbar />
       <app-hero />
       <app-about />
@@ -43,4 +43,4 @@ import { CursorComponent } from './components/cursor.component';
     </main>
   `
 })
-export class App {}
+export class App { }

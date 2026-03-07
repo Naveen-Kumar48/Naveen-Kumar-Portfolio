@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
         [style.background]="'radial-gradient(circle, ' + color + ', transparent 10%)'"
         [style.animation-duration]="speed"
       ></div>
-      <div class="relative z-1 bg-gradient-to-b from-zinc-950 to-zinc-900 border border-zinc-800 text-white text-center text-[16px] py-[16px] px-[26px] rounded-[20px]">
+      <div [class]="'relative z-1 rounded-[20px] ' + innerClass">
         <ng-content></ng-content>
       </div>
     </div>
@@ -33,4 +33,5 @@ export class StarBorderComponent {
   @Input() color = '#10b981'; // Default to emerald-500 to match theme
   @Input() speed = '6s';
   @Input() thickness = 1;
+  @Input() innerClass = 'bg-gradient-to-b from-zinc-950 to-zinc-900 border border-zinc-800 text-white text-center text-[16px] py-[16px] px-[26px]';
 }
