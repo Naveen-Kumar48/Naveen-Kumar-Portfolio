@@ -22,7 +22,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
         <div #grid class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           @for (category of categories; track category) {
-            <div class="bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-2xl p-6 hover:border-emerald-500/30 transition-colors opacity-0 translate-y-8">
+            <div class="bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-2xl p-6 hover:border-emerald-500/30 transition-colors">
               <h3 class="text-xl font-semibold mb-6 capitalize flex items-center gap-2">
                 <mat-icon class="text-emerald-500">{{ getCategoryIcon(category) }}</mat-icon>
                 {{ category }}
@@ -62,7 +62,7 @@ export class SkillsComponent implements AfterViewInit {
 
   @ViewChild('grid') gridRef!: ElementRef;
   @ViewChildren('skillBar') skillBars!: QueryList<ElementRef>;
-  
+
   private platformId = inject(PLATFORM_ID);
 
   getSkillsByCategory(category: string) {
@@ -70,7 +70,7 @@ export class SkillsComponent implements AfterViewInit {
   }
 
   getCategoryIcon(category: string): string {
-    switch(category) {
+    switch (category) {
       case 'frontend': return 'web';
       case 'backend': return 'settings_ethernet';
       case 'database': return 'storage';

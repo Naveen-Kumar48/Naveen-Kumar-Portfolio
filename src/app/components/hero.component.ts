@@ -5,11 +5,12 @@ import { gsap } from 'gsap';
 import { ThreeHeroComponent } from './three-hero.component';
 import { StarBorderComponent } from './star-border.component';
 import { OrbComponent } from './orb.component';
+import { DownloadResumeBtnComponent } from './download-resume.component';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, MatIconModule, ThreeHeroComponent, StarBorderComponent, OrbComponent],
+  imports: [CommonModule, MatIconModule, ThreeHeroComponent, StarBorderComponent, OrbComponent, DownloadResumeBtnComponent],
   template: `
     <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden" style="perspective: 1000px">
       <!-- 3D Background -->
@@ -43,16 +44,12 @@ import { OrbComponent } from './orb.component';
           </p>
           
           <div #animateItem class="flex flex-wrap gap-4 mt-4 items-center opacity-0 translate-y-4">
-            <a href="#projects" class="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+            <a href="#projects" class="w-[130px] h-[40px] flex justify-center items-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-full transition-all text-sm gap-1">
               View Projects
-              <mat-icon class="text-sm">arrow_forward</mat-icon>
+              <!-- <mat-icon class="text-sm">arrow_forward</mat-icon> -->
             </a>
             
-            <a href="#contact" class="group">
-              <app-star-border color="#10b981" speed="4s">
-                <span class="font-medium text-[var(--text-primary)] group-hover:text-emerald-400 transition-colors">Contact Me</span>
-              </app-star-border>
-            </a>
+            <app-download-resume></app-download-resume>
           </div>
 
           <div #animateItem class="flex items-center gap-6 mt-8 text-[var(--text-secondary)] opacity-0 translate-y-4">
@@ -85,10 +82,10 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   @ViewChild('content') contentRef!: ElementRef;
   @ViewChild('visual') visualRef!: ElementRef;
   @ViewChild('orbContainer') orbContainerRef!: ElementRef;
-  
+
   displayedName = signal('');
   showCursor = signal(true);
-  
+
   private platformId = inject(PLATFORM_ID);
   private mouseMoveListener: any;
   private cursorInterval: any;
@@ -108,43 +105,43 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
         duration: 1,
         ease: 'power4.out'
       })
-      // 2. Typewriter Effect for Name
-      .call(() => {
-        const name = "Naveen Kumar";
-        const obj = { length: 0 };
-        gsap.to(obj, {
-          length: name.length,
-          duration: 1.5,
-          ease: `steps(${name.length})`,
-          onUpdate: () => {
-            this.displayedName.set(name.substring(0, Math.ceil(obj.length)));
+        // 2. Typewriter Effect for Name
+        .call(() => {
+          const name = "Naveen Kumar";
+          const obj = { length: 0 };
+          gsap.to(obj, {
+            length: name.length,
+            duration: 1.5,
+            ease: `steps(${name.length})`,
+            onUpdate: () => {
+              this.displayedName.set(name.substring(0, Math.ceil(obj.length)));
+            }
+          });
+        }, undefined, '-=0.5')
+        // 3. "Full Stack Developer" Slide Up & Scramble
+        .to(this.roleTextRef.nativeElement, {
+          y: 0,
+          duration: 0.8,
+          delay: 1.5, // Wait for typewriter
+          onStart: () => {
+            this.scrambleText(this.roleTextRef.nativeElement, "Full Stack Developer", 1.5);
           }
-        });
-      }, undefined, '-=0.5')
-      // 3. "Full Stack Developer" Slide Up & Scramble
-      .to(this.roleTextRef.nativeElement, {
-        y: 0,
-        duration: 0.8,
-        delay: 1.5, // Wait for typewriter
-        onStart: () => {
-          this.scrambleText(this.roleTextRef.nativeElement, "Full Stack Developer", 1.5);
-        }
-      })
-      // 4. Other items
-      .to(this.animateItems.map(el => el.nativeElement), {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'back.out(1.7)'
-      }, '-=0.5')
-      // 5. Visual Orb
-      .to(this.visualRef.nativeElement, {
-        opacity: 1,
-        scale: 1,
-        duration: 1.2,
-        ease: 'elastic.out(1, 0.75)'
-      }, '-=1.0');
+        })
+        // 4. Other items
+        .to(this.animateItems.map(el => el.nativeElement), {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'back.out(1.7)'
+        }, '-=0.5')
+        // 5. Visual Orb
+        .to(this.visualRef.nativeElement, {
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: 'elastic.out(1, 0.75)'
+        }, '-=1.0');
 
       // Floating Animation
       gsap.to(this.orbContainerRef.nativeElement, {
@@ -189,7 +186,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     const update = () => {
       const now = Date.now();
       const progress = Math.min((now - startTime) / durationMs, 1);
-      
+
       let result = "";
       for (let i = 0; i < finalText.length; i++) {
         if (progress >= 1 || i < finalText.length * progress) {
@@ -200,7 +197,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
           result += chars[Math.floor(Math.random() * chars.length)];
         }
       }
-      
+
       element.innerText = result;
 
       if (progress < 1) {

@@ -20,7 +20,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         <div #timeline class="relative space-y-12 before:content-[''] before:absolute before:inset-0 before:ml-5 md:before:ml-[50%] before:-translate-x-px md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-emerald-500 before:via-[var(--border-color)] before:to-[var(--bg-secondary)]">
           
           @for (exp of experience; track exp.id; let i = $index) {
-            <div [class]="'relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group ' + (i % 2 === 0 ? 'md:flex-row' : '') + ' opacity-0 translate-y-8'">
+            <div [class]="'relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group ' + (i % 2 === 0 ? 'md:flex-row' : '')">
               
               <!-- Icon -->
               <div class="absolute left-0 md:left-1/2 w-10 h-10 bg-[var(--bg-secondary)] border-2 border-emerald-500 rounded-full flex items-center justify-center z-10 -translate-x-0 md:-translate-x-1/2 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
@@ -56,7 +56,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export class ExperienceComponent implements AfterViewInit {
   experience = EXPERIENCE;
   @ViewChild('timeline') timelineRef!: ElementRef;
-  
+
   private platformId = inject(PLATFORM_ID);
 
   ngAfterViewInit() {

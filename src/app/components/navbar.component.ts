@@ -1,11 +1,16 @@
-import { Component, signal, HostListener, inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
+import { Component, signal, HostListener, inject, PLATFORM_ID, OnInit, OnDestroy, ViewChildren, QueryList, ElementRef, effect } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { StarBorderComponent } from './star-border.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    StarBorderComponent
+  ],
   template: `
     <nav [class]="'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b px-6 py-4 ' + (scrolled() || mobileMenuOpen() ? 'bg-[var(--glass-bg)] backdrop-blur-md border-[var(--border-color)] shadow-sm' : 'bg-transparent border-transparent')">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -14,32 +19,43 @@ import { MatIconModule } from '@angular/material/icon';
         </a>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center gap-6">
+        <div class="hidden md:flex items-center gap-2 relative" (mouseleave)="onNavContainerLeave()">
+          <!-- Glassmorphism Pill -->
+          <div 
+            class="absolute top-1/2 -translate-y-1/2 h-9 bg-[var(--text-primary)]/5 backdrop-blur-md border border-[var(--border-color)]/50 rounded-full transition-all duration-300 ease-out z-0 pointer-events-none"
+            [ngStyle]="{'left.px': pillStyle().left, 'width.px': pillStyle().width, 'opacity': pillStyle().opacity}">
+          </div>
+
           @for (item of navItems; track item.label) {
-            <a [href]="item.href" 
-               class="text-sm font-medium transition-colors relative"
-               [class]="activeSection() === item.id ? 'text-emerald-500' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'"
+            <a #navLink [attr.data-id]="item.id" [href]="item.href" 
+               class="px-4 py-2 text-sm font-medium transition-colors relative z-10 rounded-full"
+               [class]="(hoveredSection() || activeSection()) === item.id ? 'text-emerald-500' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'"
+               (mouseenter)="onItemHover(item.id)"
                (click)="scrollToSection($event, item.href)">
               {{ item.label }}
-              @if (activeSection() === item.id) {
-                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-500 rounded-full"></span>
-              }
             </a>
           }
           
-          <button (click)="toggleTheme()" class="p-2 rounded-full hover:bg-[var(--bg-secondary)] text-[var(--text-primary)] transition-colors">
+          <div class="w-px h-6 bg-[var(--border-color)] mx-2"></div>
+          
+          <button (click)="toggleTheme()" class="p-2 rounded-full hover:bg-[var(--bg-secondary)] text-[var(--text-primary)] transition-colors relative z-10">
             <mat-icon class="text-sm">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
           </button>
 
-          <a href="#contact" 
-             class="px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-full text-sm transition-all hover:scale-105"
-             (click)="scrollToSection($event, '#contact')">
-            Hire Me
+          <a href="#contact" (click)="scrollToSection($event, '#contact')" class="ml-2 relative z-10 group block">
+            <app-star-border color="#10b981" speed="4s">
+              <span class="font-medium text-[var(--text-primary)] group-hover:text-emerald-400 text-sm px-2">Contact Me</span>
+            </app-star-border>
           </a>
         </div>
 
         <!-- Mobile Menu Button -->
         <div class="flex items-center gap-4 md:hidden">
+          <a href="#contact" (click)="scrollToSection($event, '#contact')" class="scale-90 origin-right group block">
+            <app-star-border color="#10b981" speed="4s">
+              <span class="font-medium text-[var(--text-primary)] group-hover:text-emerald-400 text-sm px-2">Contact Me</span>
+            </app-star-border>
+          </a>
           <button (click)="toggleTheme()" class="p-2 rounded-full hover:bg-[var(--bg-secondary)] text-[var(--text-primary)] transition-colors">
             <mat-icon class="text-sm">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
           </button>
@@ -61,11 +77,6 @@ import { MatIconModule } from '@angular/material/icon';
               {{ item.label }}
             </a>
           }
-          <a href="#contact" 
-             class="px-5 py-3 bg-emerald-500 text-center text-white font-semibold rounded-xl"
-             (click)="scrollToSection($event, '#contact'); toggleMenu()">
-            Hire Me
-          </a>
         </div>
       }
     </nav>
@@ -76,6 +87,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   mobileMenuOpen = signal(false);
   isDarkMode = signal(true);
   activeSection = signal('');
+
+  pillStyle = signal({ left: 0, width: 0, opacity: 0 });
+  hoveredSection = signal('');
+
+  @ViewChildren('navLink') navLinks!: QueryList<ElementRef<HTMLAnchorElement>>;
 
   private platformId = inject(PLATFORM_ID);
   private observer: IntersectionObserver | null = null;
@@ -97,6 +113,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.isDarkMode.set(window.matchMedia('(prefers-color-scheme: dark)').matches);
       }
       this.applyTheme();
+
+      effect(() => {
+        const idToHighlight = this.hoveredSection() || this.activeSection();
+        setTimeout(() => this.updatePillPosition(idToHighlight), 0);
+      });
     }
   }
 
@@ -112,9 +133,41 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
+  onNavContainerLeave() {
+    this.hoveredSection.set('');
+  }
+
+  onItemHover(id: string) {
+    this.hoveredSection.set(id);
+  }
+
+  private updatePillPosition(activeId: string) {
+    if (!this.navLinks || this.navLinks.length === 0) return;
+
+    const activeLink = this.navLinks.find(link => link.nativeElement.getAttribute('data-id') === activeId);
+
+    if (activeLink) {
+      const element = activeLink.nativeElement;
+      this.pillStyle.set({
+        left: element.offsetLeft,
+        width: element.offsetWidth,
+        opacity: 1
+      });
+    } else {
+      this.pillStyle.update(style => ({ ...style, opacity: 0 }));
+    }
+  }
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.scrolled.set(window.scrollY > 20);
+  }
+
+  @HostListener('window:resize', [])
+  onResize() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.updatePillPosition(this.activeSection());
+    }
   }
 
   toggleMenu() {
@@ -160,13 +213,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.observer?.observe(element);
       }
     });
-
-    // Also observe hero section to clear active state or set to home
-    const hero = document.querySelector('app-hero section'); // Assuming hero has a section tag
-    if (hero) {
-      // We might want to add an id to hero section if not present, or just handle it.
-      // For now, let's just stick to the nav items.
-    }
   }
 
   scrollToSection(event: Event, href: string) {

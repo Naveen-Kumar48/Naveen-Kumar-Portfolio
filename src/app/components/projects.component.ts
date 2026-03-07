@@ -36,7 +36,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
         <div #grid class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           @for (project of filteredProjects(); track project.id) {
-            <div class="group bg-[var(--bg-secondary)] rounded-2xl overflow-hidden border border-[var(--border-color)] hover:border-emerald-500/50 transition-all hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/10 duration-300 flex flex-col h-full opacity-0 translate-y-8">
+            <div class="group bg-[var(--bg-secondary)] rounded-2xl overflow-hidden border border-[var(--border-color)] hover:border-emerald-500/50 transition-all hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/10 duration-300 flex flex-col h-full">
               <!-- Image Container -->
               <div class="relative h-48 overflow-hidden">
                 <img [src]="project.image" [alt]="project.title" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" referrerpolicy="no-referrer">
@@ -82,7 +82,7 @@ export class ProjectsComponent implements AfterViewInit {
   });
 
   @ViewChild('grid') gridRef!: ElementRef;
-  
+
   private platformId = inject(PLATFORM_ID);
 
   ngAfterViewInit() {
@@ -93,7 +93,7 @@ export class ProjectsComponent implements AfterViewInit {
       // Since Angular signals update synchronously, we might need a small delay or effect
       // For now, we'll just animate the initial load. 
       // Ideally, we'd use an effect() to re-trigger this, but let's keep it simple for now.
-      
+
       this.animateGrid();
     }
   }

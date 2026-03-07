@@ -13,7 +13,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         
         <!-- Image/Visual Side -->
-        <div #imageSide class="relative order-2 md:order-1 opacity-0 -translate-x-12">
+        <div #imageSide class="relative order-2 md:order-1">
           <div class="relative z-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
             <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Developer Workspace" class="w-full h-auto object-cover" referrerpolicy="no-referrer">
           </div>
@@ -23,12 +23,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         </div>
 
         <!-- Text Side -->
-        <div #textSide class="order-1 md:order-2 opacity-0 translate-x-12">
+        <div #textSide class="order-1 md:order-2">
           <h2 class="text-3xl md:text-4xl font-bold mb-6">About <span class="text-emerald-400">Me</span></h2>
           
           <div class="space-y-4 text-[var(--text-secondary)] leading-relaxed">
             <p>
-              I'm an ambitious Full Stack Developer specializing in MERN Stack and Next.js. I have experience in building AI-integrated SaaS platforms, secure e-commerce systems, and professional networking tools.
+              I'm an ambitious Full Stack Developer specializing in MERN Stack and Full Stack Development. I have experience in building AI-integrated SaaS platforms, secure e-commerce systems, and professional networking tools.
             </p>
             <p>
               My expertise includes JWT-based authentication, RBAC, responsive UI design, and integrating third-party APIs. I focus on delivering production-ready, high-performance applications with clean code and maintainable architecture.
