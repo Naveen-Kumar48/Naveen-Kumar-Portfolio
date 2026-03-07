@@ -1,4 +1,4 @@
-import { Component, inject, ElementRef, ViewChild, AfterViewInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, ElementRef, ViewChild, AfterViewInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +15,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
       <div class="absolute bottom-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl -z-10"></div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <div #infoSide class="opacity-0 -translate-x-12">
+        <div #infoSide class="transform transition-transform">
           <h2 class="text-3xl md:text-4xl font-bold mb-6">Let's work <span class="text-emerald-400">together</span></h2>
           <p class="text-[var(--text-secondary)] mb-8 leading-relaxed">
             I'm currently available for freelance work or full-time positions. 
@@ -71,7 +71,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
           </div>
         </div>
 
-        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border-color)] shadow-xl opacity-0 translate-x-12">
+        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border-color)] shadow-xl transform transition-transform">
           <div class="space-y-6">
             <div>
               <label for="name" class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Name</label>
@@ -113,6 +113,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
                 Thanks for reaching out! I'll get back to you soon.
               </p>
             }
+            @if (submitError) {
+              <p class="text-red-400 text-center text-sm mt-4">
+                Something went wrong. Please try again.
+              </p>
+            }
           </div>
         </form>
       </div>
@@ -122,6 +127,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export class ContactComponent implements AfterViewInit {
   private fb = inject(FormBuilder);
   private platformId = inject(PLATFORM_ID);
+  private cdr = inject(ChangeDetectorRef);
 
   @ViewChild('infoSide') infoRef!: ElementRef;
   @ViewChild('formSide') formRef!: ElementRef;
@@ -134,6 +140,8 @@ export class ContactComponent implements AfterViewInit {
 
   isSubmitting = false;
   submitted = false;
+
+  submitError = false;
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -168,16 +176,42 @@ export class ContactComponent implements AfterViewInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.contactForm.valid) {
       this.isSubmitting = true;
-      // Simulate API call
-      setTimeout(() => {
+      this.submitError = false;
+      this.submitted = false;
+
+      try {
+        const formData = new FormData();
+        formData.append("access_key", "a8205ed1-ce6d-4713-bc3c-4510e20f664c");
+        formData.append("name", this.contactForm.value.name);
+        formData.append("email", this.contactForm.value.email);
+        formData.append("message", this.contactForm.value.message);
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          this.submitted = true;
+          this.contactForm.reset();
+          setTimeout(() => {
+            this.submitted = false;
+            this.cdr.markForCheck();
+          }, 5000);
+        } else {
+          this.submitError = true;
+        }
+      } catch (error) {
+        this.submitError = true;
+      } finally {
         this.isSubmitting = false;
-        this.submitted = true;
-        this.contactForm.reset();
-        setTimeout(() => this.submitted = false, 5000);
-      }, 1500);
+        this.cdr.markForCheck();
+      }
     }
   }
 }

@@ -94,29 +94,33 @@ export const EXPERIENCE: Experience[] = [
 export const ACADEMIC_ACTIVITIES: AcademicActivity[] = [
   {
     id: 1,
-    degree: 'Bachelor of Technology in Computer Science',
-    institution: 'Example University of Technology',
-    period: '2021 - 2025',
-    grade: '8.5 CGPA',
+    degree: 'Bachelor of Computer Applications (BCA)',
+    institution: 'Indira Gandhi National Open University (IGNOU)',
+    period: '2023 - 2026',
+    grade: 'A',
     icon: 'school',
     achievements: [
-      'Specialized in Artificial Intelligence and Machine Learning.',
-      'Led the university coding club and organized 3 hackathons.',
-      'Published a research paper on "AI in Education" in a national conference.',
-      'Completed a capstone project on "Smart Campus Navigation System".'
+      'Gained deep foundational knowledge in Data Structures',
+      'Developed strong proficiency in Database Management Systems.',
+
     ]
   },
   {
     id: 2,
-    degree: 'Higher Secondary Education (Science)',
-    institution: 'Example Public School',
-    period: '2019 - 2021',
-    grade: '92%',
+    degree: 'Class XII (CBSE)',
+    institution: 'Blooming Dale School ',
+    period: '2022 - 2023',
+    grade: 'A',
     icon: 'menu_book',
-    achievements: [
-      'Top 1% in Mathematics and Computer Science.',
-      'Participated in National Science Olympiad.',
-      'Member of the school debate team.'
-    ]
+    achievements: []
+  },
+  {
+    id: 3,
+    degree: 'Class X (CBSE)',
+    institution: 'Maharishi Vidya Mandir ',
+    period: '2019 - 2020',
+    grade: 'A',
+    icon: 'menu_book',
+    achievements: []
   }
 ];
