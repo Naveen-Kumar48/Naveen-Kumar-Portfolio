@@ -3,14 +3,13 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { gsap } from 'gsap';
 import { ThreeHeroComponent } from './three-hero.component';
-import { StarBorderComponent } from './star-border.component';
 import { OrbComponent } from './orb.component';
 import { DownloadResumeBtnComponent } from './download-resume.component';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, MatIconModule, ThreeHeroComponent, StarBorderComponent, OrbComponent, DownloadResumeBtnComponent],
+  imports: [CommonModule, MatIconModule, ThreeHeroComponent, OrbComponent, DownloadResumeBtnComponent],
   template: `
     <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden" style="perspective: 1000px">
       <!-- 3D Background -->
