@@ -15,7 +15,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         <!-- Image/Visual Side -->
         <div #imageSide class="relative order-2 md:order-1 opacity-0 -translate-x-12">
           <div class="relative z-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
-            <img src="https://picsum.photos/seed/developer/600/600" alt="Developer Workspace" class="w-full h-auto object-cover" referrerpolicy="no-referrer">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Developer Workspace" class="w-full h-auto object-cover" referrerpolicy="no-referrer">
           </div>
           <!-- Decorative Elements -->
           <div class="absolute -top-4 -left-4 w-full h-full border-2 border-emerald-500/30 rounded-2xl -z-10"></div>
@@ -57,7 +57,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export class AboutComponent implements AfterViewInit {
   @ViewChild('imageSide') imageRef!: ElementRef;
   @ViewChild('textSide') textRef!: ElementRef;
-  
+
   private platformId = inject(PLATFORM_ID);
 
   ngAfterViewInit() {
