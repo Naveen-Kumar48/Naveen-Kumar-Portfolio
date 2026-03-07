@@ -2,7 +2,7 @@
 
 # Env variables
 .env*
-!.env.example
+.env.example
 
 # Compiled output
 /dist
