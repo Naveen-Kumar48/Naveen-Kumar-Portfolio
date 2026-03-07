@@ -1,5 +1,16 @@
 [build]
-  command = "npm run build"
+  # This command tells Netlify how to build the application
+  command = "npm install --legacy-peer-deps && npm run build"
+  
+  # This is the directory Netlify will publish after the build finishes
+  publish = "dist/app/browser"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+[build.environment]
+  # Enforce a modern Node version
+  NODE_VERSION = "20"
+
+[[redirects]]
+  # This rule ensures that client-side routing works properly without throwing 404s
+  from = "/*"
+  to = "/index.html"
+  status = 200
