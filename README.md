@@ -1,91 +1,114 @@
-# 🚀 Naveen Kumar - Full Stack Developer from 2077
+# 👨‍💻 Naveen Kumar - Full Stack Developer Portfolio
 
-```
-QUANTUM_ID: Naveen_Kumar_v7.0
-TIMELINE: 2026_Earth_Prime
-SPECIALIZATION: MERN_Stack // Next.js // AI_Integration
-STATUS: Available_for_Work [MULTIVERSE_READY]
-```
+A modern, responsive portfolio website built with Angular to showcase my skills, projects, and professional journey as a Full Stack Developer.
 
-Welcome to my **holographic developer nexus** — an interdimensional portal showcasing my coding abilities across space-time. This Angular-based interface uses quantum rendering to display my projects, skills, and temporal experience.
+## 🌐 Live Site
+**Visit:** https://naveen-web.netlify.app/
 
-## 🌌 Live Transmission
-**Active Link:** https://naveen-web.netlify.app/
-*Signal Status: ✅ Online across all dimensions*
+## 📋 About This Project
 
-## ⚛️ Tech Stack (Post-Singularity Edition)
+This portfolio serves as a central hub for recruiters, hiring managers, and collaborators to explore my technical expertise and view my work. It demonstrates my ability to build production-ready web applications using modern frontend technologies.
 
-```yaml
-Framework: Angular v17+ (Quantum-Entangled)
-Styling: Tailwind_CSS + Glassmorphism_UI (Holographic_Class)
-Animations: GSAP (Temporal_Manipulation_Engine)
-Icons: Google_Material_Icons (Interdimensional)
-Rendering: Three.js (Reality_Simulation_Layer)
-```
+## 🛠️ Tech Stack
 
-## 🌀 Initialize Local Simulation
+- **Frontend Framework:** Angular 17+ (Standalone Components)
+- **Styling:** Tailwind CSS with custom glassmorphism effects
+- **Animations:** GSAP for smooth scroll-based animations
+- **3D Graphics:** Three.js for interactive hero section
+- **Icons:** Angular Material Icons
+- **Deployment:** Netlify
 
-### Prerequisites (Minimum Requirements)
-- Node.js v18+ (Quantum_Core)
-- Angular CLI: `npm install -g @angular/cli@latest`
-- Reality Stabilizer (optional but recommended)
+## 🚀 Getting Started
 
-### Installation Protocol
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
+- Angular CLI installed globally
 
 ```bash
-# Clone from parallel universe
-git clone https://github.com/Naveen-Kumar48/portfolio.git
-cd portfolio
-
-# Install dependencies (includes dark matter packages)
-npm install
-
-# Activate development server
-npm start
-# Alternative: npm run dev (for multiverse debugging)
+npm install -g @angular/cli
 ```
 
-## ✨ Quantum Features
+### Local Development
 
-- **🔮 3D Interactive Hero Section**: Powered by custom WebGL/Three.js reality engine
-- **📱 Responsive Across Dimensions**: Optimized for all known device form factors (mobile → desktop → holographic displays)
-- **🎨 Dynamic Projects Showcase**: Real-time data streaming from achievement matrix
-- **🌓 Dark/Light Theme Toggle**: Temporal persistence via localStorage (survives timeline resets)
-- **⚡ Zero-Gravity Animations**: GSAP-powered scroll timelines and micro-interactions
-- **🎯 Cursor Customization**: Quantum particle effects on pointer movement
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Naveen-Kumar48/portfolio.git
+   cd portfolio
+   ```
 
-## 📊 System Architecture
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-```
+3. **Start development server**
+   ```bash
+   npm start
+   ```
+   The app will be available at `http://localhost:4200/`
+
+## ✨ Key Features
+
+- **Interactive 3D Hero Section** - Engaging first impression with Three.js visual elements
+- **Responsive Design** - Seamless experience across mobile, tablet, and desktop
+- **Dynamic Projects Section** - Showcase of real-world projects with live demos and GitHub links
+- **Skills Visualization** - Clean presentation of technical competencies
+- **Experience Timeline** - Professional journey in an easy-to-scan format
+- **Contact Integration** - Direct email and social media links
+- **Dark/Light Theme** - User preference toggle with localStorage persistence
+- **Smooth Animations** - GSAP-powered transitions and scroll effects
+
+
+
+
 src/
 ├── app/
-│   ├── components/     # UI modules (Hero, About, Skills, etc.)
-│   ├── data/          # Experience & project databases
-│   ├── models/        # TypeScript interfaces (reality definitions)
-│   └── services/      # Shared utilities (time travel helpers)
-├── main.ts            # Bootstrap sequence
-└── styles.css         # Global style constants
+│   ├── components/
+│   │   ├── hero.component.ts          # Landing section with 3D elements
+│   │   ├── about.component.ts         # Personal introduction
+│   │   ├── skills.component.ts        # Technical skills display
+│   │   ├── projects.component.ts      # Project showcase
+│   │   ├── experience.component.ts    # Work history timeline
+│   │   ├── contact.component.ts       # Contact form and info
+│   │   └── [other components]
+│   ├── data/
+│   │   └── portfolio-data.ts          # Centralized content management
+│   ├── models/
+│   │   └── portfolio.models.ts        # TypeScript interfaces
+│   ├── services/
+│   │   └── [shared services]
+│   ├── app.routes.ts                  # Routing configuration
+│   └── main.ts                        # Application bootstrap
+├── styles.css                         # Global styles
+└── index.html                         # Main HTML template
 ```
 
-## 🌟 Deployment Status
+## 🔧 Build for Production
 
-**Current Location:** Netlify Multiverse CDN  
-**Build Command:** `npm run build`  
-**Output:** `/dist/app` (compiled quantum state)
-
-## 📡 Contact Frequencies
-
+```bash
+npm run build
 ```
-GitHub:     https://github.com/Naveen-Kumar48
-LinkedIn:   https://linkedin.com/in/naveen-kumar
-Email:      kumarnaveen897941@gmail.com
-Location:   Earth, Sol System, Milky Way
-Timezone:   UTC+5:30 (IST) / All timezones simultaneously
-```
+
+Production files will be generated in the `dist/` directory, ready for deployment.
+
+## 🌍 Deployment
+
+This portfolio is deployed on Netlify with automatic deployments from the main branch.
+
+**Live URL:** https://naveen-web.netlify.app/
+
+## 📬 Contact
+
+- **GitHub:** [@Naveen-Kumar48](https://github.com/Naveen-Kumar48)
+- **LinkedIn:** [Naveen Kumar](https://linkedin.com/in/naveen-kumar)
+- **Email:** kumarnaveen897941@gmail.com
+
+## 📄 License
+
+This project is open source and available for educational purposes.
 
 ---
 
-> "Code is not just logic — it's the architecture of future realities."  
-> *— Naveen Kumar, 2076*
-
-© 2026 Naveen Kumar. Built with Angular, TypeScript, and quantum entanglement.
+**Specialization:** MERN Stack | Next.js | AI Integration | E-commerce Solutions  
+**Location:** India | Available for Remote & On-site Opportunities

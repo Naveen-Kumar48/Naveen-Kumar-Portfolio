@@ -12,9 +12,6 @@ import { CommonModule } from '@angular/common';
           <p class="text-[var(--text-secondary)] text-sm">
             &copy; {{ currentYear }} Naveen Kumar. All rights reserved.
           </p>
-          <p class="text-[var(--text-secondary)] text-xs mt-1">
-            Built with Angular & Tailwind CSS
-          </p>
         </div>
 
         <div class="flex gap-6 text-sm font-medium text-[var(--text-secondary)]">
