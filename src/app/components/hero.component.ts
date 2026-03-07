@@ -53,7 +53,7 @@ import { DownloadResumeBtnComponent } from './download-resume.component';
 
           <div #animateItem class="flex items-center gap-6 mt-8 text-[var(--text-secondary)] opacity-0 translate-y-4">
             <a href="https://github.com/Naveen-Kumar48" target="_blank" class="hover:text-emerald-400 transition-colors"><mat-icon>code</mat-icon></a>
-            <a href="https://linkedin.com/in/naveen-kumar" target="_blank" class="hover:text-emerald-400 transition-colors"><mat-icon>work</mat-icon></a>
+            <a href="https://www.linkedin.com/in/naveen-kumar-6806382b9/" target="_blank" class="hover:text-emerald-400 transition-colors"><mat-icon>work</mat-icon></a>
             <a href="mailto:kumarnaveen897941@gmail.com" class="hover:text-emerald-400 transition-colors"><mat-icon>alternate_email</mat-icon></a>
           </div>
         </div>

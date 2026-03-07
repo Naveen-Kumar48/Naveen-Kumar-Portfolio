@@ -61,7 +61,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
               <a href="https://github.com/Naveen-Kumar48" target="_blank" class="w-10 h-10 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-emerald-500 hover:border-emerald-500 transition-all">
                 <mat-icon class="text-sm">code</mat-icon>
               </a>
-              <a href="https://linkedin.com/in/naveen-kumar" target="_blank" class="w-10 h-10 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-emerald-500 hover:border-emerald-500 transition-all">
+              <a href="https://www.linkedin.com/in/naveen-kumar-6806382b9/" target="_blank" class="w-10 h-10 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-emerald-500 hover:border-emerald-500 transition-all">
                 <mat-icon class="text-sm">work</mat-icon>
               </a>
               <a href="mailto:kumarnaveen897941@gmail.com" class="w-10 h-10 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-emerald-500 hover:border-emerald-500 transition-all">

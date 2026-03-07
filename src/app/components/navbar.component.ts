@@ -50,17 +50,18 @@ import { StarBorderComponent } from './star-border.component';
         </div>
 
         <!-- Mobile Menu Button -->
-        <div class="flex items-center gap-4 md:hidden">
-          <a href="#contact" (click)="scrollToSection($event, '#contact')" class="scale-90 origin-right group block">
-            <app-star-border color="#10b981" speed="4s">
-              <span class="font-medium text-[var(--text-primary)] group-hover:text-emerald-400 text-sm px-2">Contact Me</span>
-            </app-star-border>
-          </a>
-          <button (click)="toggleTheme()" class="p-2 rounded-full hover:bg-[var(--bg-secondary)] text-[var(--text-primary)] transition-colors">
+        <div class="flex items-center gap-2 md:hidden">
+          <button (click)="toggleTheme()" class="p-2 rounded-full hover:bg-[var(--bg-secondary)] text-[var(--text-primary)] transition-colors shrink-0">
             <mat-icon class="text-sm">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
           </button>
           
-          <button class="text-[var(--text-primary)]" (click)="toggleMenu()">
+          <a href="#contact" (click)="scrollToSection($event, '#contact')" class="shrink-0 block md:hidden">
+            <app-star-border color="#10b981" speed="4s" [thickness]="1">
+              <span class="font-medium text-[var(--text-primary)] group-hover:text-emerald-400 text-[10px] sm:text-xs px-2 py-1 whitespace-nowrap">Contact</span>
+            </app-star-border>
+          </a>
+          
+          <button class="p-2 text-[var(--text-primary)] shrink-0" (click)="toggleMenu()">
             <mat-icon>{{ mobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
           </button>
         </div>
@@ -77,6 +78,16 @@ import { StarBorderComponent } from './star-border.component';
               {{ item.label }}
             </a>
           }
+          <div class="pt-4 border-t border-[var(--border-color)] mt-2">
+            <a href="#contact" 
+               class="block w-full py-3.5 px-6 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-[1.02] text-center shadow-lg hover:shadow-emerald-500/25"
+               (click)="scrollToSection($event, '#contact'); toggleMenu()">
+              <span class="flex items-center justify-center gap-2">
+                <mat-icon class="text-base">mail</mat-icon>
+                Contact Me
+              </span>
+            </a>
+          </div>
         </div>
       }
     </nav>
