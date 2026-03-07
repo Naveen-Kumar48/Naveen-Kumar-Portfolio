@@ -60,30 +60,6 @@ npm install -g @angular/cli
 - **Smooth Animations** - GSAP-powered transitions and scroll effects
 
 
-
-
-src/
-├── app/
-│   ├── components/
-│   │   ├── hero.component.ts          # Landing section with 3D elements
-│   │   ├── about.component.ts         # Personal introduction
-│   │   ├── skills.component.ts        # Technical skills display
-│   │   ├── projects.component.ts      # Project showcase
-│   │   ├── experience.component.ts    # Work history timeline
-│   │   ├── contact.component.ts       # Contact form and info
-│   │   └── [other components]
-│   ├── data/
-│   │   └── portfolio-data.ts          # Centralized content management
-│   ├── models/
-│   │   └── portfolio.models.ts        # TypeScript interfaces
-│   ├── services/
-│   │   └── [shared services]
-│   ├── app.routes.ts                  # Routing configuration
-│   └── main.ts                        # Application bootstrap
-├── styles.css                         # Global styles
-└── index.html                         # Main HTML template
-```
-
 ## 🔧 Build for Production
 
 ```bash
