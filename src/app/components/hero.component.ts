@@ -27,14 +27,14 @@ import { DownloadResumeBtnComponent } from './download-resume.component';
           
           <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
             <div class="overflow-hidden">
-              <span #greeting class="inline-block translate-y-full mr-4 text-[var(--text-primary)]">Hi, I'm</span>
+              <span #greeting class="inline-block mr-4 text-[var(--text-primary)]">Hi, I'm</span>
             </div>
             <div class="min-h-[1.2em] flex items-center">
               <span class="text-[var(--text-primary)]">{{ displayedName() }}</span>
               <span class="animate-blink ml-1 w-1 h-12 bg-emerald-500 inline-block" [class.opacity-0]="!showCursor()"></span>
             </div>
             <div class="overflow-hidden mt-2">
-              <span #roleText class="block translate-y-full pb-2 min-h-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Full Stack Developer</span>
+              <span #roleText class="block pb-2 min-h-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">MERN Stack Developer</span>
             </div>
           </h1>
           
@@ -95,7 +95,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   private mouseMoveListener: any;
   private cursorInterval: any;
   private roleInterval: any;
-  private roles = ["Full Stack Developer","MERN Stack Developer"];
+  private roles = ["MERN Stack Developer", "Full Stack Developer"];
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -118,23 +118,24 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
         duration: 1.2,
         ease: 'back.out(1.7)',
         transformOrigin: 'top center'
-      })
-      // Animate individual letters with stagger
-      .fromTo(greetingElement.querySelectorAll('span, char'), 
-        { 
-          opacity: 0, 
-          y: 50,
-          scale: 0.5
-        },
-        { 
-          opacity: 1, 
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.05,
-          ease: 'elastic.out(1, 0.5)'
-        }, 
-        '-=0.8')
+      }
+      )
+        // Animate individual letters with stagger
+        .fromTo(greetingElement.querySelectorAll('span, char'),
+          {
+            opacity: 0,
+            y: 50,
+            scale: 0.5
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            stagger: 0.05,
+            ease: 'elastic.out(1, 0.5)'
+          },
+          '-=0.8')
         // 2. Typewriter Effect for Name with glow pulse
         .call(() => {
           const name = "Naveen Kumar";
@@ -147,18 +148,6 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
               this.displayedName.set(name.substring(0, Math.ceil(obj.length)));
             }
           });
-          
-          // Add glow effect to name container
-          gsap.fromTo(roleElement.parentElement, 
-            { boxShadow: '0 0 20px rgba(16, 185, 129, 0)' },
-            { 
-              boxShadow: '0 0 30px rgba(16, 185, 129, 0.3)', 
-              duration: 1.5, 
-              repeat: -1, 
-              yoyo: true,
-              ease: 'sine.inOut'
-            }
-          );
         }, undefined, '-=0.5')
         // 3. Role Text - Scramble decode effect with wave animation
         .to(roleElement, {
@@ -173,14 +162,14 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
             };
             cycleRoles();
             this.roleInterval = setInterval(cycleRoles, 4000);
-            
+
             // Add wave animation to letters
             gsap.fromTo(roleElement.querySelectorAll('span, char'),
               { scaleY: 0.5 },
-              { 
-                scaleY: 1, 
-                duration: 0.3, 
-                stagger: 0.05, 
+              {
+                scaleY: 1,
+                duration: 0.3,
+                stagger: 0.05,
                 ease: 'back.out(1.7)',
                 repeat: 1,
                 yoyo: true
@@ -201,19 +190,19 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
           ease: 'back.out(1.7)'
         }, '-=0.5')
         // 5. Visual Orb - Scale and rotate entrance
-        .fromTo(this.visualRef.nativeElement, 
-          { 
-            opacity: 0, 
-            scale: 0.5, 
-            rotationY: -180 
+        .fromTo(this.visualRef.nativeElement,
+          {
+            opacity: 0,
+            scale: 0.5,
+            rotationY: -180
           },
-          { 
-            opacity: 1, 
-            scale: 1, 
+          {
+            opacity: 1,
+            scale: 1,
             rotationY: 0,
             duration: 1.5,
             ease: 'elastic.out(1, 0.6)'
-          }, 
+          },
           '-=1.0');
 
       // Floating Animation
