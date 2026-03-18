@@ -72,7 +72,22 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         </div>
 
         <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border-color)] shadow-xl transform transition-transform">
-          <div class="space-y-6">
+          <div class="space-y-6 relative">
+            <!-- Success Overlay -->
+            <div *ngIf="submitted" 
+                 #successOverlay
+                 class="absolute inset-0 z-50 bg-[var(--bg-secondary)]/95 backdrop-blur-md rounded-3xl flex flex-col items-center justify-center text-center p-8 border border-emerald-500/30">
+              <div class="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mb-6 text-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                <mat-icon style="font-size: 48px; width: 48px; height: 48px;">check_circle</mat-icon>
+              </div>
+              <h3 class="text-2xl font-bold text-[var(--text-primary)] mb-2">Message Sent!</h3>
+              <p class="text-[var(--text-secondary)] mb-8">Thanks for reaching out. I'll get back to you within 24 hours.</p>
+              <button type="button" (click)="resetStatus()" 
+                      class="px-8 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full transition-all text-sm font-medium">
+                Send another
+              </button>
+            </div>
+
             <div>
               <label for="name" class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Name</label>
               <input type="text" id="name" formControlName="name" 
@@ -95,34 +110,28 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
             </div>
 
             <div class="mt-4">
-              <div class="h-captcha" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
+              <!-- Responsive hCaptcha container -->
+              <div class="h-captcha min-h-[78px] flex justify-center lg:justify-start" 
+                   data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
               @if (captchaError) {
-                <p class="text-red-400 text-sm mt-1">Please complete the captcha.</p>
+                <p class="text-red-400 text-sm mt-2 text-center lg:text-left flex items-center gap-1">
+                  <mat-icon class="text-xs">error_outline</mat-icon>
+                  Please verify you are human.
+                </p>
               }
             </div>
 
             <button type="submit" 
-                    [disabled]="contactForm.invalid || isSubmitting"
+                    [disabled]="isSubmitting"
                     class="w-full bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed text-zinc-950 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2">
-              @if (!isSubmitting) {
-                <span>Send Message</span>
-              }
-              @if (isSubmitting) {
-                <span>Sending...</span>
-              }
-              @if (!isSubmitting) {
-                <mat-icon>send</mat-icon>
-              }
+              <span>{{ isSubmitting ? 'Sending...' : 'Send Message' }}</span>
+              <mat-icon *ngIf="!isSubmitting">send</mat-icon>
+              <div *ngIf="isSubmitting" class="w-5 h-5 border-2 border-zinc-950/30 border-t-zinc-950 rounded-full animate-spin"></div>
             </button>
 
-            @if (submitted) {
-              <p class="text-green-400 text-center text-sm mt-4">
-                Thanks for reaching out! I'll get back to you soon.
-              </p>
-            }
             @if (submitError) {
-              <p class="text-red-400 text-center text-sm mt-4">
-                Something went wrong. Please try again.
+              <p class="text-red-400 text-center text-sm mt-4 p-3 bg-red-400/10 rounded-lg border border-red-400/20">
+                 Unable to send. Please check your connection or try again later.
               </p>
             }
           </div>
@@ -152,97 +161,149 @@ export class ContactComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // Load Web3Forms/HCaptcha script natively without full Angular wrapper
-      const script = document.createElement('script');
-      script.src = 'https://web3forms.com/client/script.js';
-      script.async = true;
-      script.defer = true;
-      document.body.appendChild(script);
+      // 1. Force load hCaptcha script first for direct control
+      if (!(window as any).hcaptcha) {
+        const script = document.createElement('script');
+        script.src = 'https://js.hcaptcha.com/1/api.js';
+        script.async = true;
+        script.defer = true;
+        document.body.appendChild(script);
+      }
 
+      // 2. Web3Forms support script
+      const w3fScript = document.createElement('script');
+      w3fScript.src = 'https://web3forms.com/client/script.js';
+      w3fScript.async = true;
+      w3fScript.defer = true;
+      document.body.appendChild(w3fScript);
+
+      // 3. Explicit render if automatic fails (common in SPAs like Angular)
+      const renderCaptcha = () => {
+        const hcaptcha = (window as any).hcaptcha;
+        const container = document.querySelector('.h-captcha');
+        if (hcaptcha && container && container.innerHTML === '') {
+          hcaptcha.render(container, {
+            sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
+            theme: 'dark'
+          });
+        }
+      };
+
+      // Check every 500ms for up to 5 seconds
+      let attempts = 0;
+      const interval = setInterval(() => {
+        renderCaptcha();
+        attempts++;
+        if (((window as any).hcaptcha && document.querySelector('.h-captcha')?.innerHTML !== '') || attempts > 10) {
+          clearInterval(interval);
+        }
+      }, 500);
+
+      // GSAP Animations
       gsap.registerPlugin(ScrollTrigger);
 
-      gsap.to(this.infoRef.nativeElement, {
-        scrollTrigger: {
-          trigger: this.infoRef.nativeElement,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: 'power3.out'
-      });
+      gsap.fromTo(this.infoRef.nativeElement,
+        { opacity: 0, x: -50 },
+        {
+          scrollTrigger: {
+            trigger: this.infoRef.nativeElement,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: 'power3.out'
+        }
+      );
 
-      gsap.to(this.formRef.nativeElement, {
-        scrollTrigger: {
-          trigger: this.formRef.nativeElement,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        delay: 0.2,
-        ease: 'power3.out'
-      });
+      gsap.fromTo(this.formRef.nativeElement,
+        { opacity: 0, x: 50 },
+        {
+          scrollTrigger: {
+            trigger: this.formRef.nativeElement,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          delay: 0.2,
+          ease: 'power3.out'
+        }
+      );
     }
   }
 
   async onSubmit() {
-    if (this.contactForm.valid) {
-      if (isPlatformBrowser(this.platformId)) {
-        // Using Web3Forms native hcaptcha hook
-        const hcaptchaResponse = (window as any).hcaptcha?.getResponse();
-        if (!hcaptchaResponse) {
-          this.captchaError = true;
-          return;
-        }
+    if (this.contactForm.invalid) {
+      this.contactForm.markAllAsTouched();
+      return;
+    }
 
-        this.isSubmitting = true;
-        this.submitError = false;
-        this.submitted = false;
-        this.captchaError = false;
+    if (isPlatformBrowser(this.platformId)) {
+      // Robust CAPTCHA retrieval
+      const hcaptcha = (window as any).hcaptcha;
+      const hcaptchaResponse = hcaptcha?.getResponse();
 
-        try {
-          const formData = new FormData();
-          formData.append("access_key", "a8205ed1-ce6d-4713-bc3c-4510e20f664c");
-          formData.append("name", this.contactForm.value.name);
-          formData.append("email", this.contactForm.value.email);
-          formData.append("message", this.contactForm.value.message);
-          formData.append("h-captcha-response", hcaptchaResponse);
+      if (!hcaptchaResponse) {
+        this.captchaError = true;
+        this.cdr.markForCheck();
+        return;
+      }
 
-          const response = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            body: formData
-          });
+      this.isSubmitting = true;
+      this.submitError = false;
+      this.submitted = false;
+      this.captchaError = false;
+      this.cdr.markForCheck();
 
-          const data = await response.json();
+      try {
+        const formData = new FormData();
+        formData.append("access_key", "a8205ed1-ce6d-4713-bc3c-4510e20f664c");
+        formData.append("name", this.contactForm.value.name);
+        formData.append("email", this.contactForm.value.email);
+        formData.append("message", this.contactForm.value.message);
+        formData.append("h-captcha-response", hcaptchaResponse);
 
-          if (data.success) {
-            this.submitted = true;
-            this.contactForm.reset();
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
 
-            // Reset native hcaptcha
-            if ((window as any).hcaptcha) {
-              (window as any).hcaptcha.reset();
-            }
+        const data = await response.json();
 
-            setTimeout(() => {
-              this.submitted = false;
-              this.cdr.markForCheck();
-            }, 5000);
-          } else {
-            this.submitError = true;
+        if (data.success) {
+          this.submitted = true;
+          this.contactForm.reset();
+          hcaptcha?.reset();
+
+          this.cdr.detectChanges(); // Force render overlay for GSAP
+
+          // Animated Reveal
+          const overlay = document.querySelector('[#successOverlay]') || document.querySelector('.absolute.inset-0.z-50');
+          if (overlay) {
+            gsap.fromTo(overlay,
+              { opacity: 0, scale: 0.9, backdropFilter: 'blur(0px)' },
+              { opacity: 1, scale: 1, backdropFilter: 'blur(12px)', duration: 0.6, ease: 'back.out(1.7)' }
+            );
           }
-        } catch (error) {
+        } else {
           this.submitError = true;
-        } finally {
-          this.isSubmitting = false;
-          this.cdr.markForCheck();
         }
+      } catch (error) {
+        this.submitError = true;
+      } finally {
+        this.isSubmitting = false;
+        this.cdr.markForCheck();
       }
     }
+  }
+
+  resetStatus() {
+    this.submitted = false;
+    this.submitError = false;
+    this.captchaError = false;
+    this.cdr.markForCheck();
   }
 }
