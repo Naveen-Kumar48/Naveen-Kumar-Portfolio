@@ -3,7 +3,7 @@
 A modern, responsive portfolio website built with Angular to showcase my skills, projects, and professional journey as a Full Stack Developer.
 
 ## 🌐 Live Site
-**Visit:** https://naveen-web.netlify.app/
+**Visit:** https://naveenweb.site/
 
 ## 📋 About This Project
 
