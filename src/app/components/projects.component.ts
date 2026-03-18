@@ -104,18 +104,20 @@ export class ProjectsComponent implements AfterViewInit {
       if (t.trigger === this.gridRef.nativeElement) t.kill();
     });
 
-    gsap.to(Array.from(this.gridRef.nativeElement.children), {
-      scrollTrigger: {
-        trigger: this.gridRef.nativeElement,
-        start: 'top 80%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none reverse'
-      },
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: 'power3.out'
-    });
+    gsap.fromTo(Array.from(this.gridRef.nativeElement.children),
+      { opacity: 0, y: 50 },
+      {
+        scrollTrigger: {
+          trigger: this.gridRef.nativeElement,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out'
+      }
+    );
   }
 }

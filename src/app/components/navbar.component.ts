@@ -14,8 +14,8 @@ import { StarBorderComponent } from './star-border.component';
   template: `
     <nav [class]="'fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b px-6 py-4 ' + (scrolled() || mobileMenuOpen() ? 'bg-[var(--glass-bg)] backdrop-blur-md border-[var(--border-color)] shadow-sm' : 'bg-transparent border-transparent')">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <a href="#" class="text-xl font-bold tracking-tighter hover:text-emerald-400 transition-colors text-[var(--text-primary)]">
-          Naveen<span class="text-emerald-500">.</span>dev
+        <a href="#" class="group text-2xl font-extrabold tracking-tighter transition-all duration-300 text-[var(--text-primary)] drop-shadow-sm">
+          Naveen<span class="text-emerald-500 group-hover:drop-shadow-[0_0_8px_rgba(16,185,129,0.8)] transition-all duration-300">.</span><span class="font-light text-[var(--text-secondary)] text-xl group-hover:text-emerald-400 transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]">web</span>
         </a>
 
         <!-- Desktop Menu -->

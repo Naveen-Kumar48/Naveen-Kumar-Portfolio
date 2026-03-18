@@ -45,9 +45,9 @@ import { ACADEMIC_ACTIVITIES } from '../data/portfolio.data';
 
                   <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
                     @for (achievement of activity.achievements; track achievement) {
-                      <div class="flex items-start gap-2 text-[var(--text-secondary)] text-sm">
-                        <mat-icon class="text-emerald-500 text-xs mt-0.5">check_circle</mat-icon>
-                        <span>{{ achievement }}</span>
+                      <div class="flex items-start gap-3 pl-1 text-[var(--text-secondary)] text-sm">
+                        <mat-icon class="text-emerald-500 text-[20px] w-[20px] h-[20px] shrink-0 mt-[2px]">check_circle</mat-icon>
+                        <span class="leading-relaxed">{{ achievement }}</span>
                       </div>
                     }
                   </div>

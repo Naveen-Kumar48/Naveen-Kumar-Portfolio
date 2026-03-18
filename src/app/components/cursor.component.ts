@@ -21,12 +21,6 @@ export class CursorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('follower') followerRef!: ElementRef;
 
   private platformId = inject(PLATFORM_ID);
-  private mouseX = 0;
-  private mouseY = 0;
-  private cursorX = 0;
-  private cursorY = 0;
-  private followerX = 0;
-  private followerY = 0;
   private isHovering = false;
 
   ngAfterViewInit() {
@@ -37,44 +31,42 @@ export class CursorComponent implements AfterViewInit, OnDestroy {
 
       // Mouse move listener
       window.addEventListener('mousemove', this.onMouseMove);
-      
+
       // Hover listeners
       this.addHoverListeners();
-
-      // Animation loop
-      gsap.ticker.add(this.onTick);
     }
   }
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
       window.removeEventListener('mousemove', this.onMouseMove);
-      gsap.ticker.remove(this.onTick);
       this.removeHoverListeners();
     }
   }
 
   private onMouseMove = (e: MouseEvent) => {
-    this.mouseX = e.clientX;
-    this.mouseY = e.clientY;
-  };
+    // Super fast smooth tracking for the main dot
+    gsap.to(this.cursorRef.nativeElement, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.15,
+      ease: 'power2.out',
+      overwrite: 'auto'
+    });
 
-  private onTick = () => {
-    // Smooth interpolation for cursor (fast)
-    this.cursorX += (this.mouseX - this.cursorX) * 0.5;
-    this.cursorY += (this.mouseY - this.cursorY) * 0.5;
-
-    // Smooth interpolation for follower (slower/smoother)
-    this.followerX += (this.mouseX - this.followerX) * 0.1;
-    this.followerY += (this.mouseY - this.followerY) * 0.1;
-
-    gsap.set(this.cursorRef.nativeElement, { x: this.cursorX, y: this.cursorY });
-    gsap.set(this.followerRef.nativeElement, { x: this.followerX, y: this.followerY });
+    // Elegant, delayed smooth tracking for the ring
+    gsap.to(this.followerRef.nativeElement, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.7,
+      ease: 'power3.out',
+      overwrite: 'auto'
+    });
   };
 
   private addHoverListeners() {
     const interactiveElements = document.querySelectorAll('a, button, input, textarea, [role="button"]');
-    
+
     interactiveElements.forEach(el => {
       el.addEventListener('mouseenter', this.onHoverEnter);
       el.addEventListener('mouseleave', this.onHoverLeave);
@@ -108,11 +100,11 @@ export class CursorComponent implements AfterViewInit, OnDestroy {
 
   private onHoverEnter = () => {
     this.isHovering = true;
-    gsap.to(this.followerRef.nativeElement, { 
-      scale: 1.5, 
+    gsap.to(this.followerRef.nativeElement, {
+      scale: 1.5,
       backgroundColor: 'rgba(16, 185, 129, 0.1)',
       borderColor: 'transparent',
-      duration: 0.3 
+      duration: 0.3
     });
     gsap.to(this.cursorRef.nativeElement, {
       scale: 0.5,
@@ -122,11 +114,11 @@ export class CursorComponent implements AfterViewInit, OnDestroy {
 
   private onHoverLeave = () => {
     this.isHovering = false;
-    gsap.to(this.followerRef.nativeElement, { 
-      scale: 1, 
+    gsap.to(this.followerRef.nativeElement, {
+      scale: 1,
       backgroundColor: 'transparent',
       borderColor: '#10b981', // emerald-500
-      duration: 0.3 
+      duration: 0.3
     });
     gsap.to(this.cursorRef.nativeElement, {
       scale: 1,

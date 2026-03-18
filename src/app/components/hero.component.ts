@@ -2,18 +2,18 @@ import { Component, ElementRef, ViewChild, AfterViewInit, inject, PLATFORM_ID, V
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { gsap } from 'gsap';
-import { ThreeHeroComponent } from './three-hero.component';
+import { GalaxyComponent } from './Gallaxy.component';
 import { OrbComponent } from './orb.component';
 import { DownloadResumeBtnComponent } from './download-resume.component';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, MatIconModule, ThreeHeroComponent, OrbComponent, DownloadResumeBtnComponent],
+  imports: [CommonModule, MatIconModule, GalaxyComponent, OrbComponent, DownloadResumeBtnComponent],
   template: `
     <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden" style="perspective: 1000px">
       <!-- 3D Background -->
-      <app-three-hero class="absolute inset-0 w-full h-full" />
+      <app-galaxy class="absolute inset-0 w-full h-full"></app-galaxy>
 
       <!-- Gradient Overlay for text readability -->
       <div class="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)]/80 via-[var(--bg-primary)]/50 to-[var(--bg-primary)]/90 pointer-events-none transition-colors duration-300"></div>

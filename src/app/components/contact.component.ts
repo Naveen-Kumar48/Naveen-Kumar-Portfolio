@@ -94,6 +94,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
                         placeholder="Tell me about your project..."></textarea>
             </div>
 
+            <div class="mt-4">
+              <div class="h-captcha" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
+              @if (captchaError) {
+                <p class="text-red-400 text-sm mt-1">Please complete the captcha.</p>
+              }
+            </div>
+
             <button type="submit" 
                     [disabled]="contactForm.invalid || isSubmitting"
                     class="w-full bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed text-zinc-950 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2">
@@ -140,11 +147,18 @@ export class ContactComponent implements AfterViewInit {
 
   isSubmitting = false;
   submitted = false;
-
   submitError = false;
+  captchaError = false;
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
+      // Load Web3Forms/HCaptcha script natively without full Angular wrapper
+      const script = document.createElement('script');
+      script.src = 'https://web3forms.com/client/script.js';
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+
       gsap.registerPlugin(ScrollTrigger);
 
       gsap.to(this.infoRef.nativeElement, {
@@ -178,39 +192,56 @@ export class ContactComponent implements AfterViewInit {
 
   async onSubmit() {
     if (this.contactForm.valid) {
-      this.isSubmitting = true;
-      this.submitError = false;
-      this.submitted = false;
-
-      try {
-        const formData = new FormData();
-        formData.append("access_key", "a8205ed1-ce6d-4713-bc3c-4510e20f664c");
-        formData.append("name", this.contactForm.value.name);
-        formData.append("email", this.contactForm.value.email);
-        formData.append("message", this.contactForm.value.message);
-
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: formData
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          this.submitted = true;
-          this.contactForm.reset();
-          setTimeout(() => {
-            this.submitted = false;
-            this.cdr.markForCheck();
-          }, 5000);
-        } else {
-          this.submitError = true;
+      if (isPlatformBrowser(this.platformId)) {
+        // Using Web3Forms native hcaptcha hook
+        const hcaptchaResponse = (window as any).hcaptcha?.getResponse();
+        if (!hcaptchaResponse) {
+          this.captchaError = true;
+          return;
         }
-      } catch (error) {
-        this.submitError = true;
-      } finally {
-        this.isSubmitting = false;
-        this.cdr.markForCheck();
+
+        this.isSubmitting = true;
+        this.submitError = false;
+        this.submitted = false;
+        this.captchaError = false;
+
+        try {
+          const formData = new FormData();
+          formData.append("access_key", "a8205ed1-ce6d-4713-bc3c-4510e20f664c");
+          formData.append("name", this.contactForm.value.name);
+          formData.append("email", this.contactForm.value.email);
+          formData.append("message", this.contactForm.value.message);
+          formData.append("h-captcha-response", hcaptchaResponse);
+
+          const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            this.submitted = true;
+            this.contactForm.reset();
+
+            // Reset native hcaptcha
+            if ((window as any).hcaptcha) {
+              (window as any).hcaptcha.reset();
+            }
+
+            setTimeout(() => {
+              this.submitted = false;
+              this.cdr.markForCheck();
+            }, 5000);
+          } else {
+            this.submitError = true;
+          }
+        } catch (error) {
+          this.submitError = true;
+        } finally {
+          this.isSubmitting = false;
+          this.cdr.markForCheck();
+        }
       }
     }
   }
