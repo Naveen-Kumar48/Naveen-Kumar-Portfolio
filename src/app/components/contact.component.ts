@@ -128,12 +128,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
               <mat-icon *ngIf="!isSubmitting">send</mat-icon>
               <div *ngIf="isSubmitting" class="w-5 h-5 border-2 border-zinc-950/30 border-t-zinc-950 rounded-full animate-spin"></div>
             </button>
-
-            @if (submitError) {
-              <p class="text-red-400 text-center text-sm mt-4 p-3 bg-red-400/10 rounded-lg border border-red-400/20">
-                 Unable to send. Please check your connection or try again later.
-              </p>
-            }
           </div>
         </form>
       </div>
