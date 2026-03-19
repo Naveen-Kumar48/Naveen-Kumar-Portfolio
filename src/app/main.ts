@@ -10,6 +10,7 @@ import { FooterComponent } from './components/footer.component';
 import { AcademicActivityComponent } from './components/academic-activity.component';
 import { CursorComponent } from './components/cursor.component';
 import { LoaderComponent } from './components/loader.component';
+import { BackToTopComponent } from './components/back-to-top.component';
 import { signal, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 
@@ -29,6 +30,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
     AcademicActivityComponent,
     CursorComponent,
     LoaderComponent,
+    BackToTopComponent,
     CommonModule
   ],
   template: `
@@ -49,6 +51,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
         <app-contact />
         <app-footer />
       </main>
+      <app-back-to-top />
     </div>
   `
 })

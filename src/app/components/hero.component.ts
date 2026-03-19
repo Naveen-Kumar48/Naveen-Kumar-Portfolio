@@ -223,7 +223,8 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
           x: x * -20,
           y: y * -20,
           duration: 1,
-          ease: 'power2.out'
+          ease: 'power2.out',
+          overwrite: 'auto'
         });
 
         gsap.to(this.visualRef.nativeElement, {
@@ -232,7 +233,8 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
           rotationY: x * 15,
           rotationX: -y * 15,
           duration: 1,
-          ease: 'power2.out'
+          ease: 'power2.out',
+          overwrite: 'auto'
         });
       };
 

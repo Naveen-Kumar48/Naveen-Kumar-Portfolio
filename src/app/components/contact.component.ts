@@ -16,7 +16,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
         <div #infoSide class="transform transition-transform">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">Let's work <span class="text-emerald-400">together</span></h2>
+          <h2 #typingTitle class="text-3xl md:text-4xl font-bold mb-6 min-h-[1.5em] flex items-center">
+            <span class="typing-text"></span>
+            <span class="cursor inline-block w-1 h-8 bg-emerald-400 ml-1 opacity-0"></span>
+          </h2>
           <p class="text-[var(--text-secondary)] mb-8 leading-relaxed">
             I'm currently available for freelance work or full-time positions. 
             If you have a project that needs some creative touch, or just want to say hi, 
@@ -141,6 +144,7 @@ export class ContactComponent implements AfterViewInit {
 
   @ViewChild('infoSide') infoRef!: ElementRef;
   @ViewChild('formSide') formRef!: ElementRef;
+  @ViewChild('typingTitle') titleRef!: ElementRef;
 
   contactForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
@@ -155,7 +159,7 @@ export class ContactComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // 1. Force load hCaptcha script first for direct control
+      // 1. Existing Scripts and Captcha Logic
       if (!(window as any).hcaptcha) {
         const script = document.createElement('script');
         script.src = 'https://js.hcaptcha.com/1/api.js';
@@ -164,14 +168,12 @@ export class ContactComponent implements AfterViewInit {
         document.body.appendChild(script);
       }
 
-      // 2. Web3Forms support script
       const w3fScript = document.createElement('script');
       w3fScript.src = 'https://web3forms.com/client/script.js';
       w3fScript.async = true;
       w3fScript.defer = true;
       document.body.appendChild(w3fScript);
 
-      // 3. Explicit render if automatic fails (common in SPAs like Angular)
       const renderCaptcha = () => {
         const hcaptcha = (window as any).hcaptcha;
         const container = document.querySelector('.h-captcha');
@@ -183,7 +185,6 @@ export class ContactComponent implements AfterViewInit {
         }
       };
 
-      // Check every 500ms for up to 5 seconds
       let attempts = 0;
       const interval = setInterval(() => {
         renderCaptcha();
@@ -196,6 +197,43 @@ export class ContactComponent implements AfterViewInit {
       // GSAP Animations
       gsap.registerPlugin(ScrollTrigger);
 
+      // Typing Animation Logic
+      const textContainer = this.titleRef.nativeElement.querySelector('.typing-text');
+      const cursor = this.titleRef.nativeElement.querySelector('.cursor');
+      const fullText = "Let's work together";
+
+      const typingTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: this.titleRef.nativeElement,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+
+      // Character-by-character reveal
+      typingTl.to(cursor, { opacity: 1, repeat: 5, yoyo: true, duration: 0.2 });
+
+      fullText.split('').forEach((char, i) => {
+        typingTl.to(textContainer, {
+          text: {
+            value: textContainer.textContent + char
+          },
+          duration: 0.05,
+          onStart: () => {
+            textContainer.innerHTML += char === ' ' ? '&nbsp;' : char;
+            if (i > 10) { // Highlight "together" in emerald
+              const currentText = textContainer.innerHTML;
+              if (currentText.includes('together')) {
+                textContainer.innerHTML = currentText.replace('together', '<span class="text-emerald-400">together</span>');
+              }
+            }
+          }
+        });
+      });
+
+      typingTl.to(cursor, { opacity: 1, repeat: -1, yoyo: true, duration: 0.5 });
+
+      // Info Side Scroll Animation
       gsap.fromTo(this.infoRef.nativeElement,
         { opacity: 0, x: -50 },
         {
@@ -210,6 +248,7 @@ export class ContactComponent implements AfterViewInit {
           ease: 'power3.out'
         }
       );
+
 
       gsap.fromTo(this.formRef.nativeElement,
         { opacity: 0, x: 50 },

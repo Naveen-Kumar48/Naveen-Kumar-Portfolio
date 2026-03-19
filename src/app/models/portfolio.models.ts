@@ -11,11 +11,13 @@ export interface Project {
 
 export interface Skill {
   name: string;
-  icon: string; // Material icon name or custom SVG path if we were using SVGs, but we'll use text/mat-icon
+  icon: string; // Material icon fallback
+  logoUrl?: string; // URL for real official SVG logo (e.g. Simple Icons)
   level: number; // 0-100
-  category: 'frontend' | 'backend' | 'database' | 'tools' | 'devops';
+  category: 'languages' | 'frontend' | 'backend' | 'database' | 'tools';
   description?: string;
 }
+
 
 export interface Experience {
   id: number;

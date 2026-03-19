@@ -256,7 +256,8 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
     }
 
     this.resizeListener = () => {
-      const scale = 1;
+      const isMobile = window.innerWidth < 768;
+      const scale = isMobile ? 0.75 : 1.0; // Reduce resolution on mobile for better FPS
       this.renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
       if (this.program) {
         this.program.uniforms['uResolution'].value = new Color(

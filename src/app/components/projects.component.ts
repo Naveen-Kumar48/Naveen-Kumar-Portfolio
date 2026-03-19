@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, signal, computed, inject, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, signal, computed, inject, PLATFORM_ID, effect } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { PROJECTS } from '../data/portfolio.data';
@@ -85,39 +85,42 @@ export class ProjectsComponent implements AfterViewInit {
 
   private platformId = inject(PLATFORM_ID);
 
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
+      // Re-animate grid whenever filtered projects change
+      effect(() => {
+        const _ = this.filteredProjects(); // React to change
+        setTimeout(() => this.animateGrid(), 50);
+      });
+    }
+  }
+
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       gsap.registerPlugin(ScrollTrigger);
-
-      // Re-run animation when category changes (and thus DOM changes)
-      // Since Angular signals update synchronously, we might need a small delay or effect
-      // For now, we'll just animate the initial load. 
-      // Ideally, we'd use an effect() to re-trigger this, but let's keep it simple for now.
-
       this.animateGrid();
     }
   }
 
   animateGrid() {
-    // Kill existing triggers to prevent conflicts if re-called
-    ScrollTrigger.getAll().forEach(t => {
-      if (t.trigger === this.gridRef.nativeElement) t.kill();
-    });
+    if (!this.gridRef?.nativeElement) return;
 
-    gsap.fromTo(Array.from(this.gridRef.nativeElement.children),
-      { opacity: 0, y: 50 },
+    const cards = Array.from(this.gridRef.nativeElement.children);
+    if (cards.length === 0) return;
+
+    // Standard entrance animation
+    gsap.fromTo(cards,
+      { opacity: 0, y: 30, scale: 0.95 },
       {
-        scrollTrigger: {
-          trigger: this.gridRef.nativeElement,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out'
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        overwrite: 'auto'
       }
     );
   }
 }
+

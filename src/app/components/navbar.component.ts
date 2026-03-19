@@ -1,4 +1,4 @@
-import { Component, signal, HostListener, inject, PLATFORM_ID, OnInit, OnDestroy, ViewChildren, QueryList, ElementRef, effect } from '@angular/core';
+import { Component, signal, HostListener, inject, PLATFORM_ID, OnInit, OnDestroy, ViewChildren, ViewChild, QueryList, ElementRef, effect, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { StarBorderComponent } from './star-border.component';
@@ -69,7 +69,7 @@ import { StarBorderComponent } from './star-border.component';
 
       <!-- Mobile Menu -->
       @if (mobileMenuOpen()) {
-        <div class="md:hidden absolute top-full left-0 w-full mt-2 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-2xl p-6 flex flex-col gap-4 shadow-2xl overflow-hidden">
+        <div class="md:hidden absolute top-full left-0 w-full mt-2 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-2xl p-6 flex flex-col gap-4 shadow-2xl overflow-hidden mobile-menu-container">
           @for (item of navItems; track item.label) {
             <a [href]="item.href" 
                class="text-lg font-medium"
@@ -103,9 +103,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   hoveredSection = signal('');
 
   @ViewChildren('navLink') navLinks!: QueryList<ElementRef<HTMLAnchorElement>>;
+  @ViewChild('mobileMenu') mobileMenuRef!: ElementRef;
 
   private platformId = inject(PLATFORM_ID);
   private observer: IntersectionObserver | null = null;
+  private cdr = inject(ChangeDetectorRef);
 
   navItems = [
     { label: 'About', href: '#about', id: 'about' },
@@ -128,6 +130,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
       effect(() => {
         const idToHighlight = this.hoveredSection() || this.activeSection();
         setTimeout(() => this.updatePillPosition(idToHighlight), 0);
+      });
+
+      // Animate mobile menu when it opens
+      effect(() => {
+        const isOpen = this.mobileMenuOpen();
+        if (isOpen) {
+          setTimeout(() => {
+            const menu = document.querySelector('.mobile-menu-container');
+            if (menu) {
+              gsap.fromTo(menu,
+                { opacity: 0, y: -20, scale: 0.95 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.7)' }
+              );
+            }
+          }, 0);
+        }
       });
     }
   }
@@ -206,13 +224,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private setupIntersectionObserver() {
     const options = {
       root: null,
-      rootMargin: '-20% 0px -50% 0px', // Trigger when section is near the middle/top
-      threshold: 0.1
+      rootMargin: '-30% 0px -40% 0px',
+      threshold: [0, 0.1, 0.5]
     };
 
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
           this.activeSection.set(entry.target.id);
         }
       });
@@ -230,7 +248,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     event.preventDefault();
     const element = document.querySelector(href);
     if (element) {
-      const headerOffset = 100;
+      const headerOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
@@ -239,8 +257,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
         behavior: 'smooth'
       });
 
-      // Manually set active section for immediate feedback
       this.activeSection.set(href.replace('#', ''));
     }
   }
 }
+

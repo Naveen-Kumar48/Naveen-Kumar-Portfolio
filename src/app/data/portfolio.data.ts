@@ -55,36 +55,41 @@ export const PROJECTS: Project[] = [
 
 export const SKILLS: Skill[] = [
   // Languages
-  { name: 'JavaScript (ES6+)', icon: 'javascript', level: 90, category: 'frontend', description: 'Expert in modern JS features, async/await, and DOM manipulation.' },
-  { name: 'Java', icon: 'coffee', level: 80, category: 'backend', description: 'Strong understanding of OOP concepts and enterprise application development.' },
-  { name: 'C++', icon: 'code', level: 75, category: 'backend', description: 'Proficient in data structures, algorithms, and memory management.' },
-  { name: 'Python', icon: 'terminal', level: 80, category: 'backend', description: 'Experience with scripting, automation, and basic data analysis.' },
-  { name: 'SQL', icon: 'dataset', level: 85, category: 'database', description: 'Skilled in writing complex queries, joins, and database normalization.' },
+  { name: 'JavaScript (ES6+)', icon: 'code', logoUrl: 'https://skillicons.dev/icons?i=js', level: 95, category: 'languages', description: 'Advanced modern JS features, asynchronous patterns, and DOM manipulation.' },
+  { name: 'Java', icon: 'coffee', logoUrl: 'https://skillicons.dev/icons?i=java', level: 85, category: 'languages', description: 'Strong understanding of Object-Oriented principles and backend architecture.' },
+  { name: 'C++', icon: 'code', logoUrl: 'https://skillicons.dev/icons?i=cpp', level: 80, category: 'languages', description: 'Experience in data structures, systems programming, and performance optimization.' },
+  { name: 'SQL', icon: 'storage', logoUrl: 'https://skillicons.dev/icons?i=mysql', level: 90, category: 'languages', description: 'Fluent in complex queries, joins, and database design.' },
 
   // Frontend
-  { name: 'React.js', icon: 'code', level: 95, category: 'frontend', description: 'Deep knowledge of hooks, context API, and component lifecycle.' },
-  { name: 'Next.js', icon: 'layers', level: 90, category: 'frontend', description: 'Proficient in SSR, SSG, and building SEO-friendly applications.' },
-  { name: 'Redux', icon: 'data_object', level: 85, category: 'frontend', description: 'Experience managing complex application state with Redux Toolkit.' },
-  { name: 'Tailwind CSS', icon: 'style', level: 95, category: 'frontend', description: 'Expert in building responsive, utility-first designs rapidly.' },
-  { name: 'HTML5/CSS3', icon: 'html', level: 95, category: 'frontend', description: 'Solid foundation in semantic HTML and modern CSS layouts (Flexbox/Grid).' },
+  { name: 'React.js', icon: 'layers', logoUrl: 'https://skillicons.dev/icons?i=react', level: 95, category: 'frontend', description: 'Expert in hooks, context API, and high-performance component architecture.' },
+  { name: 'Next.js', icon: 'grid_view', logoUrl: 'https://skillicons.dev/icons?i=nextjs', level: 90, category: 'frontend', description: 'Mastery of Server-Side Rendering (SSR) and SEO optimization hooks.' },
+  { name: 'Redux', icon: 'data_object', logoUrl: 'https://skillicons.dev/icons?i=redux', level: 85, category: 'frontend', description: 'Streamlined state management for large-scale enterprise applications.' },
+  { name: 'Tailwind CSS', icon: 'brush', logoUrl: 'https://skillicons.dev/icons?i=tailwind', level: 95, category: 'frontend', description: 'Rapid utility-first styling and pixel-perfect design systems.' },
+  { name: 'HTML5', icon: 'html', logoUrl: 'https://skillicons.dev/icons?i=html', level: 95, category: 'frontend', description: 'Semantic, accessible, and high-quality web structures.' },
+  { name: 'CSS3', icon: 'palette', logoUrl: 'https://skillicons.dev/icons?i=css', level: 90, category: 'frontend', description: 'Modern styling including Flexbox, Grid, and complex animations.' },
 
   // Backend
-  { name: 'Node.js', icon: 'dns', level: 90, category: 'backend', description: 'Capable of building scalable server-side applications and REST APIs.' },
-  { name: 'Express.js', icon: 'settings_ethernet', level: 90, category: 'backend', description: 'Extensive experience with middleware, routing, and error handling.' },
-  { name: 'RESTful APIs', icon: 'api', level: 90, category: 'backend', description: 'Designing and implementing secure, stateless API architectures.' },
-  { name: 'JWT Auth', icon: 'security', level: 90, category: 'backend', description: 'Implementing secure authentication and authorization flows.' },
+  { name: 'Node.js', icon: 'dns', logoUrl: 'https://skillicons.dev/icons?i=nodejs', level: 90, category: 'backend', description: 'Building scalable, high-concurrency server-side applications.' },
+  { name: 'Express.js', icon: 'settings', logoUrl: 'https://skillicons.dev/icons?i=express', level: 90, category: 'backend', description: 'Robust routing, middleware architecture, and API security.' },
+  { name: 'RESTful APIs', icon: 'api', logoUrl: 'https://skillicons.dev/icons?i=postman', level: 95, category: 'backend', description: 'Designing secure, stateless, and high-efficiency communication layers.' },
+  { name: 'Middleware', icon: 'shuffle', logoUrl: 'https://skillicons.dev/icons?i=nginx', level: 85, category: 'backend', description: 'Custom interceptors for logging, auth, and error handling.' },
 
-  // Database
-  { name: 'MongoDB', icon: 'storage', level: 90, category: 'database', description: 'Proficient in NoSQL schema design, aggregation pipelines, and Mongoose.' },
-  { name: 'MySQL', icon: 'table_view', level: 85, category: 'database', description: 'Experience with relational database design and management.' },
+  // Databases
+  { name: 'MongoDB (Mongoose)', icon: 'storage', logoUrl: 'https://skillicons.dev/icons?i=mongodb', level: 90, category: 'database', description: 'Experience in NoSQL modeling, aggregations, and performance tuning.' },
+  { name: 'MySQL', icon: 'table_view', logoUrl: 'https://skillicons.dev/icons?i=mysql', level: 85, category: 'database', description: 'Relational database schema design and ACID compliance patterns.' },
+  { name: 'Database Schema Design', icon: 'architecture', logoUrl: 'https://skillicons.dev/icons?i=prisma', level: 90, category: 'database', description: 'Engineering scalable data structures for complex enterprise systems.' },
 
-  // Tools
-  { name: 'Git/GitHub', icon: 'commit', level: 95, category: 'tools', description: 'Proficient in version control, branching strategies, and collaboration.' },
-  { name: 'VS Code', icon: 'code', level: 95, category: 'tools', description: 'Advanced usage of extensions, debugging, and productivity shortcuts.' },
-  { name: 'Postman', icon: 'send', level: 90, category: 'tools', description: 'Testing and documenting APIs effectively.' },
-  { name: 'Vercel', icon: 'cloud_upload', level: 85, category: 'devops', description: 'Deploying and managing frontend applications with CI/CD.' },
-  { name: 'Stripe API', icon: 'payments', level: 80, category: 'tools', description: 'Integrating payment gateways for secure transaction processing.' }
+  // Tools & Concepts
+  { name: 'Git/GitHub', icon: 'commit', logoUrl: 'https://skillicons.dev/icons?i=github', level: 95, category: 'tools', description: 'Advanced version control, branching strategies, and CI/CD pipelines.' },
+  { name: 'VS Code', icon: 'code', logoUrl: 'https://skillicons.dev/icons?i=vscode', level: 95, category: 'tools', description: 'Power-user in modern extensions and efficient development workflows.' },
+  { name: 'NPM', icon: 'auto_awesome', logoUrl: 'https://skillicons.dev/icons?i=npm', level: 90, category: 'tools', description: 'Package management and ecosystem leverage.' },
+  { name: 'Postman', icon: 'rocket', logoUrl: 'https://skillicons.dev/icons?i=postman', level: 90, category: 'tools', description: 'Automated API testing, documentation, and collaboration.' },
+  { name: 'Vercel', icon: 'cloud_upload', logoUrl: 'https://skillicons.dev/icons?i=vercel', level: 90, category: 'tools', description: 'Cloud deployment, edge functions, and performance analytics.' },
+  { name: 'OOP', icon: 'extension', logoUrl: 'https://skillicons.dev/icons?i=java', level: 90, category: 'tools', description: 'Mastery of encapsulation, inheritance, and clean code principles.' }
 ];
+
+
+
 
 export const EXPERIENCE: Experience[] = [
   {
