@@ -13,6 +13,7 @@ import { LoaderComponent } from './components/loader.component';
 import { BackToTopComponent } from './components/back-to-top.component';
 import { signal, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
+import { SeoService } from './services/seo.service';
 
 @Component({
   selector: 'app-root',
@@ -57,9 +58,49 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
 })
 export class App implements OnInit {
   private platformId = inject(PLATFORM_ID);
+  private seo = inject(SeoService);
   contentVisible = signal(false);
 
   ngOnInit() {
+    // Ultra-Premium SEO Keywords & Descriptions
+    const premiumDescription = 'Naveen Kumar is a Senior Full Stack Developer and MERN Architect specializing in AI-integrated SaaS, elite Next.js applications, and high-performance system design. Expert in React, Node.js, and Scalable Cloud Architectures.';
+    const premiumKeywords = 'Senior Full Stack Developer, MERN Stack Architect, Expert React.js Engineer, Lead Next.js Developer, AI SaaS Systems, Node.js Backend Specialist, High-Authority Engineering Portfolio, Scalable Software Solutions, Advanced TypeScript Developer, Modern UI/UX Architecture, Enterprise Software Design, Freelance Full Stack Architect';
+
+    this.seo.updateTags({
+      description: premiumDescription,
+      keywords: premiumKeywords,
+      url: 'https://naveenweb.site/',
+      image: 'https://naveenweb.site/og-image.png'
+    });
+
+    // Premium JSON-LD Schema (Structured Data)
+    this.seo.setSchema({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Person',
+          '@id': 'https://naveenweb.site/#person',
+          'name': 'Naveen Kumar',
+          'url': 'https://naveenweb.site/',
+          'image': 'https://naveenweb.site/naveen_about.png',
+          'jobTitle': 'Senior Full Stack Developer',
+          'description': premiumDescription,
+          'knowsAbout': ['MERN Stack', 'Next.js', 'React.js', 'Node.js', 'AI Integration', 'System Design', 'Scalable Architecture'],
+          'sameAs': [
+            'https://github.com/Naveen-Kumar48',
+            'https://www.linkedin.com/in/naveen-kumar-6806382b9/'
+          ]
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://naveenweb.site/#website',
+          'url': 'https://naveenweb.site/',
+          'name': 'Naveen Kumar | Professional Portfolio',
+          'publisher': { '@id': 'https://naveenweb.site/#person' }
+        }
+      ]
+    });
+
     if (isPlatformBrowser(this.platformId)) {
       // Components will start initializing now but stay hidden
       setTimeout(() => {
