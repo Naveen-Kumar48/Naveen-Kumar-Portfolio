@@ -1,3 +1,10 @@
 User-agent: *
 Allow: /
+Allow: /assets/
+Allow: /public/
+
+# Premium Sitemap reference
 Sitemap: https://naveenweb.site/sitemap.xml
+
+# Performance settings for crawlers
+Crawl-delay: 1
