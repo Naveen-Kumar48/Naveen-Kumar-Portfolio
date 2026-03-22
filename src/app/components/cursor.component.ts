@@ -21,6 +21,7 @@ import { gsap } from 'gsap';
   `,
   styles: [`
     :host { pointer-events: none; }
+    div { will-change: transform; transform: translateZ(0); }
   `]
 })
 export class CursorComponent implements AfterViewInit, OnDestroy {
@@ -42,6 +43,9 @@ export class CursorComponent implements AfterViewInit, OnDestroy {
   private ySetterCursor: any;
   private xSetterFollower: any;
   private ySetterFollower: any;
+  private rotateSetterFollower: any;
+  private scaleXSetterFollower: any;
+  private scaleYSetterFollower: any;
   private xSetterGlow: any;
   private ySetterGlow: any;
 
@@ -53,15 +57,17 @@ export class CursorComponent implements AfterViewInit, OnDestroy {
 
       gsap.set([this.cursorRef.nativeElement, this.followerRef.nativeElement, this.glowRef.nativeElement], { xPercent: -50, yPercent: -50 });
 
-      // Initialize quickSetters for high performance rendering without GC stutter
-      this.xSetterCursor = gsap.quickTo(this.cursorRef.nativeElement, "x", { duration: 0.1, ease: 'none' });
-      this.ySetterCursor = gsap.quickTo(this.cursorRef.nativeElement, "y", { duration: 0.1, ease: 'none' });
+      this.xSetterCursor = gsap.quickTo(this.cursorRef.nativeElement, "x", { duration: 0.1, ease: 'power2.out' });
+      this.ySetterCursor = gsap.quickTo(this.cursorRef.nativeElement, "y", { duration: 0.1, ease: 'power2.out' });
 
       this.xSetterFollower = gsap.quickTo(this.followerRef.nativeElement, "x", { duration: 0.8, ease: 'power3.out' });
       this.ySetterFollower = gsap.quickTo(this.followerRef.nativeElement, "y", { duration: 0.8, ease: 'power3.out' });
+      this.rotateSetterFollower = gsap.quickTo(this.followerRef.nativeElement, "rotation", { duration: 0.8, ease: 'power3.out' });
+      this.scaleXSetterFollower = gsap.quickTo(this.followerRef.nativeElement, "scaleX", { duration: 0.8, ease: 'power3.out' });
+      this.scaleYSetterFollower = gsap.quickTo(this.followerRef.nativeElement, "scaleY", { duration: 0.8, ease: 'power3.out' });
 
-      this.xSetterGlow = gsap.quickTo(this.glowRef.nativeElement, "x", { duration: 2.5, ease: 'power2.out' });
-      this.ySetterGlow = gsap.quickTo(this.glowRef.nativeElement, "y", { duration: 2.5, ease: 'power2.out' });
+      this.xSetterGlow = gsap.quickTo(this.glowRef.nativeElement, "x", { duration: 1.5, ease: 'power2.out' });
+      this.ySetterGlow = gsap.quickTo(this.glowRef.nativeElement, "y", { duration: 1.5, ease: 'power2.out' });
 
       this.ngZone.runOutsideAngular(() => {
         window.addEventListener('mousemove', this.onMouseMove);
@@ -98,14 +104,9 @@ export class CursorComponent implements AfterViewInit, OnDestroy {
     this.ySetterFollower(clientY);
 
     // Animate the rotation and scale properties that can't use x/y quickTo
-    gsap.to(this.followerRef.nativeElement, {
-      rotate: angle,
-      scaleX: scaleX,
-      scaleY: scaleY,
-      duration: 0.8,
-      ease: 'power3.out',
-      overwrite: 'auto'
-    });
+    this.rotateSetterFollower(angle);
+    this.scaleXSetterFollower(scaleX);
+    this.scaleYSetterFollower(scaleY);
 
     // Global Glow (Subtle spatial presence)
     this.xSetterGlow(clientX);
