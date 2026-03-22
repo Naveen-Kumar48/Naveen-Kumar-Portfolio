@@ -42,6 +42,9 @@ export class StorylineComponent implements OnInit, OnDestroy {
     }
 
     private initPathDrawing() {
+        if (!isPlatformBrowser(this.platformId)) return;
+        gsap.registerPlugin(ScrollTrigger);
+
         const path = document.querySelector('#scroll-path') as SVGPathElement;
         if (!path) return;
 

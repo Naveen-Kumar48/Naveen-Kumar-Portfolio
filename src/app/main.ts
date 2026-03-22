@@ -86,6 +86,12 @@ export class App implements OnInit, AfterViewInit {
   private seo = inject(SeoService);
   contentVisible = signal(false);
 
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+  }
+
   ngOnInit() {
     this.initSEO();
   }

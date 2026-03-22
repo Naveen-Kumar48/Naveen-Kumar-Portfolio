@@ -199,6 +199,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   }
 
   private initAnimations() {
+    gsap.registerPlugin(ScrollTrigger);
     // Precise Multi-Line Typewriter Reset
     const fullTitle = "Let's work together";
     ScrollTrigger.create({
