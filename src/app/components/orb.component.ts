@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, AfterViewInit, OnDestroy, NgZone, inject, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, AfterViewInit, OnDestroy, NgZone, inject, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Mesh, Program, Renderer, Triangle, Vec3 } from 'ogl';
 
@@ -6,6 +6,7 @@ import { Mesh, Program, Renderer, Triangle, Vec3 } from 'ogl';
   selector: 'app-orb',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<div #container class="w-full h-full"></div>`,
   styles: [`
     :host {
@@ -26,7 +27,7 @@ export class OrbComponent implements AfterViewInit, OnDestroy {
 
   private platformId = inject(PLATFORM_ID);
   private ngZone = inject(NgZone);
-  
+
   private renderer: Renderer | undefined;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private gl!: any;
@@ -62,7 +63,7 @@ export class OrbComponent implements AfterViewInit, OnDestroy {
     container.appendChild(this.gl.canvas as HTMLCanvasElement);
 
     const geometry = new Triangle(this.gl);
-    
+
     const vert = /* glsl */ `
       precision highp float;
       attribute vec2 position;
@@ -277,10 +278,10 @@ export class OrbComponent implements AfterViewInit, OnDestroy {
 
     // Throttle mouse move to avoid excessive calculations
     let isMouseMovePending = false;
-    
+
     this.mouseMoveHandler = (e: MouseEvent | TouchEvent) => {
       if (isMouseMovePending) return;
-      
+
       isMouseMovePending = true;
       requestAnimationFrame(() => {
         const rect = container.getBoundingClientRect();
@@ -326,7 +327,7 @@ export class OrbComponent implements AfterViewInit, OnDestroy {
       this.rafId = requestAnimationFrame(update);
       const dt = (t - lastTime) * 0.001;
       lastTime = t;
-      
+
       if (this.program) {
         this.program.uniforms['iTime'].value = t * 0.001;
         this.program.uniforms['hue'].value = this.hue;
@@ -346,13 +347,42 @@ export class OrbComponent implements AfterViewInit, OnDestroy {
         this.renderer.render({ scene: this.mesh });
       }
     };
-    
+
     this.rafId = requestAnimationFrame(update);
+    this.setupPageLifecycle(update);
+  }
+
+  private pageLifecycleCleanup?: () => void;
+
+  private setupPageLifecycle(renderFn: (t: number) => void) {
+    const pageHideListener = () => {
+      if (this.rafId !== undefined) {
+        cancelAnimationFrame(this.rafId);
+        this.rafId = undefined;
+      }
+    };
+
+    const pageShowListener = (event: PageTransitionEvent) => {
+      if (event.persisted && this.rafId === undefined) {
+        this.rafId = requestAnimationFrame(renderFn);
+      }
+    };
+
+    window.addEventListener('pagehide', pageHideListener);
+    window.addEventListener('pageshow', pageShowListener);
+
+    this.pageLifecycleCleanup = () => {
+      window.removeEventListener('pagehide', pageHideListener);
+      window.removeEventListener('pageshow', pageShowListener);
+    };
   }
 
   private cleanup() {
     if (this.rafId) {
       cancelAnimationFrame(this.rafId);
+    }
+    if (this.pageLifecycleCleanup) {
+      this.pageLifecycleCleanup();
     }
     if (this.resizeHandler) {
       window.removeEventListener('resize', this.resizeHandler);

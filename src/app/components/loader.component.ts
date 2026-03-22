@@ -1,253 +1,129 @@
 import { Component, ChangeDetectionStrategy, signal, inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { gsap } from 'gsap';
 
 @Component({
-    selector: 'app-loader',
-    standalone: true,
-    imports: [CommonModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
-    <div *ngIf="isVisible()" class="loader-overlay">
-      <div class="container">
+  selector: 'app-loader',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div *ngIf="isVisible()" id="loader-overlay" class="loader-overlay transition-colors duration-1000">
+      <div class="container animate-reveal">
+        <!-- Optimized Cube Matrix -->
         <div class="cube" style="--x: -1; --y: -1; --z: -1; --fz: 0"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: -1; --fz: 1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: -1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: -1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: -1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: -1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 0; --fz: 0"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 0; --fz: 1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 0; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 0; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 0; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 0; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 1; --fz: 0"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 1; --fz: 1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: -1; --y: -1; --z: 1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: -1; --fz: 0"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: -1; --fz: 1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: -1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: -1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: -1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: -1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 0; --fz: 0"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 0; --fz: 1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 0; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 0; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 0; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 0; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 1; --fz: 0"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 1; --fz: 1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: -1; --y: 0; --z: 1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: -1; --fz: 0"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: -1; --fz: 1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: -1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: -1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: -1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: -1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 0; --fz: 0"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 0; --fz: 1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 0; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 0; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 0; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 0; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 1; --fz: 0"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 1; --fz: 1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: -1; --y: 1; --z: 1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: -1; --fz: 0"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: -1; --fz: 1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: -1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: -1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: -1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: -1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 0; --fz: 0"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 0; --fz: 1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 0; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 0; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 0; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 0; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 1; --fz: 0"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 1; --fz: 1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 0; --y: -1; --z: 1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: -1; --fz: 0"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: -1; --fz: 1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: -1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: -1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: -1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: -1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 0; --fz: 0"></div>
         <div class="cube" style="--x: 0; --y: 0; --z: 0; --fz: 1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 0; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 0; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 0; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 0; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 1; --fz: 0"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 1; --fz: 1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 0; --y: 0; --z: 1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: -1; --fz: 0"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: -1; --fz: 1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: -1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: -1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: -1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: -1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 0; --fz: 0"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 0; --fz: 1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 0; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 0; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 0; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 0; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 1; --fz: 0"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 1; --fz: 1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 0; --y: 1; --z: 1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: -1; --fz: 0"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: -1; --fz: 1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: -1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: -1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: -1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: -1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 0; --fz: 0"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 0; --fz: 1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 0; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 0; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 0; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 0; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 1; --fz: 0"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 1; --fz: 1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 1; --y: -1; --z: 1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: -1; --fz: 0"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: -1; --fz: 1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: -1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: -1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: -1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: -1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 0; --fz: 0"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 0; --fz: 1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 0; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 0; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 0; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 0; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 1; --fz: 0"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 1; --fz: 1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 1; --y: 0; --z: 1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: -1; --fz: 0"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: -1; --fz: 1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: -1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: -1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: -1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: -1; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 0; --fz: 0"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 0; --fz: 1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 0; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 0; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 0; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 0; --ry: 1; --fy: 1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 1; --fz: 0"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 1; --fz: 1"></div>
         <div class="cube" style="--x: 1; --y: 1; --z: 1; --rx: 1; --fx: -1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 1; --rx: 1; --fx: 1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 1; --ry: 1; --fy: -1"></div>
-        <div class="cube" style="--x: 1; --y: 1; --z: 1; --ry: 1; --fy: 1"></div>
+        <!-- Simplified for performance while maintaining visual complexity -->
+        <div class="cube" style="--x: -1; --y: 1; --z: 0; --ry: 1; --fy: 1"></div>
+        <div class="cube" style="--x: 1; --y: -1; --z: -1; --fz: 1"></div>
+      </div>
+      
+      <div class="absolute bottom-12 left-0 w-full flex flex-col items-center gap-4 animate-fade-in">
+        <div class="w-48 h-1 bg-white/5 rounded-full overflow-hidden relative">
+            <div class="absolute inset-0 bg-emerald-500 animate-loading-bar"></div>
+        </div>
+        <span class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.5em] italic">Initializing Extreme Tier</span>
       </div>
     </div>
   `,
-    styles: [`
-    @keyframes hue-rotate {
-      to { filter: hue-rotate(360deg); }
-    }
-
+  styles: [`
     .loader-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--bg-primary, #09090b);
+      background: #050505;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 10000;
-      perspective: 1000px;
+      perspective: 1200px;
     }
 
     .container {
-      --w: 35px;
-      --g: 5px;
+      --w: 50px;
+      --g: 10px;
       --t: calc(var(--w) + var(--g));
       width: var(--w);
       aspect-ratio: 1;
-      perspective: 120px;
       transform-style: preserve-3d;
-      animation: hue-rotate 10s linear infinite;
+      animation: rotate-matrix 10s linear infinite;
     }
 
     .cube {
-      --fz: 0;
-      --rx: 0;
-      --fx: 0;
-      --ry: 0;
-      --fy: 0;
+      --fz: 0; --rx: 0; --fx: 0; --ry: 0; --fy: 0;
       position: absolute;
-      background: rgba(52, 211, 153, 0.4); /* Emerald-400 with opacity */
-      border: 1px solid #10b981; /* Emerald-500 border */
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.4);
       width: var(--w);
       aspect-ratio: 1;
-      bottom: calc(var(--w) * -0.5);
-      right: calc(var(--w) * -0.5);
-      animation: rotate 15s linear infinite;
-      transition: 5s;
+      transform-style: preserve-3d;
+      --p: translateX(-50%) translateY(-50%) translateZ(-50%);
       --a: translateZ(calc(0.5 * var(--w)))
-        translateX(calc(var(--x) * var(--t) - 0.5 * var(--fy) * var(--w)))
-        translateY(calc(var(--y) * var(--t) - 0.5 * var(--fx) * var(--w)))
-        translateZ(
-          calc(
-            var(--z) * var(--t) - 0.5 * var(--ry) * var(--w) - 0.5 * var(--rx) *
-              var(--w) - var(--fz) * var(--w)
-          )
-        )
-        rotateX(calc(90deg * var(--rx))) rotateY(calc(90deg * var(--ry)));
-      --p: translateX(calc(-0.5 * var(--w))) translateY(calc(-0.5 * var(--w)))
-        translateZ(calc(-0.5 * var(--w)));
+           translateX(calc(var(--x) * var(--t)))
+           translateY(calc(var(--y) * var(--t)))
+           rotateX(calc(90deg * var(--rx))) 
+           rotateY(calc(90deg * var(--ry)));
+      transform: var(--p) var(--a);
     }
 
-    @keyframes rotate {
-      0% { transform: var(--p) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--a); }
-      100% { transform: var(--p) rotateZ(360deg) rotateY(720deg) rotateX(360deg) var(--a); }
+    @keyframes rotate-matrix {
+      0% { transform: rotateY(0) rotateX(0); }
+      100% { transform: rotateY(360deg) rotateX(720deg); }
+    }
+
+    .animate-loading-bar {
+        animation: progress 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+
+    @keyframes progress {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(0); }
+    }
+
+    .animate-reveal {
+        animation: zoom-in 1.5s cubic-bezier(0.2, 0, 0, 1) forwards;
+    }
+
+    @keyframes zoom-in {
+        0% { transform: scale(0) rotateY(-180deg); opacity: 0; }
+        100% { transform: scale(1) rotateY(0); opacity: 1; }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 2s ease-out 0.5s both;
+    }
+
+    @keyframes fade-in {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
   `]
 })
 export class LoaderComponent implements OnInit {
-    private platformId = inject(PLATFORM_ID);
-    isVisible = signal(true);
+  private platformId = inject(PLATFORM_ID);
+  isVisible = signal(true);
 
-    ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            setTimeout(() => {
-                this.isVisible.set(false);
-            }, 3000);
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => {
+        const overlay = document.getElementById('loader-overlay');
+        if (overlay) {
+          gsap.to(overlay, {
+            opacity: 0,
+            scale: 1.1,
+            filter: 'blur(20px)',
+            duration: 1.2,
+            ease: 'expo.inOut',
+            onComplete: () => this.isVisible.set(false)
+          });
+        } else {
+          this.isVisible.set(false);
         }
+      }, 1000);
     }
+  }
 }

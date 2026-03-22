@@ -1,90 +1,89 @@
-# 👨‍💻 Naveen Kumar - Full Stack Developer Portfolio
+# Naveen Kumar - Full Stack Developer Portfolio
 
-A modern, responsive portfolio website built with Angular to showcase my skills, projects, and professional journey as a Full Stack Developer.
+This is my personal portfolio website, built to present real-world projects, engineering skills, and product-focused development experience in a clean, recruiter-friendly format.
 
-## 🌐 Live Site
-**Visit:** https://naveenweb.site/
+## Live Website
 
-## 📋 About This Project
+- **Main Site:** [https://naveenweb.site/](https://naveenweb.site/)
 
-This portfolio serves as a central hub for recruiters, hiring managers, and collaborators to explore my technical expertise and view my work. It demonstrates my ability to build production-ready web applications using modern frontend technologies.
+## What This Portfolio Demonstrates
 
-## 🛠️ Tech Stack
+- Production-ready UI architecture with reusable Angular standalone components
+- Smooth, modern interactions using GSAP and Three.js
+- Strong UX fundamentals: responsive design, theme persistence, and fast navigation
+- Clear storytelling of technical work, experience, and delivery impact
 
-- **Frontend Framework:** Angular 17+ (Standalone Components)
-- **Styling:** Tailwind CSS with custom glassmorphism effects
-- **Animations:** GSAP for smooth scroll-based animations
-- **3D Graphics:** Three.js for interactive hero section
+## Tech Stack
+
+- **Framework:** Angular 17+ (Standalone Components)
+- **Styling:** Tailwind CSS (including custom glassmorphism effects)
+- **Animations:** GSAP
+- **3D Graphics:** Three.js
 - **Icons:** Angular Material Icons
 - **Deployment:** Netlify
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn package manager
-- Angular CLI installed globally
 
-```bash
-npm install -g @angular/cli
-```
+- Node.js v18 or above
+- npm or yarn
 
-### Local Development
+### Run Locally
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/Naveen-Kumar48/portfolio.git
    cd portfolio
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
-3. **Start development server**
+3. **Start the development server**
+
    ```bash
    npm start
    ```
-   The app will be available at `http://localhost:4200/`
 
-## ✨ Key Features
+4. Open [http://localhost:4200/](http://localhost:4200/)
 
-- **Interactive 3D Hero Section** - Engaging first impression with Three.js visual elements
-- **Responsive Design** - Seamless experience across mobile, tablet, and desktop
-- **Dynamic Projects Section** - Showcase of real-world projects with live demos and GitHub links
-- **Skills Visualization** - Clean presentation of technical competencies
-- **Experience Timeline** - Professional journey in an easy-to-scan format
-- **Contact Integration** - Direct email and social media links
-- **Dark/Light Theme** - User preference toggle with localStorage persistence
-- **Smooth Animations** - GSAP-powered transitions and scroll effects
+## Key Features
 
+- Interactive 3D hero section for a strong first impression
+- Fully responsive UI across mobile, tablet, and desktop
+- Project showcase with live demos and GitHub references
+- Clean skills presentation designed for quick scanning
+- Experience timeline with clear, structured storytelling
+- Contact section with direct email and social links
+- Smooth scroll animations and micro-interactions powered by GSAP
 
-## 🔧 Build for Production
+## Production Build
 
 ```bash
 npm run build
 ```
 
-Production files will be generated in the `dist/` directory, ready for deployment.
+Build artifacts are generated in the `dist/` directory and are ready for deployment.
 
-## 🌍 Deployment
+## Deployment
 
-This portfolio is deployed on Netlify with automatic deployments from the main branch.
+The site is deployed on Netlify with automatic builds from the `main` branch.
 
-**Live URL:** https://naveen-web.netlify.app/
-
-## 📬 Contact
+## Contact
 
 - **GitHub:** [@Naveen-Kumar48](https://github.com/Naveen-Kumar48)
-- **LinkedIn:** [Naveen Kumar](https://linkedin.com/in/naveen-kumar)
-- **Email:** kumarnaveen897941@gmail.com
+- **Email:** [kumarnaveen897941@gmail.com](mailto:kumarnaveen897941@gmail.com)
 
-## 📄 License
+## License
 
-This project is open source and available for educational purposes.
+This project is open source for educational use. You are welcome to explore and adapt it.
 
 ---
 
 **Specialization:** MERN Stack | Next.js | AI Integration | E-commerce Solutions  
-**Location:** India | Available for Remote & On-site Opportunities
+**Location:** India | Available for remote and on-site opportunities

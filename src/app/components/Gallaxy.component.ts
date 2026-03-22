@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, Input, PLATFORM_ID, inject, NgZone } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, Input, PLATFORM_ID, inject, NgZone, ChangeDetectionStrategy } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
 
@@ -174,6 +174,7 @@ void main() {
   selector: 'app-galaxy',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<div #ctnDom class="w-full h-full relative overflow-hidden pointer-events-auto"></div>`,
   styles: [`
     :host {
@@ -229,8 +230,6 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // Run WebGL initialization and rendering outside Angular context 
-      // to avoid triggering change detection on every frame (avoids memory leaks & perf issues).
       this.ngZone.runOutsideAngular(() => {
         this.initWebGL();
       });
@@ -257,7 +256,7 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
 
     this.resizeListener = () => {
       const isMobile = window.innerWidth < 768;
-      const scale = isMobile ? 0.75 : 1.0; // Reduce resolution on mobile for better FPS
+      const scale = isMobile ? 0.75 : 1.0;
       this.renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
       if (this.program) {
         this.program.uniforms['uResolution'].value = new Color(
@@ -302,26 +301,7 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
 
     this.mesh = new Mesh(this.gl, { geometry, program: this.program });
 
-    const update = (t: number) => {
-      this.animateId = requestAnimationFrame(update);
-      if (!this.disableAnimation) {
-        this.program.uniforms['uTime'].value = t * 0.001;
-        this.program.uniforms['uStarSpeed'].value = (t * 0.001 * this.starSpeed) / 10.0;
-      }
-
-      const lerpFactor = 0.05;
-      this.smoothMousePos.x += (this.targetMousePos.x - this.smoothMousePos.x) * lerpFactor;
-      this.smoothMousePos.y += (this.targetMousePos.y - this.smoothMousePos.y) * lerpFactor;
-      this.smoothMouseActive += (this.targetMouseActive - this.smoothMouseActive) * lerpFactor;
-
-      this.program.uniforms['uMouse'].value[0] = this.smoothMousePos.x;
-      this.program.uniforms['uMouse'].value[1] = this.smoothMousePos.y;
-      this.program.uniforms['uMouseActiveFactor'].value = this.smoothMouseActive;
-
-      this.renderer.render({ scene: this.mesh });
-    };
-
-    this.animateId = requestAnimationFrame(update);
+    this.startAnimationLoop();
     ctn.appendChild(this.gl.canvas);
 
     this.mouseMoveListener = (e: MouseEvent) => {
@@ -340,42 +320,105 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
       ctn.addEventListener('mousemove', this.mouseMoveListener);
       ctn.addEventListener('mouseleave', this.mouseLeaveListener);
     }
+
+    this.setupPageLifecycle();
+  }
+
+  private startAnimationLoop() {
+    const update = (t: number) => {
+      this.animateId = requestAnimationFrame(update);
+      if (!this.disableAnimation && this.program) {
+        this.program.uniforms['uTime'].value = t * 0.001;
+        this.program.uniforms['uStarSpeed'].value = (t * 0.001 * this.starSpeed) / 10.0;
+      }
+
+      const lerpFactor = 0.05;
+      this.smoothMousePos.x += (this.targetMousePos.x - this.smoothMousePos.x) * lerpFactor;
+      this.smoothMousePos.y += (this.targetMousePos.y - this.smoothMousePos.y) * lerpFactor;
+      this.smoothMouseActive += (this.targetMouseActive - this.smoothMouseActive) * lerpFactor;
+
+      if (this.program) {
+        this.program.uniforms['uMouse'].value[0] = this.smoothMousePos.x;
+        this.program.uniforms['uMouse'].value[1] = this.smoothMousePos.y;
+        this.program.uniforms['uMouseActiveFactor'].value = this.smoothMouseActive;
+      }
+
+      if (this.renderer && this.mesh) {
+        this.renderer.render({ scene: this.mesh });
+      }
+    };
+    this.animateId = requestAnimationFrame(update);
   }
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
+      this.cleanup();
+    }
+  }
+
+  private cleanup() {
+    if (this.animateId !== undefined) {
+      cancelAnimationFrame(this.animateId);
+    }
+    if (this.resizeListener) {
+      window.removeEventListener('resize', this.resizeListener);
+    }
+
+    if (this.ctnDom?.nativeElement) {
+      const ctn = this.ctnDom.nativeElement;
+      if (this.mouseInteraction && this.mouseMoveListener && this.mouseLeaveListener) {
+        ctn.removeEventListener('mousemove', this.mouseMoveListener);
+        ctn.removeEventListener('mouseleave', this.mouseLeaveListener);
+      }
+      if (this.gl && this.gl.canvas && ctn.contains(this.gl.canvas)) {
+        ctn.removeChild(this.gl.canvas);
+      }
+    }
+
+    if (this.mesh && this.mesh.geometry) {
+      this.mesh.geometry.remove();
+    }
+    if (this.program) {
+      this.program.remove();
+    }
+
+    if (this.gl) {
+      const ext = this.gl.getExtension('WEBGL_lose_context');
+      if (ext) {
+        ext.loseContext();
+      }
+    }
+
+    if (this.pageHideListener) {
+      window.removeEventListener('pagehide', this.pageHideListener);
+    }
+    if (this.pageShowListener) {
+      window.removeEventListener('pageshow', this.pageShowListener);
+    }
+  }
+
+  private pageHideListener?: (e: any) => void;
+  private pageShowListener?: (e: any) => void;
+
+  private setupPageLifecycle() {
+    this.pageHideListener = () => {
       if (this.animateId !== undefined) {
         cancelAnimationFrame(this.animateId);
+        this.animateId = undefined;
       }
-      if (this.resizeListener) {
-        window.removeEventListener('resize', this.resizeListener);
-      }
+    };
 
-      if (this.ctnDom?.nativeElement) {
-        const ctn = this.ctnDom.nativeElement;
-        if (this.mouseInteraction && this.mouseMoveListener && this.mouseLeaveListener) {
-          ctn.removeEventListener('mousemove', this.mouseMoveListener);
-          ctn.removeEventListener('mouseleave', this.mouseLeaveListener);
-        }
-        if (this.gl && this.gl.canvas && ctn.contains(this.gl.canvas)) {
-          ctn.removeChild(this.gl.canvas);
-        }
+    this.pageShowListener = (event: PageTransitionEvent) => {
+      if (event.persisted && this.animateId === undefined) {
+        this.startAnimationLoop();
       }
+    };
 
-      // Cleanup OGL resources properly to avoid memory leaks
-      if (this.mesh && this.mesh.geometry) {
-        this.mesh.geometry.remove();
-      }
-      if (this.program) {
-        this.program.remove();
-      }
-
-      if (this.gl) {
-        const ext = this.gl.getExtension('WEBGL_lose_context');
-        if (ext) {
-          ext.loseContext();
-        }
-      }
+    if (this.pageHideListener) {
+      window.addEventListener('pagehide', this.pageHideListener);
+    }
+    if (this.pageShowListener) {
+      window.addEventListener('pageshow', this.pageShowListener);
     }
   }
 }

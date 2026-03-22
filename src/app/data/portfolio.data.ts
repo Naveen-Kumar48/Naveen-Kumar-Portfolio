@@ -28,7 +28,7 @@ export const PROJECTS: Project[] = [
     image: '/Prolinkimg.png',
     tags: ['Next.js', 'SSR', 'MongoDB', 'Mongoose'],
     liveLink: 'https://prolink-network.vercel.app',
-    githubLink: 'https://github.com/Naveen-Kumar48/Linkedin-Clone ',
+    githubLink: 'https://github.com/Naveen-Kumar48/Linkedin-Clone',
     category: 'fullstack'
   },
   {
@@ -85,7 +85,6 @@ export const SKILLS: Skill[] = [
   { name: 'NPM', icon: 'auto_awesome', logoUrl: 'https://skillicons.dev/icons?i=npm', level: 90, category: 'tools', description: 'Package management and ecosystem leverage.' },
   { name: 'Postman', icon: 'rocket', logoUrl: 'https://skillicons.dev/icons?i=postman', level: 90, category: 'tools', description: 'Automated API testing, documentation, and collaboration.' },
   { name: 'Vercel', icon: 'cloud_upload', logoUrl: 'https://skillicons.dev/icons?i=vercel', level: 90, category: 'tools', description: 'Cloud deployment, edge functions, and performance analytics.' },
-  { name: 'OOP', icon: 'extension', logoUrl: 'https://skillicons.dev/icons?i=java', level: 90, category: 'tools', description: 'Mastery of encapsulation, inheritance, and clean code principles.' }
 ];
 
 

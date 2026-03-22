@@ -1,150 +1,151 @@
-import { Component, inject, ElementRef, ViewChild, AfterViewInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, ElementRef, ViewChild, AfterViewInit, PLATFORM_ID, ChangeDetectorRef, signal, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MagneticDirective } from '../directives/magnetic.directive';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MagneticDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section id="contact" class="py-24 relative overflow-hidden">
-      <!-- Background Glow -->
-      <div class="absolute bottom-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl -z-10"></div>
+    <section id="contact" class="py-32 relative overflow-hidden transition-colors duration-500">
+      <!-- Spatial Design Elements -->
+      <div class="absolute -bottom-24 -right-24 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+      <div class="absolute top-1/2 left-0 w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[100px] -z-10 -translate-x-1/2"></div>
 
-      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <div #infoSide class="transform transition-transform">
-          <h2 #typingTitle class="text-3xl md:text-4xl font-bold mb-6 min-h-[1.5em] flex items-center">
-            <span class="typing-text"></span>
-            <span class="cursor inline-block w-1 h-8 bg-emerald-400 ml-1 opacity-0"></span>
-          </h2>
-          <p class="text-[var(--text-secondary)] mb-8 leading-relaxed">
-            I'm currently available for freelance work or full-time positions. 
-            If you have a project that needs some creative touch, or just want to say hi, 
-            feel free to send me a message.
-          </p>
-
-          <div class="space-y-6">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-[var(--bg-secondary)] rounded-full flex items-center justify-center border border-[var(--border-color)] text-emerald-400">
-                <mat-icon>email</mat-icon>
-              </div>
-              <div>
-                <p class="text-xs text-[var(--text-secondary)] uppercase tracking-wider">Email</p>
-                <a href="mailto:kumarnaveen897941@gmail.com" class="text-lg font-medium hover:text-emerald-400 transition-colors text-[var(--text-primary)]">kumarnaveen897941&#64;gmail.com</a>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-[var(--bg-secondary)] rounded-full flex items-center justify-center border border-[var(--border-color)] text-emerald-400">
-                <mat-icon>phone</mat-icon>
-              </div>
-              <div>
-                <p class="text-xs text-[var(--text-secondary)] uppercase tracking-wider">Phone</p>
-                <a href="tel:+918979413404" class="text-lg font-medium hover:text-emerald-400 transition-colors text-[var(--text-primary)]">+91 8979413404</a>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-[var(--bg-secondary)] rounded-full flex items-center justify-center border border-[var(--border-color)] text-emerald-400">
-                <mat-icon>location_on</mat-icon>
-              </div>
-              <div>
-                <p class="text-xs text-[var(--text-secondary)] uppercase tracking-wider">Location</p>
-                <p class="text-lg font-medium text-[var(--text-primary)]">India</p>
-              </div>
-            </div>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+        
+        <!-- Interactive Information Sidebar -->
+        <div #infoSide class="opacity-0 -translate-x-12">
+          <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full liquid-glass border border-emerald-500/30 mb-8">
+            <mat-icon class="text-emerald-500 text-sm">connect_without_contact</mat-icon>
+            <span class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em]">Protocol: Direct Sync</span>
           </div>
 
-          <div class="mt-12">
-            <p class="text-sm text-[var(--text-secondary)] mb-4">Connect with me</p>
-            <div class="flex gap-4">
-              <a href="https://github.com/Naveen-Kumar48" target="_blank" class="w-10 h-10 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[#fff] hover:border-[#fff] transition-all duration-300" title="GitHub">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              </a>
-              <a href="https://www.linkedin.com/in/naveen-kumar-6806382b9/" target="_blank" class="w-10 h-10 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[#0A66C2] hover:border-[#0A66C2] transition-all duration-300" title="LinkedIn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-              </a>
-              <a href="mailto:kumarnaveen897941@gmail.com" class="w-10 h-10 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[#EA4335] hover:border-[#EA4335] transition-all duration-300" title="Email">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
-              </a>
+          <h2 class="text-5xl md:text-7xl font-black mb-10 tracking-tighter leading-[0.9] text-[var(--text-primary)]">
+             {{ displayedTitle() }}<span class="animate-pulse bg-emerald-500 w-1 h-[0.9em] inline-block ml-2 rounded-sm shadow-[0_0_20px_rgba(16,185,129,0.5)]"></span>
+          </h2>
+          
+          <p class="text-[var(--text-secondary)] text-xl font-medium mb-12 leading-relaxed max-w-lg">
+            Architecting world-class digital systems requires <span class="text-[var(--text-primary)] font-black italic">relentless collaboration</span>. Available for strategic partnerships and high-stakes engineering.
+          </p>
+
+          <!-- Contact Matrices -->
+          <div class="space-y-10">
+            <div appMagnetic class="group flex items-center gap-6 cursor-none">
+              <div class="w-16 h-16 liquid-glass rounded-2xl flex items-center justify-center border border-[var(--glass-border)] text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-700 shadow-xl">
+                <mat-icon class="scale-125">alternate_email</mat-icon>
+              </div>
+              <div>
+                <p class="text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.3em] font-black italic mb-1">Secure Transmission</p>
+                <a href="mailto:kumarnaveen897941@gmail.com" class="text-xl md:text-2xl font-black hover:text-emerald-400 transition-colors text-[var(--text-primary)] tracking-tighter">kumarnaveen897941&#64;gmail.com</a>
+              </div>
+            </div>
+
+            <div appMagnetic class="group flex items-center gap-6 cursor-none">
+              <div class="w-16 h-16 liquid-glass rounded-2xl flex items-center justify-center border border-[var(--glass-border)] text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-700 shadow-xl">
+                <mat-icon class="scale-125">dialpad</mat-icon>
+              </div>
+              <div>
+                <p class="text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.3em] font-black italic mb-1">Voice Frequency</p>
+                <a href="tel:+918979413404" class="text-xl md:text-2xl font-black hover:text-emerald-400 transition-colors text-[var(--text-primary)] tracking-tighter">+91 8979413404</a>
+              </div>
+            </div>
+
+            <div appMagnetic class="group flex items-center gap-6 cursor-none">
+              <div class="w-16 h-16 liquid-glass rounded-2xl flex items-center justify-center border border-[var(--glass-border)] text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-700 shadow-xl">
+                <mat-icon class="scale-125">share_location</mat-icon>
+              </div>
+              <div>
+                <p class="text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.3em] font-black italic mb-1">Local Node</p>
+                <p class="text-xl md:text-2xl font-black text-[var(--text-primary)] tracking-tighter uppercase italic">India (IST UTC+5:30)</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border-color)] shadow-xl transform transition-transform">
-          <div class="space-y-6 relative">
-            <!-- Success Overlay -->
+        <!-- High-Performance Input Terminal -->
+        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-10 md:p-12 rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative transition-all duration-1000 group/form opacity-0 translate-x-12">
+          <div class="space-y-8 relative">
+            <!-- Quantum Success State -->
             <div *ngIf="submitted" 
-                 #successOverlay
-                 class="absolute inset-0 z-50 bg-[var(--bg-secondary)]/95 backdrop-blur-md rounded-3xl flex flex-col items-center justify-center text-center p-8 border border-emerald-500/30">
-              <div class="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mb-6 text-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                <mat-icon style="font-size: 48px; width: 48px; height: 48px;">check_circle</mat-icon>
+                 class="absolute inset-0 z-50 bg-[var(--bg-secondary)]/95 backdrop-blur-xl rounded-[3rem] flex flex-col items-center justify-center text-center p-10 border border-emerald-500/30 animate-reveal">
+              <div class="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mb-8 text-emerald-400 shadow-[0_0_40px_rgba(16,185,129,0.3)]">
+                <mat-icon style="font-size: 56px; width: 56px; height: 56px;">check_circle</mat-icon>
               </div>
-              <h3 class="text-2xl font-bold text-[var(--text-primary)] mb-2">Message Sent!</h3>
-              <p class="text-[var(--text-secondary)] mb-8">Thanks for reaching out. I'll get back to you within 24 hours.</p>
+              <h3 class="text-3xl font-black text-[var(--text-primary)] mb-3 tracking-tighter uppercase italic">Transmission Received</h3>
+              <p class="text-[var(--text-secondary)] mb-10 text-lg font-medium leading-relaxed">System acknowledgment sent. Strategic response pending within 24 hours.</p>
               <button type="button" (click)="resetStatus()" 
-                      class="px-8 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full transition-all text-sm font-medium">
-                Send another
+                      appMagnetic
+                      class="px-10 py-4 liquid-glass hover:bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 rounded-2xl transition-all text-xs font-black uppercase tracking-[0.3em]">
+                New Uplink
               </button>
             </div>
 
-            <div>
-              <label for="name" class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Name</label>
-              <input type="text" id="name" formControlName="name" 
-                     class="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl px-4 py-3 text-[var(--text-primary)] focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
-                     placeholder="John Doe">
+            <div class="group/input">
+              <label class="block text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-3 ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Initiator Identity</label>
+              <input type="text" formControlName="name" 
+                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-2xl px-6 py-4 text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+                     placeholder="Command Input [Full Name]">
             </div>
             
-            <div>
-              <label for="email" class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Email</label>
-              <input type="email" id="email" formControlName="email" 
-                     class="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl px-4 py-3 text-[var(--text-primary)] focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
-                     placeholder="john@example.com">
+            <div class="group/input">
+              <label class="block text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-3 ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Frequence Node</label>
+              <input type="email" formControlName="email" 
+                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-2xl px-6 py-4 text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+                     placeholder="Command Input [Email Hash]">
             </div>
 
-            <div>
-              <label for="message" class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Message</label>
-              <textarea id="message" formControlName="message" rows="4"
-                        class="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xl px-4 py-3 text-[var(--text-primary)] focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
-                        placeholder="Tell me about your project..."></textarea>
+            <div class="group/input">
+              <label class="block text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-3 ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Encrypted Payload</label>
+              <textarea formControlName="message" rows="5"
+                        class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-2xl px-6 py-4 text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+                        placeholder="Project Narrative Architecture..."></textarea>
             </div>
 
             <div class="mt-4">
-              <!-- Responsive hCaptcha container -->
               <div class="h-captcha min-h-[78px] flex justify-center lg:justify-start" 
                    data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
               @if (captchaError) {
-                <p class="text-red-400 text-sm mt-2 text-center lg:text-left flex items-center gap-1">
-                  <mat-icon class="text-xs">error_outline</mat-icon>
-                  Please verify you are human.
+                <p class="text-red-400 text-[10px] font-black uppercase tracking-widest mt-4 text-center lg:text-left flex items-center gap-2">
+                  <mat-icon class="text-sm">security</mat-icon>
+                  Biometric Verification Required (CAPTCHA)
                 </p>
               }
             </div>
 
             <button type="submit" 
                     [disabled]="isSubmitting"
-                    class="w-full bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed text-zinc-950 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2">
-              <span>{{ isSubmitting ? 'Sending...' : 'Send Message' }}</span>
-              <mat-icon *ngIf="!isSubmitting">send</mat-icon>
-              <div *ngIf="isSubmitting" class="w-5 h-5 border-2 border-zinc-950/30 border-t-zinc-950 rounded-full animate-spin"></div>
+                    appMagnetic
+                    class="w-full bg-[var(--text-primary)] hover:scale-[1.02] disabled:opacity-30 disabled:cursor-not-allowed text-[var(--bg-primary)] font-black py-6 rounded-2xl transition-all flex items-center justify-center gap-4 uppercase text-[11px] tracking-[0.5em] shadow-2xl">
+              <span>{{ isSubmitting ? 'Syncing...' : 'Initiate Contact' }}</span>
+              <mat-icon *ngIf="!isSubmitting" class="scale-125">bolt</mat-icon>
+              <div *ngIf="isSubmitting" class="w-5 h-5 border-2 border-[var(--bg-primary)]/30 border-t-[var(--bg-primary)] rounded-full animate-spin"></div>
             </button>
           </div>
         </form>
       </div>
     </section>
-  `
+  `,
+  styles: [`
+    :host { display: block; }
+    .animate-reveal { animation: zoom-in 0.6s cubic-bezier(0.2, 0, 0, 1) forwards; }
+    @keyframes zoom-in { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  `]
 })
-export class ContactComponent implements AfterViewInit {
+export class ContactComponent implements AfterViewInit, OnDestroy {
   private fb = inject(FormBuilder);
   private platformId = inject(PLATFORM_ID);
   private cdr = inject(ChangeDetectorRef);
+  private toastr = inject(ToastrService);
 
   @ViewChild('infoSide') infoRef!: ElementRef;
   @ViewChild('formSide') formRef!: ElementRef;
-  @ViewChild('typingTitle') titleRef!: ElementRef;
 
   contactForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
@@ -152,120 +153,81 @@ export class ContactComponent implements AfterViewInit {
     message: ['', Validators.required]
   });
 
+  displayedTitle = signal('');
   isSubmitting = false;
   submitted = false;
   submitError = false;
   captchaError = false;
 
+  private typingInterval: any;
+  private captchaCheckInterval: any;
+
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // 1. Existing Scripts and Captcha Logic
-      if (!(window as any).hcaptcha) {
-        const script = document.createElement('script');
-        script.src = 'https://js.hcaptcha.com/1/api.js';
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
-      }
-
-      const w3fScript = document.createElement('script');
-      w3fScript.src = 'https://web3forms.com/client/script.js';
-      w3fScript.async = true;
-      w3fScript.defer = true;
-      document.body.appendChild(w3fScript);
-
-      const renderCaptcha = () => {
-        const hcaptcha = (window as any).hcaptcha;
-        const container = document.querySelector('.h-captcha');
-        if (hcaptcha && container && container.innerHTML === '') {
-          hcaptcha.render(container, {
-            sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
-            theme: 'dark'
-          });
-        }
-      };
-
-      let attempts = 0;
-      const interval = setInterval(() => {
-        renderCaptcha();
-        attempts++;
-        if (((window as any).hcaptcha && document.querySelector('.h-captcha')?.innerHTML !== '') || attempts > 10) {
-          clearInterval(interval);
-        }
-      }, 500);
-
-      // GSAP Animations
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Typing Animation Logic
-      const textContainer = this.titleRef.nativeElement.querySelector('.typing-text');
-      const cursor = this.titleRef.nativeElement.querySelector('.cursor');
-      const fullText = "Let's work together";
-
-      const typingTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: this.titleRef.nativeElement,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        }
-      });
-
-      // Character-by-character reveal
-      typingTl.to(cursor, { opacity: 1, repeat: 5, yoyo: true, duration: 0.2 });
-
-      fullText.split('').forEach((char, i) => {
-        typingTl.to(textContainer, {
-          text: {
-            value: textContainer.textContent + char
-          },
-          duration: 0.05,
-          onStart: () => {
-            textContainer.innerHTML += char === ' ' ? '&nbsp;' : char;
-            if (i > 10) { // Highlight "together" in emerald
-              const currentText = textContainer.innerHTML;
-              if (currentText.includes('together')) {
-                textContainer.innerHTML = currentText.replace('together', '<span class="text-emerald-400">together</span>');
-              }
-            }
-          }
-        });
-      });
-
-      typingTl.to(cursor, { opacity: 1, repeat: -1, yoyo: true, duration: 0.5 });
-
-      // Info Side Scroll Animation
-      gsap.fromTo(this.infoRef.nativeElement,
-        { opacity: 0, x: -50 },
-        {
-          scrollTrigger: {
-            trigger: this.infoRef.nativeElement,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          },
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: 'power3.out'
-        }
-      );
-
-
-      gsap.fromTo(this.formRef.nativeElement,
-        { opacity: 0, x: 50 },
-        {
-          scrollTrigger: {
-            trigger: this.formRef.nativeElement,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          },
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          delay: 0.2,
-          ease: 'power3.out'
-        }
-      );
+      this.initScripts();
+      this.initAnimations();
     }
+  }
+
+  private initScripts() {
+    if (!(window as any).hcaptcha) {
+      const script = document.createElement('script');
+      script.src = 'https://js.hcaptcha.com/1/api.js';
+      script.async = true; script.defer = true;
+      document.body.appendChild(script);
+    }
+
+    const w3fScript = document.createElement('script');
+    w3fScript.src = 'https://web3forms.com/client/script.js';
+    w3fScript.async = true; w3fScript.defer = true;
+    document.body.appendChild(w3fScript);
+
+    const renderCaptcha = () => {
+      const hcaptcha = (window as any).hcaptcha;
+      const container = document.querySelector('.h-captcha');
+      if (hcaptcha && container && container.innerHTML === '') {
+        hcaptcha.render(container, { sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2', theme: 'dark' });
+      }
+    };
+
+    this.captchaCheckInterval = setInterval(() => {
+      renderCaptcha();
+      if ((window as any).hcaptcha && document.querySelector('.h-captcha')?.innerHTML !== '') {
+        clearInterval(this.captchaCheckInterval);
+      }
+    }, 1000);
+  }
+
+  private initAnimations() {
+    // Precise Multi-Line Typewriter Reset
+    const fullTitle = "Let's work together";
+    ScrollTrigger.create({
+      trigger: this.infoRef.nativeElement,
+      start: 'top 85%',
+      onEnter: () => this.startTyping(fullTitle)
+    });
+
+    gsap.to(this.infoRef.nativeElement, {
+      opacity: 1, x: 0, duration: 1.5, ease: 'expo.out', scrollTrigger: { trigger: this.infoRef.nativeElement, start: 'top 80%' }
+    });
+
+    gsap.to(this.formRef.nativeElement, {
+      opacity: 1, x: 0, duration: 1.8, ease: 'expo.out', delay: 0.3, scrollTrigger: { trigger: this.formRef.nativeElement, start: 'top 80%' }
+    });
+  }
+
+  private startTyping(text: string) {
+    if (this.typingInterval) clearInterval(this.typingInterval);
+    this.displayedTitle.set('');
+    let index = 0;
+    this.typingInterval = setInterval(() => {
+      if (index < text.length) {
+        this.displayedTitle.set(text.substring(0, index + 1));
+        index++;
+      } else {
+        clearInterval(this.typingInterval);
+      }
+    }, 60);
   }
 
   async onSubmit() {
@@ -275,7 +237,6 @@ export class ContactComponent implements AfterViewInit {
     }
 
     if (isPlatformBrowser(this.platformId)) {
-      // Robust CAPTCHA retrieval
       const hcaptcha = (window as any).hcaptcha;
       const hcaptchaResponse = hcaptcha?.getResponse();
 
@@ -299,33 +260,21 @@ export class ContactComponent implements AfterViewInit {
         formData.append("message", this.contactForm.value.message);
         formData.append("h-captcha-response", hcaptchaResponse);
 
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: formData
-        });
-
+        const response = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
         const data = await response.json();
 
         if (data.success) {
           this.submitted = true;
           this.contactForm.reset();
           hcaptcha?.reset();
-
-          this.cdr.detectChanges(); // Force render overlay for GSAP
-
-          // Animated Reveal
-          const overlay = document.querySelector('[#successOverlay]') || document.querySelector('.absolute.inset-0.z-50');
-          if (overlay) {
-            gsap.fromTo(overlay,
-              { opacity: 0, scale: 0.9, backdropFilter: 'blur(0px)' },
-              { opacity: 1, scale: 1, backdropFilter: 'blur(12px)', duration: 0.6, ease: 'back.out(1.7)' }
-            );
-          }
+          this.toastr.success('System acknowledgment sent. Response pending.', 'Transmission Received');
         } else {
           this.submitError = true;
+          this.toastr.error('Transmission failed. Please try again.', 'Error');
         }
       } catch (error) {
         this.submitError = true;
+        this.toastr.error('Network error. Unable to establish uplink.', 'Error');
       } finally {
         this.isSubmitting = false;
         this.cdr.markForCheck();
@@ -338,5 +287,10 @@ export class ContactComponent implements AfterViewInit {
     this.submitError = false;
     this.captchaError = false;
     this.cdr.markForCheck();
+  }
+
+  ngOnDestroy() {
+    if (this.typingInterval) clearInterval(this.typingInterval);
+    if (this.captchaCheckInterval) clearInterval(this.captchaCheckInterval);
   }
 }

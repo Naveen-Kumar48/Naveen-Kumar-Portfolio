@@ -1,4 +1,4 @@
-import { Component, HostListener, signal, inject, PLATFORM_ID, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, HostListener, inject, PLATFORM_ID, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { gsap } from 'gsap';
@@ -20,17 +20,11 @@ import { gsap } from 'gsap';
     </button>
   `
 })
-export class BackToTopComponent implements AfterViewInit {
+export class BackToTopComponent {
     @ViewChild('btn') btnRef!: ElementRef;
 
     private platformId = inject(PLATFORM_ID);
     private visible = false;
-
-    ngAfterViewInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            // Initial state is already set in classes (opacity-0 -translate-y-4)
-        }
-    }
 
     @HostListener('window:scroll', [])
     onWindowScroll() {
