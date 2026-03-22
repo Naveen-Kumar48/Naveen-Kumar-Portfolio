@@ -62,7 +62,7 @@ import { StorylineComponent } from './storyline.component';
           </div>
           
           <p #animateItem class="text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl font-bold opacity-0 translate-y-12 leading-relaxed">
-            Architecting <span class="text-[var(--text-primary)] font-black text-reveal-gradient italic">high-performance SaaS infrastructures</span> and AI-integrated multi-cloud systems with mathematical precision.
+            As a <span class="text-[var(--text-primary)] font-black text-reveal-gradient italic">Full Stack Developer in New Delhi</span>, I architect high-performance SaaS infrastructures and AI-integrated multi-cloud systems with mathematical precision.
           </p>
           
           <div #animateItem class="flex flex-wrap gap-10 mt-6 items-center opacity-0 translate-y-12">
@@ -129,7 +129,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   private orbAnimation: gsap.core.Tween | null = null;
 
   // Infinity Cycle Config
-  private roles = ["Full Stack Architect", "Full Stack Developer", "MERN Expert", "UI/UX Architect"];
+  private roles = ["Full Stack Architect", "MERN Stack Developer", "React Developer India", "Node.js Developer Delhi"];
   private currentRoleIndex = 0;
 
   ngAfterViewInit() {

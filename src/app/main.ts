@@ -122,18 +122,42 @@ export class App implements OnInit, AfterViewInit {
           '@id': 'https://naveenweb.site/#person',
           'name': 'Naveen Kumar',
           'url': 'https://naveenweb.site/',
-          'jobTitle': 'Senior Full Stack Developer & Architect',
+          'jobTitle': 'Senior Full Stack Developer & MERN Architect',
+          'image': 'https://naveenweb.site/og-image.png',
+          'description': premiumDescription,
+          'email': 'mailto:kumarnaveen897941@gmail.com',
+          'telephone': '+918979413404',
           'address': {
             '@type': 'PostalAddress',
             'addressLocality': 'New Delhi',
             'addressRegion': 'Delhi',
             'addressCountry': 'India'
           },
-          'description': premiumDescription,
-          'knowsAbout': ['MERN Stack', 'Next.js', 'React', 'Node.js', 'Artificial Intelligence', 'System Design', 'Scalable Architecture', 'Cloud Computing'],
+          'knowsAbout': ['MERN Stack', 'Next.js', 'React', 'Node.js', 'Artificial Intelligence', 'System Design', 'Scalable Architecture', 'Cloud Computing', 'TypeScript', 'MongoDB'],
           'sameAs': [
             'https://github.com/Naveen-Kumar48',
-            'https://www.linkedin.com/in/naveen-kumar-6806382b9/'
+            'https://www.linkedin.com/in/naveen-kumar-6806382b9/',
+            'https://x.com/naveen'
+          ]
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://naveenweb.site/#website',
+          'url': 'https://naveenweb.site/',
+          'name': 'Naveen Kumar | Professional Portfolio',
+          'description': premiumDescription,
+          'publisher': { '@id': 'https://naveenweb.site/#person' }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          '@id': 'https://naveenweb.site/#breadcrumb',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': 'https://naveenweb.site/'
+            }
           ]
         }
       ]

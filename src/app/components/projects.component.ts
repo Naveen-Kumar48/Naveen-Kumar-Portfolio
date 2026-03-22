@@ -92,6 +92,10 @@ import { MagneticDirective } from '../directives/magnetic.directive';
               <div class="absolute inset-0 z-10 overflow-hidden bg-[#050505]">
                 <img [src]="project.image" 
                      [alt]="project.title" 
+                     width="1200"
+                     height="800"
+                     loading="lazy"
+                     decoding="async"
                      [class]="'w-full h-full object-cover transition-all duration-[2.5s] ease-[cubic-bezier(0.2, 0, 0, 1)] group-hover:scale-110 opacity-50 group-hover:opacity-20 ' + (activeProject() === project.id ? 'opacity-20 scale-105 blur-[2px]' : '')">
                 
                 <!-- Displacement Placeholder (Liquid Distortion Effect) -->

@@ -53,6 +53,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
                            <div class="w-8 h-8 flex items-center justify-center p-1 liquid-glass rounded-lg border border-white/5 grayscale group-hover:grayscale-0 transition-all duration-700">
                              <img [src]="skill.logoUrl" 
                                   [alt]="skill.name" 
+                                  width="32"
+                                  height="32"
+                                  loading="lazy"
                                   class="w-full h-full object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-transform duration-700">
                            </div>
                          } @else {

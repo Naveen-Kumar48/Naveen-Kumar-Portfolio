@@ -32,7 +32,7 @@ import { ToastrService } from 'ngx-toastr';
           </h2>
           
           <p class="text-[var(--text-secondary)] text-xl font-medium mb-12 leading-relaxed max-w-lg">
-            Architecting world-class digital systems requires <span class="text-[var(--text-primary)] font-black italic">relentless collaboration</span>. Available for strategic partnerships and high-stakes engineering.
+            Engineering elite digital systems requires relentless collaboration. If you are looking to <span class="text-[var(--text-primary)] font-black italic">Hire a Full Stack Developer in India</span> for high-stakes projects, let's connect.
           </p>
 
           <!-- Contact Matrices -->

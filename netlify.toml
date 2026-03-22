@@ -3,15 +3,15 @@
   publish = "dist/app/browser"
 
 [[redirects]]
-  from = "/sitemap.xml"
-  to = "/sitemap.xml"
-  status = 200
+  from = "https://www.naveenweb.site/*"
+  to = "https://naveenweb.site/:splat"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "/robots.txt"
-  to = "/robots.txt"
-  status = 200
+  from = "http://naveenweb.site/*"
+  to = "https://naveenweb.site/:splat"
+  status = 301
   force = true
 
 [[redirects]]
@@ -20,11 +20,34 @@
   status = 200
 
 [[headers]]
-  for = "/sitemap.xml"
+  for = "/*"
   [headers.values]
-    Content-Type = "application/xml"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
 
 [[headers]]
-  for = "/robots.txt"
+  for = "/assets/*"
   [headers.values]
-    Content-Type = "text/plain"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

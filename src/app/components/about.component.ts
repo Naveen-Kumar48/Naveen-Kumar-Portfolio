@@ -21,7 +21,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         <div #imageSide class="relative order-2 lg:order-1 opacity-0 group perspective-1000">
           <div #tiltContainer class="relative z-10 transition-shadow duration-700 ease-out" style="transform-style: preserve-3d">
             <div class="rounded-3xl overflow-hidden border border-[var(--glass-border)] liquid-glass shadow-2xl relative group-hover:border-emerald-500/50 transition-colors duration-1000">
-              <img src="/about_tech.png" alt="Advanced Architecture Visualization" loading="lazy" decoding="async" class="w-full h-auto object-cover transform scale-105 group-hover:scale-100 transition-all duration-[2s] ease-out mix-blend-luminosity group-hover:mix-blend-normal">
+              <img src="/about_tech.webp" alt="Naveen Kumar - Best Web Application Developer Delhi NCR" width="800" height="800" loading="lazy" decoding="async" class="w-full h-auto object-cover transform scale-105 group-hover:scale-100 transition-all duration-[2s] ease-out mix-blend-luminosity group-hover:mix-blend-normal">
               
               <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
               <div class="absolute inset-0 bg-[var(--bg-primary)]/40 group-hover:bg-transparent transition-colors duration-1000"></div>
@@ -74,6 +74,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
                <p class="text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.5em] font-black italic">System Uptime</p>
             </div>
           </div>
+          <p class="text-[var(--text-secondary)] text-xl font-medium leading-relaxed max-w-2xl mt-12 transform translate-y-8 opacity-0 transition-all duration-1000 group-hover:translate-y-0 group-hover:opacity-100">
+            I am a <span class="text-[var(--text-primary)] font-black">Freelance Web Developer India</span> specializing in the MERN ecosystem. My mission is to bridge the gap between complex engineering and human-centric design. I build digital experiences that are not just functional, but emotionally resonant.
+          </p>
         </div>
 
       </div>

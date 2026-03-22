@@ -1,5 +1,5 @@
 /* Global Styles - Ultra-Level 'Extreme' Framework */
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 @import "ngx-toastr/toastr";
