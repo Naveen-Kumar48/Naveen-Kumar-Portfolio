@@ -33,7 +33,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
         <div #grid class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-start">
           @for (category of categories; track category) {
-            <div class="liquid-glass border border-[var(--glass-border)] rounded-[2.5rem] p-10 hover:border-emerald-500/40 transition-all duration-1000 group/card transform translate-y-8 opacity-0">
+            <div class="liquid-glass border border-[var(--glass-border)] rounded-[2.5rem] p-10 transition-colors duration-500 hover:border-emerald-500/40 group/card transform translate-y-8 opacity-0">
               <h3 class="text-2xl font-black mb-10 capitalize flex items-center gap-4 text-[var(--text-primary)] tracking-tighter italic">
                 <div class="p-3 rounded-2xl bg-[var(--bg-secondary)] text-emerald-500 group-hover/card:bg-emerald-500 group-hover/card:text-zinc-950 transition-all duration-700 shadow-xl">
                   <mat-icon class="block scale-110">{{ getCategoryIcon(category) }}</mat-icon>
@@ -68,7 +68,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
                     
                     <div class="w-full bg-[var(--bg-secondary)] rounded-full h-2 overflow-hidden border border-white/5 relative">
                       <div #skillBar 
-                           class="bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-400 h-full rounded-full relative transition-all duration-1000"
+                           class="bg-gradient-to-r from-emerald-500 via-cyan-500 to-emerald-400 h-full rounded-full relative transition-all duration-1000 will-change-[width]"
                            [style.width.%]="0"
                            [attr.data-width]="skill.level">
                         <div class="absolute inset-0 bg-white/10 animate-pulse-slow"></div>
@@ -114,17 +114,20 @@ export class SkillsComponent implements AfterViewInit {
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       // Recursive Kinetic Entrance
-      gsap.to(Array.from(this.gridRef.nativeElement.children), {
-        scrollTrigger: {
-          trigger: this.gridRef.nativeElement,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        stagger: 0.2,
-        ease: 'expo.out'
+      const children = Array.from(this.gridRef.nativeElement.children) as HTMLElement[];
+      children.forEach((child) => {
+        gsap.to(child, {
+          scrollTrigger: {
+            trigger: child,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'back.out(1.2)',
+          clearProps: 'transform'
+        });
       });
 
       // Synchronized Power Bars
@@ -137,8 +140,8 @@ export class SkillsComponent implements AfterViewInit {
             toggleActions: 'play none none reverse'
           },
           width: width + '%',
-          duration: 2,
-          delay: (index % 5) * 0.1,
+          duration: 1,
+          delay: (index % 5) * 0.05,
           ease: 'power4.inOut'
         });
       });

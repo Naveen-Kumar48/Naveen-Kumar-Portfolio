@@ -38,7 +38,7 @@ uniform bool uTransparent;
 
 varying vec2 vUv;
 
-#define NUM_LAYER 4.0
+uniform float uNumLayers;
 #define STAR_COLOR_CUTOFF 0.2
 #define MAT45 mat2(0.7071, -0.7071, 0.7071, 0.7071)
 #define PERIOD 3.0
@@ -152,8 +152,9 @@ void main() {
 
   vec3 col = vec3(0.0);
 
-  for (float i = 0.0; i < 1.0; i += 1.0 / NUM_LAYER) {
-    float depth = fract(i + uStarSpeed * uSpeed);
+  for (float i = 0.0; i < 1.0; i += 1.0) {
+    if (i >= uNumLayers) break;
+    float depth = fract(i / uNumLayers + uStarSpeed * uSpeed);
     float scale = mix(20.0 * uDensity, 0.5 * uDensity, depth);
     float fade = depth * smoothstep(1.0, 0.9, depth);
     col += StarLayer(uv * scale + i * 453.32) * fade;
@@ -256,14 +257,18 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
 
     this.resizeListener = () => {
       const isMobile = window.innerWidth < 768;
-      const scale = isMobile ? 0.75 : 1.0;
+      // Reduce complexity and resolution on mobile for better performance
+      const scale = isMobile ? 0.5 : 1.0;
       this.renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
+
       if (this.program) {
         this.program.uniforms['uResolution'].value = new Color(
           this.gl.canvas.width,
           this.gl.canvas.height,
           this.gl.canvas.width / this.gl.canvas.height
         );
+        // Reduce number of layers on mobile to save GPU cycles
+        this.program.uniforms['uNumLayers'] = { value: isMobile ? 2.0 : 4.0 };
       }
     };
     window.addEventListener('resize', this.resizeListener, false);
@@ -295,7 +300,8 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
         uRepulsionStrength: { value: this.repulsionStrength },
         uMouseActiveFactor: { value: 0.0 },
         uAutoCenterRepulsion: { value: this.autoCenterRepulsion },
-        uTransparent: { value: this.transparent }
+        uTransparent: { value: this.transparent },
+        uNumLayers: { value: window.innerWidth < 768 ? 2.0 : 4.0 }
       }
     });
 

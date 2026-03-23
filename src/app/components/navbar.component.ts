@@ -43,11 +43,11 @@ import { fromEvent, throttleTime, Subject, takeUntil } from 'rxjs';
           
           <div class="w-px h-4 bg-white/5 mx-4"></div>
           
-          <button (click)="toggleTheme()" appMagnetic class="p-2 rounded-xl hover:bg-white/5 text-[var(--text-secondary)] hover:text-white transition-all relative z-10">
+          <button (click)="toggleTheme()" appMagnetic class="p-2 rounded-xl hover:bg-white/5 text-[var(--text-secondary)] hover:text-white transition-all relative z-10" aria-label="Toggle Global Theme Mode">
             <mat-icon class="text-base">{{ isDarkMode() ? 'nights_stay' : 'light_mode' }}</mat-icon>
           </button>
 
-          <a href="#contact" (click)="scrollToSection($event, '#contact')" appMagnetic class="ml-4 relative z-10 group">
+          <a href="#contact" (click)="scrollToSection($event, '#contact')" appMagnetic class="ml-4 relative z-10 group" aria-label="Navigate to contact section">
              <div class="px-6 py-2.5 bg-[var(--text-primary)] text-[var(--bg-primary)] font-black text-[10px] uppercase tracking-[0.3em] rounded-xl transition-all hover:scale-110 active:scale-95 shadow-xl flex items-center gap-2 italic">
                Uplink <mat-icon class="text-sm">bolt</mat-icon>
              </div>
@@ -56,11 +56,11 @@ import { fromEvent, throttleTime, Subject, takeUntil } from 'rxjs';
 
         <!-- Mobile Logic Center -->
         <div class="flex items-center gap-3 lg:hidden">
-          <button (click)="toggleTheme()" class="p-2 rounded-xl bg-white/5 text-[var(--text-secondary)] transition-all">
+          <button (click)="toggleTheme()" class="p-2 rounded-xl bg-white/5 text-[var(--text-secondary)] transition-all" aria-label="Toggle Theme Mode">
             <mat-icon class="text-base">{{ isDarkMode() ? 'nights_stay' : 'light_mode' }}</mat-icon>
           </button>
           
-          <button class="p-3 bg-[var(--text-primary)] text-[var(--bg-primary)] rounded-xl transform transition-transform active:scale-90" (click)="toggleMenu()">
+          <button class="p-3 bg-[var(--text-primary)] text-[var(--bg-primary)] rounded-xl transform transition-transform active:scale-90" (click)="toggleMenu()" aria-label="Toggle Mobile Navigation Menu">
             <mat-icon class="text-base font-bold">{{ mobileMenuOpen() ? 'close' : 'menu_open' }}</mat-icon>
           </button>
         </div>
@@ -76,8 +76,8 @@ import { fromEvent, throttleTime, Subject, takeUntil } from 'rxjs';
              class="text-4xl font-black tracking-tighter transition-all flex items-center justify-between group"
              [class]="activeSection() === item.id ? 'text-emerald-500' : 'text-[var(--text-secondary)]'"
              (click)="scrollToSection($event, item.href)"
-             [style.animation-delay]="i * 100 + 'ms'">
-            <span class="group-hover:translate-x-4 transition-transform duration-500 italic uppercase">{{ item.label }}</span>
+             [style.animation-delay]="i * 40 + 'ms'">
+            <span class="group-hover:translate-x-4 transition-transform duration-300 italic uppercase">{{ item.label }}</span>
             <mat-icon class="opacity-0 group-hover:opacity-100 transition-all text-emerald-500">east</mat-icon>
           </a>
         }
@@ -95,7 +95,7 @@ import { fromEvent, throttleTime, Subject, takeUntil } from 'rxjs';
   `,
   styles: [`
     :host { display: block; z-index: 5000; position: fixed; width: 100%; top: 0; }
-    .animate-mobile-reveal { animation: mobile-reveal 0.6s cubic-bezier(0.2, 0, 0, 1) forwards; }
+    .animate-mobile-reveal { animation: mobile-reveal 0.3s cubic-bezier(0.2, 0, 0, 1) forwards; }
     @keyframes mobile-reveal {
       0% { opacity: 0; transform: translateY(-20px) scale(0.95) rotateX(-10deg); }
       100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0); }

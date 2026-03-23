@@ -257,8 +257,9 @@ export class OrbComponent implements AfterViewInit, OnDestroy {
 
     this.resizeHandler = () => {
       if (!container || !this.renderer || !this.program) return;
-      // Optimize: Cap DPR to 2 for better performance on high density screens
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Optimize: Cap DPR to 1 on mobile, 2 on desktop for better performance
+      const isMobile = window.innerWidth < 768;
+      const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
       const width = container.clientWidth;
       const height = container.clientHeight;
       this.renderer.setSize(width * dpr, height * dpr);

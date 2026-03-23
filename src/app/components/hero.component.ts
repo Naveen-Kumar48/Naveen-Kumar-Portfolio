@@ -36,13 +36,13 @@ import { StorylineComponent } from './storyline.component';
           </div>
           
           <div class="flex flex-col gap-4">
-            <h1 class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.82] text-[var(--text-primary)]">
+            <h1 class="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.82] text-[var(--text-primary)]">
                <!-- Narrative Greeting -->
-               <div class="min-h-[1.2em] mb-2">
-                 <span class="inline-block mr-4 text-[var(--text-secondary)] text-3xl md:text-4xl lg:text-5xl font-black italic">
-                   {{ displayedGreeting() }}<span *ngIf="activeSection() === 'greeting'" class="animate-pulse bg-[var(--text-secondary)] w-1 h-8 inline-block ml-1"></span>
-                 </span>
-               </div>
+                <div class="min-h-[1.2em] mb-2">
+                  <span class="inline-block mr-4 text-[var(--text-secondary)] text-2xl md:text-4xl lg:text-5xl font-black italic">
+                    {{ displayedGreeting() }}<span *ngIf="activeSection() === 'greeting'" class="animate-pulse bg-[var(--text-secondary)] w-1 h-6 md:h-8 inline-block ml-1"></span>
+                  </span>
+                </div>
 
                <!-- Primary Identity -->
                <div class="min-h-[1.1em] flex items-center tracking-tighter perspective-1500 mb-6 font-black scale-100 origin-left">
@@ -53,16 +53,16 @@ import { StorylineComponent } from './storyline.component';
                </div>
 
                <!-- Kinetic Role Matrix (Infinite Cycle) -->
-               <div class="min-h-[1.2em]">
-                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 font-black text-4xl md:text-6xl lg:text-7xl xl:text-8xl italic uppercase leading-[1.1] drop-shadow-[0_10px_20px_rgba(16,185,129,0.15)]">
-                    {{ displayedRole() }}<span *ngIf="activeSection() === 'role'" class="animate-pulse bg-emerald-500 w-1 h-12 lg:h-16 xl:h-20 inline-block ml-2 rounded-sm shadow-[0_0_15px_rgba(16,185,129,0.5)]"></span>
-                 </span>
-               </div>
+                <div class="min-h-[1.2em] font-black text-4xl md:text-6xl lg:text-7xl xl:text-8xl italic uppercase leading-[1.1]">
+                  <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 drop-shadow-[0_10px_20px_rgba(16,185,129,0.15)] py-2">
+                     {{ displayedRole() }}
+                  </span><span *ngIf="activeSection() === 'role'" class="animate-pulse bg-emerald-500 w-2 md:w-3 h-[0.85em] inline-block align-baseline ml-2 md:ml-4 rounded-sm shadow-[0_0_15px_rgba(16,185,129,0.5)]"></span>
+                </div>
             </h1>
           </div>
           
           <p #animateItem class="text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl font-bold opacity-0 translate-y-12 leading-relaxed">
-            As a <span class="text-[var(--text-primary)] font-black text-reveal-gradient italic">Full Stack Developer in New Delhi</span>, I architect high-performance SaaS infrastructures and AI-integrated multi-cloud systems with mathematical precision.
+            As a <span class="text-[var(--text-primary)] font-black text-reveal-gradient italic">Full Stack Developer</span>, I architect high-performance SaaS infrastructures and AI-integrated multi-cloud systems with mathematical precision.
           </p>
           
           <div #animateItem class="flex flex-wrap gap-10 mt-6 items-center opacity-0 translate-y-12">
@@ -82,7 +82,7 @@ import { StorylineComponent } from './storyline.component';
             <a href="https://github.com/Naveen-Kumar48" target="_blank" appMagnetic class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all duration-700" title="GitHub">
               <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             </a>
-            <a href="https://www.linkedin.com/in/naveen-kumar-6806382b9/" target="_blank" appMagnetic class="text-[var(--text-secondary)] hover:text-emerald-500 transition-all duration-700" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/naveen-kumar-dev/" target="_blank" appMagnetic class="text-[var(--text-secondary)] hover:text-emerald-500 transition-all duration-700" title="LinkedIn">
               <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
             </a>
           </div>
@@ -129,7 +129,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   private orbAnimation: gsap.core.Tween | null = null;
 
   // Infinity Cycle Config
-  private roles = ["Full Stack Architect", "MERN Stack Developer", "React Developer India", "Node.js Developer Delhi"];
+  private roles = ["Full Stack Developer", "MERN Stack Developer", "React Developer"];
   private currentRoleIndex = 0;
 
   ngAfterViewInit() {
@@ -142,32 +142,33 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   }
 
   private initAnimations() {
-    this.mainTimeline = gsap.timeline({ defaults: { ease: 'expo.out' } });
+    this.mainTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     this.mainTimeline.to(this.badgeContainer.nativeElement, {
-      opacity: 1, y: 0, duration: 1.5, delay: 1.0
+      opacity: 1, y: 0, duration: 0.8, delay: 0.2
     });
 
     this.mainTimeline.add(() => {
       this.runSequeTyped([
-        { text: "Extreme-Tier Engineering / Active", signal: this.displayedBadge, type: 'badge' },
+        { text: "Extreme-Tier / Active", signal: this.displayedBadge, type: 'badge' },
         { text: "Hi, I'm", signal: this.displayedGreeting, type: 'greeting' },
         { text: "Naveen Kumar", signal: this.displayedName, type: 'name' }
       ]);
-    }, "-=0.5");
+    }, "-=0.2");
 
     this.mainTimeline.to(this.animateItems.map(el => el.nativeElement), {
-      opacity: 1, y: 0, duration: 2, stagger: 0.2, ease: 'power4.out'
-    }, "+=3.5");
+      opacity: 1, y: 0, duration: 0.8, stagger: 0.1
+    }, "+=1.5");
 
-    this.mainTimeline.to(this.visualRef.nativeElement, { opacity: 1, scale: 1, x: 0, duration: 3, ease: 'expo.out' }, "-=3");
+    this.mainTimeline.to(this.visualRef.nativeElement, { opacity: 1, scale: 1, x: 0, duration: 1.5 }, "-=1.0");
 
-    this.orbAnimation = gsap.to(this.orbContainerRef.nativeElement, { y: 50, duration: 6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    this.orbAnimation = gsap.to(this.orbContainerRef.nativeElement, { y: 20, duration: 4, repeat: -1, yoyo: true, ease: 'sine.inOut' });
 
     this.mouseMoveListener = (e: MouseEvent) => {
-      // Disable parallax logic on touch-only protocols to ensure interaction integrity
+      // Disable parallax logic on touch-only protocols or small screens to ensure performance
       const isTouch = window.matchMedia('(hover: none)').matches;
-      if (isTouch) return;
+      const isSmallScreen = window.innerWidth < 1024;
+      if (isTouch || isSmallScreen) return;
 
       const x = (e.clientX / window.innerWidth - 0.5);
       const y = (e.clientY / window.innerHeight - 0.5);
@@ -195,9 +196,9 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       if (charIndex < current.text.length) {
         current.signal.set(current.text.substring(0, charIndex + 1));
         charIndex++;
-        setTimeout(type, 30 + Math.random() * 40);
+        setTimeout(type, 15 + Math.random() * 20);
       } else {
-        setTimeout(() => this.runSequeTyped(items, index + 1), 400);
+        setTimeout(() => this.runSequeTyped(items, index + 1), 200);
       }
     };
     type();
@@ -215,9 +216,9 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       if (charIndex < role.length) {
         this.displayedRole.set(role.substring(0, charIndex + 1));
         charIndex++;
-        setTimeout(type, 50 + Math.random() * 30);
+        setTimeout(type, 30 + Math.random() * 20);
       } else {
-        setTimeout(() => this.backspaceRole(role), 3000);
+        setTimeout(() => this.backspaceRole(role), 2000);
       }
     };
     type();
@@ -230,10 +231,10 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       if (charIndex >= 0) {
         this.displayedRole.set(role.substring(0, charIndex));
         charIndex--;
-        setTimeout(backspace, 30);
+        setTimeout(backspace, 15);
       } else {
         this.currentRoleIndex = (this.currentRoleIndex + 1) % this.roles.length;
-        setTimeout(() => this.typeRole(this.roles[this.currentRoleIndex]), 500);
+        setTimeout(() => this.typeRole(this.roles[this.currentRoleIndex]), 200);
       }
     };
     backspace();

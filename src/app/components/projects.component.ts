@@ -51,7 +51,7 @@ import { MagneticDirective } from '../directives/magnetic.directive';
         <div #grid class="grid grid-cols-1 md:grid-cols-6 gap-8 min-h-[900px]">
           @for (project of filteredProjects(); track project.id; let i = $index) {
             <article 
-                 [class]="'group relative rounded-3xl overflow-hidden liquid-glass border border-white/5 transition-all duration-1000 hover:border-emerald-500/30 shadow-2xl flex flex-col ' + 
+                 [class]="'group relative rounded-3xl overflow-hidden liquid-glass border border-white/5 transition-colors duration-500 hover:border-emerald-500/30 shadow-2xl flex flex-col ' + 
                           (i % 3 === 0 ? 'md:col-span-4' : 'md:col-span-2')"
                  (mouseenter)="activeProject.set(project.id)"
                  (mouseleave)="activeProject.set(null)">
@@ -91,7 +91,7 @@ import { MagneticDirective } from '../directives/magnetic.directive';
               <!-- Cinematic Media Interaction -->
               <div class="absolute inset-0 z-10 overflow-hidden bg-[#050505]">
                 <img [src]="project.image" 
-                     [alt]="project.title" 
+                     [alt]="'Naveen Kumar - Portfolio Project: ' + project.title + ' - ' + project.description" 
                      width="1200"
                      height="800"
                      loading="lazy"
@@ -159,8 +159,8 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
     gsap.to('.reveal-y', {
       opacity: 1,
       y: 0,
-      duration: 1.5,
-      stagger: 0.2,
+      duration: 0.8,
+      stagger: 0.1,
       ease: 'expo.out',
       scrollTrigger: {
         trigger: '#projects',
@@ -172,18 +172,26 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
   }
 
   animateGrid() {
-    if (!this.gridRef?.nativeElement) return;
+    if (!this.gridRef?.nativeElement || !isPlatformBrowser(this.platformId)) return;
+
+    const isSmallScreen = window.innerWidth < 1024;
     const cards = Array.from(this.gridRef.nativeElement.children);
+
+    // Simpler animation for mobile
+    const startX = isSmallScreen ? 0 : (i: number) => (i % 2 === 0 ? -20 : 20);
+    const startY = isSmallScreen ? 10 : 20;
+    const duration = isSmallScreen ? 0.6 : 0.8;
+
     gsap.fromTo(cards,
-      { opacity: 0, scale: 0.9, x: i => (i % 2 === 0 ? -40 : 40), y: 40 },
+      { opacity: 0, scale: 0.98, x: startX, y: startY },
       {
         opacity: 1,
         scale: 1,
         x: 0,
         y: 0,
-        duration: 1.2,
-        stagger: 0.1,
-        ease: 'expo.out',
+        duration: duration,
+        stagger: 0.05,
+        ease: 'power3.out',
         overwrite: 'auto'
       }
     );

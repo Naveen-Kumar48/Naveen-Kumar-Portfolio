@@ -28,8 +28,8 @@ import { MagneticDirective } from '../directives/magnetic.directive';
 
         <div #grid class="space-y-12">
           @for (activity of activities; track activity.id) {
-            <article class="liquid-glass p-8 md:p-12 rounded-[3rem] border border-[var(--glass-border)] hover:border-emerald-500/40 transition-all duration-1000 group relative overflow-hidden opacity-0 translate-y-12">
-              <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+            <article class="liquid-glass p-8 md:p-12 rounded-[3rem] border border-[var(--glass-border)] hover:border-emerald-500/40 transition-colors duration-500 hover:shadow-[0_20px_40px_rgba(16,185,129,0.15)] group relative overflow-hidden opacity-0 translate-y-12">
+              <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               
               <div class="flex flex-col lg:flex-row lg:items-start gap-10 relative z-10">
                 
@@ -86,17 +86,19 @@ export class AcademicActivityComponent implements AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       // Kinetic Entrance Reveal
       const children = Array.from(this.gridRef.nativeElement.children) as HTMLElement[];
-      gsap.to(children, {
-        scrollTrigger: {
-          trigger: this.gridRef.nativeElement,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        stagger: 0.3,
-        ease: 'expo.out'
+      children.forEach((child) => {
+        gsap.to(child, {
+          scrollTrigger: {
+            trigger: child,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          },
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'back.out(1.2)',
+          clearProps: 'transform'
+        });
       });
     }
   }

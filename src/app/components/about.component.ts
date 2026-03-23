@@ -110,15 +110,15 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
       });
 
       tl.fromTo(this.imageRef.nativeElement,
-        { opacity: 0, scale: 0.98, y: 30, filter: 'blur(10px)' },
-        { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power2.out' }
+        { opacity: 0, scale: 0.98, y: 20 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: 'power2.out' }
       )
         .to(this.textRef.nativeElement, {
           opacity: 1,
           x: 0,
-          duration: 1.0,
+          duration: 0.8,
           ease: 'power2.out'
-        }, '-=0.8');
+        }, '-=0.4');
 
       // Tame Floating Physics
       gsap.to(this.tiltContainer.nativeElement, {
@@ -131,6 +131,9 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
 
       // Subtle Interactive Tilt
       this.mouseMoveListener = (e: MouseEvent) => {
+        const isSmallScreen = window.innerWidth < 1024;
+        if (isSmallScreen) return;
+
         const rect = this.imageRef.nativeElement.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;

@@ -209,11 +209,11 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
     });
 
     gsap.to(this.infoRef.nativeElement, {
-      opacity: 1, x: 0, duration: 1.5, ease: 'expo.out', scrollTrigger: { trigger: this.infoRef.nativeElement, start: 'top 80%' }
+      opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', scrollTrigger: { trigger: this.infoRef.nativeElement, start: 'top 80%' }
     });
 
     gsap.to(this.formRef.nativeElement, {
-      opacity: 1, x: 0, duration: 1.8, ease: 'expo.out', delay: 0.3, scrollTrigger: { trigger: this.formRef.nativeElement, start: 'top 80%' }
+      opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', delay: 0.1, scrollTrigger: { trigger: this.formRef.nativeElement, start: 'top 80%' }
     });
   }
 

@@ -32,43 +32,43 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
     
     <div [style.visibility]="contentVisible() ? 'visible' : 'hidden'"
          [style.opacity]="contentVisible() ? '1' : '0'"
-         class="transition-opacity duration-[1500ms] ease-out">
+         class="transition-opacity duration-[800ms] ease-out">
       <app-cursor />
       <main class="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] cursor-none overflow-x-hidden selection:bg-emerald-500/30 selection:text-emerald-200">
         <app-navbar />
         <app-hero />
         
-        @defer (on viewport; prefetch on idle) {
+        @defer (on idle; on viewport; prefetch on idle) {
           <app-about />
         } @placeholder {
           <div class="h-[600px] w-full bg-[var(--bg-primary)]"></div>
         }
 
-        @defer (on viewport; prefetch on idle) {
+        @defer (on idle; on viewport; prefetch on idle) {
           <app-skills />
         } @placeholder {
           <div class="h-[500px] w-full bg-[var(--bg-secondary)]"></div>
         }
 
-        @defer (on viewport; prefetch on idle) {
+        @defer (on idle; on viewport; prefetch on idle) {
           <app-projects />
         } @placeholder {
           <div class="h-[800px] w-full bg-[var(--bg-primary)]"></div>
         }
 
-        @defer (on viewport; prefetch on idle) {
+        @defer (on idle; on viewport; prefetch on idle) {
           <app-experience />
         } @placeholder {
           <div class="h-[700px] w-full bg-[var(--bg-secondary)]"></div>
         }
 
-        @defer (on viewport; prefetch on idle) {
+        @defer (on idle; on viewport; prefetch on idle) {
           <app-academic-activity />
         } @placeholder {
           <div class="h-[600px] w-full bg-[var(--bg-primary)]"></div>
         }
 
-        @defer (on viewport; prefetch on idle) {
+        @defer (on idle; on viewport; prefetch on idle) {
           <app-contact />
         } @placeholder {
           <div class="h-[500px] w-full bg-[var(--bg-secondary)]"></div>
@@ -122,7 +122,7 @@ export class App implements OnInit, AfterViewInit {
           '@id': 'https://naveenweb.site/#person',
           'name': 'Naveen Kumar',
           'url': 'https://naveenweb.site/',
-          'jobTitle': 'Senior Full Stack Developer & MERN Architect',
+          'jobTitle': 'Senior Full Stack Developer, MERN Expert & Senior Web Architect',
           'image': 'https://naveenweb.site/og-image.png',
           'description': premiumDescription,
           'email': 'mailto:kumarnaveen897941@gmail.com',
@@ -133,10 +133,16 @@ export class App implements OnInit, AfterViewInit {
             'addressRegion': 'Delhi',
             'addressCountry': 'India'
           },
-          'knowsAbout': ['MERN Stack', 'Next.js', 'React', 'Node.js', 'Artificial Intelligence', 'System Design', 'Scalable Architecture', 'Cloud Computing', 'TypeScript', 'MongoDB'],
+          'alumniOf': 'Indira Gandhi National Open University (IGNOU)',
+          'hasCredential': ['BCA', 'Computer Applications'],
+          'knowsAbout': [
+            'Full Stack Developer India', 'New Delhi Freelance Web Developer', 'MERN Stack Architecture',
+            'React.js Specialist', 'Next.js SaaS Expert', 'Scalable Node.js Backend', 'AI System Integration',
+            'Multi-Cloud Infrastructures', 'Enterprise-grade Web Performance', 'Cybersecurity for Web'
+          ],
           'sameAs': [
             'https://github.com/Naveen-Kumar48',
-            'https://www.linkedin.com/in/naveen-kumar-6806382b9/',
+            'https://www.linkedin.com/in/naveen-kumar-dev/',
             'https://x.com/naveen'
           ]
         },
@@ -170,15 +176,22 @@ export class App implements OnInit, AfterViewInit {
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
+
+      // Force immediate reset
       window.scrollTo(0, 0);
+
+      // Clear hash to prevent auto-jump
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname);
+      }
 
       this.ngZone.runOutsideAngular(() => {
         gsap.registerPlugin(ScrollTrigger);
         const lenis = new Lenis({
-          duration: 1.8,
+          duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          lerp: 0.1,
-          touchMultiplier: 2,
+          lerp: 0.15,
+          touchMultiplier: 2.5,
           infinite: false,
         });
 
@@ -198,6 +211,9 @@ export class App implements OnInit, AfterViewInit {
   private initPageRevealer() {
     // Precise, high-speed reveal protocol
     setTimeout(() => {
+      if (isPlatformBrowser(this.platformId)) {
+        window.scrollTo(0, 0);
+      }
       this.contentVisible.set(true);
     }, 800);
   }

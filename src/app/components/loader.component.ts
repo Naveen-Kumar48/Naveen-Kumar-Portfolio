@@ -76,7 +76,7 @@ import { gsap } from 'gsap';
     }
 
     .animate-loading-bar {
-        animation: progress 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        animation: progress 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
     }
 
     @keyframes progress {
@@ -85,7 +85,7 @@ import { gsap } from 'gsap';
     }
 
     .animate-reveal {
-        animation: zoom-in 1.5s cubic-bezier(0.2, 0, 0, 1) forwards;
+        animation: zoom-in 0.6s cubic-bezier(0.2, 0, 0, 1) forwards;
     }
 
     @keyframes zoom-in {
@@ -94,7 +94,7 @@ import { gsap } from 'gsap';
     }
 
     .animate-fade-in {
-        animation: fade-in 2s ease-out 0.5s both;
+        animation: fade-in 0.8s ease-out 0.2s both;
     }
 
     @keyframes fade-in {
@@ -114,16 +114,15 @@ export class LoaderComponent implements OnInit {
         if (overlay) {
           gsap.to(overlay, {
             opacity: 0,
-            scale: 1.1,
-            filter: 'blur(20px)',
-            duration: 1.2,
+            scale: 1.05,
+            duration: 0.5,
             ease: 'expo.inOut',
             onComplete: () => this.isVisible.set(false)
           });
         } else {
           this.isVisible.set(false);
         }
-      }, 1000);
+      }, 500);
     }
   }
 }
