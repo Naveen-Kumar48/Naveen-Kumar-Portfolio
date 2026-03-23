@@ -45,7 +45,8 @@
 
 @media (max-width: 768px) {
   .liquid-glass {
-    backdrop-filter: blur(8px) saturate(150%); /* Lighter on mobile */
+    backdrop-filter: blur(8px) saturate(150%);
+    /* Lighter on mobile */
   }
 }
 
@@ -71,8 +72,12 @@ section {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  @apply font-sans antialiased selection:bg-emerald-500/30 selection:text-emerald-200 transition-colors duration-500;
+  @apply font-sans antialiased selection:bg-transparent transition-colors duration-500;
   overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Typography Overrides */

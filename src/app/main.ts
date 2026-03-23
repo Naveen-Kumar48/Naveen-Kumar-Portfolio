@@ -34,7 +34,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
          [style.opacity]="contentVisible() ? '1' : '0'"
          class="transition-opacity duration-[800ms] ease-out">
       <app-cursor />
-      <main class="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] cursor-none overflow-x-hidden selection:bg-emerald-500/30 selection:text-emerald-200">
+      <main class="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] cursor-none overflow-x-hidden selection:bg-transparent">
         <app-navbar />
         <app-hero />
         
@@ -99,6 +99,7 @@ export class App implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.initSmoothScroll();
+      this.initSecurityLock();
       this.initPageRevealer();
     }
   }
@@ -204,6 +205,27 @@ export class App implements OnInit, AfterViewInit {
         });
 
         gsap.ticker.lagSmoothing(0);
+      });
+    }
+  }
+
+  private initSecurityLock() {
+    if (isPlatformBrowser(this.platformId)) {
+      // Shield against direct extraction
+      window.addEventListener('contextmenu', (e) => e.preventDefault());
+      window.addEventListener('copy', (e) => e.preventDefault());
+
+      // Blacklist tactical shortcut keys
+      window.addEventListener('keydown', (e) => {
+        if (
+          (e.ctrlKey && (e.key === 'u' || e.key === 'c' || e.key === 's' || e.key === 'i' || e.key === 'j')) ||
+          (e.metaKey && (e.key === 'u' || e.key === 'c' || e.key === 's' || e.key === 'i' || e.key === 'j')) ||
+          e.key === 'F12'
+        ) {
+          e.preventDefault();
+          return false;
+        }
+        return true;
       });
     }
   }
