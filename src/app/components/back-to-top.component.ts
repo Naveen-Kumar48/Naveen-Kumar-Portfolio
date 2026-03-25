@@ -40,7 +40,7 @@ export class BackToTopComponent {
     }
 
     private toggleVisibility() {
-        if (this.visible) {
+        if (this.visible && window.innerWidth >= 768) {
             gsap.to(this.btnRef.nativeElement, {
                 opacity: 1,
                 y: 0,

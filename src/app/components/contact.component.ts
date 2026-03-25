@@ -13,12 +13,12 @@ import { ToastrService } from 'ngx-toastr';
   imports: [CommonModule, ReactiveFormsModule, MatIconModule, MagneticDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section id="contact" class="py-32 relative overflow-hidden transition-colors duration-500">
+    <section id="contact" class="py-20 md:py-32 relative overflow-hidden transition-colors duration-500">
       <!-- Spatial Design Elements -->
       <div class="absolute -bottom-24 -right-24 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
       <div class="absolute top-1/2 left-0 w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[100px] -z-10 -translate-x-1/2"></div>
 
-      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
         
         <!-- Interactive Information Sidebar -->
         <div #infoSide class="opacity-0 -translate-x-12">
@@ -70,7 +70,7 @@ import { ToastrService } from 'ngx-toastr';
         </div>
 
         <!-- High-Performance Input Terminal -->
-        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-10 md:p-12 rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative transition-all duration-1000 group/form opacity-0 translate-x-12">
+        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-6 md:p-12 rounded-3xl md:rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative transition-all duration-1000 group/form opacity-0 translate-x-12">
           <div class="space-y-8 relative">
             <!-- Quantum Success State -->
             <div *ngIf="submitted" 

@@ -11,9 +11,9 @@ import { fromEvent, throttleTime, Subject, takeUntil } from 'rxjs';
   imports: [CommonModule, MatIconModule, MagneticDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <nav [class]="'fixed top-0 left-0 w-full z-[1000] transition-all duration-700 px-6 py-4 ' + (scrolled() ? 'py-3' : 'py-6')">
+    <nav [class]="'fixed top-0 left-0 w-full z-[1000] transition-all duration-700 px-4 md:px-6 py-4 ' + (scrolled() ? 'py-3' : 'py-6')">
       <!-- High-Performance Nav Container -->
-      <div [class]="'max-w-7xl mx-auto flex justify-between items-center transition-all duration-700 rounded-[2rem] px-8 ' + (scrolled() || mobileMenuOpen() ? 'liquid-glass border border-[var(--glass-border)] py-3 shadow-2xl backdrop-blur-2xl' : 'bg-transparent py-2 border-transparent')">
+      <div [class]="'max-w-7xl mx-auto flex justify-between items-center transition-all duration-700 rounded-[2rem] px-5 md:px-8 ' + (scrolled() || mobileMenuOpen() ? 'liquid-glass border border-[var(--glass-border)] py-3 shadow-2xl backdrop-blur-2xl' : 'bg-transparent py-2 border-transparent')">
         
         <!-- Logo Matrix -->
         <a href="#" class="group flex items-center gap-1 text-3xl font-black tracking-tighter text-[var(--text-primary)] leading-none">
