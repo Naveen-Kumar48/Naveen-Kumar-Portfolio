@@ -11,6 +11,9 @@ import { AcademicActivityComponent } from './components/academic-activity.compon
 import { CursorComponent } from './components/cursor.component';
 import { LoaderComponent } from './components/loader.component';
 import { BackToTopComponent } from './components/back-to-top.component';
+import { CookieBannerComponent } from './components/cookie-banner.component';
+import { CookiePreferencesModalComponent } from './components/cookie-preferences-modal.component';
+import { CookieSettingsButtonComponent } from './components/cookie-settings-button.component';
 import { signal, OnInit, inject, PLATFORM_ID, AfterViewInit, NgZone } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { SeoService } from './services/seo.service';
@@ -25,7 +28,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
   imports: [
     NavbarComponent, HeroComponent, AboutComponent, SkillsComponent, ProjectsComponent,
     ExperienceComponent, ContactComponent, FooterComponent, AcademicActivityComponent,
-    CursorComponent, LoaderComponent, BackToTopComponent, CommonModule
+    CursorComponent, LoaderComponent, BackToTopComponent, CommonModule,
+    CookieBannerComponent, CookiePreferencesModalComponent, CookieSettingsButtonComponent
   ],
   template: `
     <app-loader />
@@ -77,6 +81,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         <app-footer />
       </main>
       <app-back-to-top />
+      <app-cookie-banner />
+      <app-cookie-preferences-modal />
+      <app-cookie-settings-button />
     </div>
   `
 })
