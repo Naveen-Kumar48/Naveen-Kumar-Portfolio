@@ -62,7 +62,7 @@ import { StorylineComponent } from './storyline.component';
           </div>
           
           <p #animateItem class="text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl font-bold opacity-0 translate-y-12 leading-relaxed">
-            As a <span class="text-[var(--text-primary)] font-black text-reveal-gradient italic">Full Stack Developer</span>, I architect high-performance SaaS infrastructures and AI-integrated multi-cloud systems with mathematical precision.
+            Building Scalable Web Applications with the MERN Stack. I am Naveen Kumar, a <span class="text-[var(--text-primary)] font-black text-reveal-gradient italic">Senior Full Stack Developer</span> specializing in React.js and Node.js. I help startups and enterprises turn complex requirements into high-performance, user-centric digital products.
           </p>
           
           <div #animateItem class="flex flex-wrap gap-10 mt-6 items-center opacity-0 translate-y-12">
@@ -70,7 +70,7 @@ import { StorylineComponent } from './storyline.component';
                appMagnetic
                (click)="scrollToProjects($event)"
                class="px-12 py-6 bg-[var(--text-primary)] text-[var(--bg-primary)] font-black rounded-3xl transition-all shadow-2xl hover:scale-110 active:scale-95 flex items-center gap-3 uppercase text-[12px] tracking-[0.3em]">
-              Examine Codebase <mat-icon class="text-sm">arrow_outward</mat-icon>
+              Explore my latest full stack MERN projects <mat-icon class="text-sm">arrow_outward</mat-icon>
             </a>
             
             <div appMagnetic>

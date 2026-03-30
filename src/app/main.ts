@@ -112,12 +112,50 @@ export class App implements OnInit, AfterViewInit {
   }
 
   private initSEO() {
-    const premiumDescription = 'Naveen Kumar - Elite Full Stack Developer and MERN Expert in New Delhi, India. Specialized in AI-driven SaaS solutions, high-performance web architectures, and premium interactive experiences. Expert in React, Node.js, and Scalable Cloud Systems.';
-    const premiumKeywords = 'Full Stack Developer New Delhi, Best MERN Stack Developer India, Senior Web Architect Delhi, Freelance Full Stack Developer India, AI Integration Expert, React Node.js Developer Delhi, High-Performance Web Applications, Naveen Kumar Portfolio, Software Engineer New Delhi';
+    const description = 'Naveen Kumar is a Full Stack Developer from New Delhi, India. Expert in MERN Stack, React.js, Next.js, Node.js & AI integration. Available for freelance and full-time roles. View portfolio at naveenweb.site.';
+
+    const keywords = [
+      // Name-based (highest priority — people searching you directly)
+      'Naveen Kumar', 'Naveen Kumar developer', 'Naveen Kumar portfolio',
+      'Naveen Kumar full stack developer', 'Naveen Kumar New Delhi',
+      'Naveen Kumar React developer', 'Naveen Kumar MERN stack',
+      'naveenweb.site', 'naveen kumar web developer india',
+
+      // Role + Location (local SEO — recruiters & clients search these)
+      'full stack developer India', 'full stack developer New Delhi',
+      'MERN stack developer India', 'MERN stack developer New Delhi',
+      'React developer India', 'React.js developer New Delhi',
+      'Next.js developer India', 'Node.js developer India',
+      'JavaScript developer India', 'TypeScript developer India',
+      'frontend developer India', 'backend developer India',
+      'software engineer New Delhi', 'software developer India',
+
+      // Hire intent (high commercial value — recruiters & clients)
+      'hire full stack developer India', 'hire React developer India',
+      'hire MERN stack developer', 'hire Next.js developer India',
+      'freelance full stack developer India',
+      'freelance web developer New Delhi',
+      'freelance React developer India',
+      'full stack developer for hire India',
+      'remote full stack developer India',
+
+      // Skill-based (tech recruiters search these)
+      'React.js expert India', 'Next.js SSR developer India',
+      'Node.js backend developer India', 'MongoDB developer India',
+      'Express.js developer India', 'REST API developer India',
+      'AI developer India', 'SaaS developer India',
+      'e-commerce developer India', 'web application developer India',
+
+      // Portfolio-specific (long-tail, low competition, high intent)
+      'best full stack developer portfolio India',
+      'web developer portfolio New Delhi',
+      'portfolio website developer India',
+      'top React developer portfolio India'
+    ].join(', ');
 
     this.seo.updateTags({
-      description: premiumDescription,
-      keywords: premiumKeywords,
+      description,
+      keywords,
       url: 'https://naveenweb.site/',
       image: 'https://naveenweb.site/og-image.png'
     });
@@ -130,49 +168,56 @@ export class App implements OnInit, AfterViewInit {
           '@id': 'https://naveenweb.site/#person',
           'name': 'Naveen Kumar',
           'url': 'https://naveenweb.site/',
-          'jobTitle': 'Senior Full Stack Developer, MERN Expert & Senior Web Architect',
+          'jobTitle': 'Full Stack Developer',
           'image': 'https://naveenweb.site/og-image.png',
-          'description': premiumDescription,
-          'email': 'mailto:kumarnaveen897941@gmail.com',
+          'description': description,
+          'email': 'kumarnaveen897941@gmail.com',
           'telephone': '+918979413404',
           'address': {
             '@type': 'PostalAddress',
             'addressLocality': 'New Delhi',
             'addressRegion': 'Delhi',
-            'addressCountry': 'India'
+            'addressCountry': 'IN'
           },
-          'alumniOf': 'Indira Gandhi National Open University (IGNOU)',
-          'hasCredential': ['BCA', 'Computer Applications'],
+          'alumniOf': {
+            '@type': 'CollegeOrUniversity',
+            'name': 'Indira Gandhi National Open University (IGNOU)'
+          },
           'knowsAbout': [
-            'Full Stack Developer India', 'New Delhi Freelance Web Developer', 'MERN Stack Architecture',
-            'React.js Specialist', 'Next.js SaaS Expert', 'Scalable Node.js Backend', 'AI System Integration',
-            'Multi-Cloud Infrastructures', 'Enterprise-grade Web Performance', 'Cybersecurity for Web'
+            'React.js', 'Next.js', 'Node.js', 'MongoDB', 'Express.js',
+            'MERN Stack', 'TypeScript', 'JavaScript', 'Full Stack Development',
+            'AI Integration', 'SaaS Development', 'REST API', 'Web Performance'
           ],
           'sameAs': [
             'https://github.com/Naveen-Kumar48',
-            'https://www.linkedin.com/in/naveen-kumar-dev/',
-            'https://x.com/naveen'
+            'https://www.linkedin.com/in/naveen-kumar-dev/'
           ]
         },
         {
           '@type': 'WebSite',
           '@id': 'https://naveenweb.site/#website',
           'url': 'https://naveenweb.site/',
-          'name': 'Naveen Kumar | Professional Portfolio',
-          'description': premiumDescription,
-          'publisher': { '@id': 'https://naveenweb.site/#person' }
+          'name': 'Naveen Kumar | Full Stack Developer Portfolio',
+          'description': description,
+          'publisher': { '@id': 'https://naveenweb.site/#person' },
+          'inLanguage': 'en-IN'
+        },
+        {
+          '@type': 'ProfilePage',
+          '@id': 'https://naveenweb.site/#profilepage',
+          'url': 'https://naveenweb.site/',
+          'name': 'Naveen Kumar - Full Stack Developer Portfolio',
+          'about': { '@id': 'https://naveenweb.site/#person' },
+          'mainEntity': { '@id': 'https://naveenweb.site/#person' }
         },
         {
           '@type': 'BreadcrumbList',
-          '@id': 'https://naveenweb.site/#breadcrumb',
-          'itemListElement': [
-            {
-              '@type': 'ListItem',
-              'position': 1,
-              'name': 'Home',
-              'item': 'https://naveenweb.site/'
-            }
-          ]
+          'itemListElement': [{
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': 'https://naveenweb.site/'
+          }]
         }
       ]
     });

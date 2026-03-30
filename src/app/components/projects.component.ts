@@ -24,11 +24,11 @@ import { MagneticDirective } from '../directives/magnetic.directive';
               <span class="text-emerald-500 font-mono text-[11px] uppercase tracking-[0.5em] font-black italic">Curated Architectures</span>
             </div>
             <h2 class="text-5xl lg:text-7xl font-black mb-6 tracking-tighter leading-none reveal-y opacity-0">
-               Engineering <span class="text-zinc-600">The</span> <br>
-               <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Extreme-Tier</span>
+               Featured MERN Stack <br>
+               <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Portfolio Projects</span>
             </h2>
             <p class="text-zinc-500 text-lg md:text-xl font-medium reveal-y opacity-0">
-                A rigorous orchestration of high-performance SaaS ecosystems and immersive 3D spatial environments.
+                Explore my portfolio of custom MERN stack applications. See case studies of scalable SaaS platforms, e-commerce sites, and React.js web apps I've built.
             </p>
           </div>
           

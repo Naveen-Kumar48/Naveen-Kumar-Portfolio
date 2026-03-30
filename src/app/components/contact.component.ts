@@ -32,7 +32,7 @@ import { ToastrService } from 'ngx-toastr';
           </h2>
           
           <p class="text-[var(--text-secondary)] text-xl font-medium mb-12 leading-relaxed max-w-lg">
-            Engineering elite digital systems requires relentless collaboration. If you are looking to <span class="text-[var(--text-primary)] font-black italic">Hire a Full Stack Developer</span> for high-stakes projects, let's connect.
+            Ready to build your next web application? I am currently available for freelance projects and remote full-time roles. Let's collaborate to bring your vision to life using cutting-edge <span class="text-[var(--text-primary)] font-black italic">React.js and Node.js</span> technologies. Contact me today to discuss your specific technical requirements.
           </p>
 
           <!-- Contact Matrices -->

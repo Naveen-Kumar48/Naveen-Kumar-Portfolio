@@ -1,16 +1,4 @@
 User-agent: *
 Allow: /
-Allow: /assets/
-Allow: /favicon.png
-Allow: /og-image.png
 
-# Disallow admin or private areas if they exist
-Disallow: /admin/
-Disallow: /api/
-Disallow: /private/
-
-# Absolute path to sitemap
 Sitemap: https://naveenweb.site/sitemap.xml
-
-# Performance settings for crawlers
-Crawl-delay: 1

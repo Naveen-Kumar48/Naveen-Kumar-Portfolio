@@ -21,7 +21,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         <div #imageSide class="relative order-2 lg:order-1 opacity-0 group perspective-1000">
           <div #tiltContainer class="relative z-10 transition-shadow duration-700 ease-out" style="transform-style: preserve-3d">
             <div class="rounded-3xl overflow-hidden border border-[var(--glass-border)] liquid-glass shadow-2xl relative group-hover:border-emerald-500/50 transition-colors duration-1000">
-              <img src="/about_tech.webp" alt="Naveen Kumar - Best Web Application Developer Delhi NCR" width="800" height="800" loading="lazy" decoding="async" class="w-full h-auto object-cover transform scale-105 group-hover:scale-100 transition-all duration-[2s] ease-out mix-blend-luminosity group-hover:mix-blend-normal">
+              <img src="/about_tech.webp" alt="Naveen Kumar - Freelance MERN Stack Developer and React.js Expert" width="800" height="800" loading="lazy" decoding="async" class="w-full h-auto object-cover transform scale-105 group-hover:scale-100 transition-all duration-[2s] ease-out mix-blend-luminosity group-hover:mix-blend-normal">
               
               <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
               <div class="absolute inset-0 bg-[var(--bg-primary)]/40 group-hover:bg-transparent transition-colors duration-1000"></div>
@@ -48,16 +48,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
           </div>
 
           <h2 class="text-5xl md:text-6xl lg:text-7xl font-black mb-10 tracking-tighter leading-[0.9] text-[var(--text-primary)]">
-            Engineering High-End <br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500">Digital Solutions</span>
+            Technical Expertise & Core <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500">Web Development Skills</span>
           </h2>
           
           <div class="space-y-8 text-[var(--text-secondary)] leading-relaxed text-lg md:text-xl font-medium">
             <p>
-              I am a Senior Software Architect specializing in <span class="text-[var(--text-primary)] font-black italic">Next-Level MERN</span> and <span class="text-[var(--text-primary)] font-black italic">AI-First Engineering</span>. My workflow is predicated on the rigorous integration of scalable backend logic and high-fidelity front-end design systems.
+              As a dedicated Full Stack Web Developer, my core expertise lies in the MERN stack. I architect robust backend systems using Node.js and Express, pair them with highly optimized MongoDB databases, and deliver intuitive, responsive frontend interactions using modern React.js.
             </p>
             <p>
-              From architecting production-grade SaaS engines like <span class="text-emerald-500 font-extrabold underline decoration-emerald-500/20 underline-offset-8">FlashMind</span> to engineering real-time decentralized cloud infrastructures, I prioritize performance, security, and elite Machine Experience (MX).
+              Whether working as a freelance consultant or an integrated team member, my focus is always on clean code, RESTful APIs, and scalable web architecture.
             </p>
           </div>
 
