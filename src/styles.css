@@ -9,31 +9,31 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
-:root {
+:root.light, :root {
+  color-scheme: light;
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent-emerald: #10b981;
+  --accent-cyan: #06b6d4;
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --neo-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --hero-glow: rgba(16, 185, 129, 0.1);
+}
+
+:root.dark {
   color-scheme: dark;
   --bg-primary: #050505;
   /* Deep Obsidian */
   --bg-secondary: #0a0a0a;
   --text-primary: #ffffff;
   --text-secondary: #a1a1aa;
-  --accent-emerald: #10b981;
-  --accent-cyan: #06b6d4;
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-bg: rgba(10, 10, 10, 0.6);
   --neo-shadow: 0 4px 24px -1px rgba(16, 185, 129, 0.15);
   --hero-glow: rgba(16, 185, 129, 0.2);
-}
-
-:root.light {
-  color-scheme: light;
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --glass-border: rgba(0, 0, 0, 0.05);
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --neo-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --hero-glow: rgba(16, 185, 129, 0.1);
 }
 
 .liquid-glass {
@@ -65,14 +65,25 @@ section {
   }
 }
 
-:root.light .liquid-glass {
+:root:not(.dark) .liquid-glass {
   box-shadow: inset 0 0 1px 1px rgba(0, 0, 0, 0.02);
+}
+
+html.dark-transition,
+html.dark-transition * {
+  transition: 
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease,
+    fill 0.4s ease,
+    stroke 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  @apply font-sans antialiased selection:bg-transparent transition-colors duration-500;
+  @apply font-sans antialiased selection:bg-emerald-500/30;
   overflow-x: hidden;
   user-select: none;
   -webkit-user-select: none;
@@ -119,7 +130,7 @@ html.lenis body {
   border: 2px solid var(--bg-primary);
 }
 
-:root.light ::-webkit-scrollbar-thumb {
+:root:not(.dark) ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
 }
 
@@ -131,7 +142,7 @@ html.lenis body {
   background-size: 50px 50px;
 }
 
-:root.light .bg-grid-pattern {
+:root:not(.dark) .bg-grid-pattern {
   background-image:
     linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);

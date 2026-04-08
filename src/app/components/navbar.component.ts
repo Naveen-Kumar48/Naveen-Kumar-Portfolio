@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { gsap } from 'gsap';
 import { MagneticDirective } from '../directives/magnetic.directive';
 import { fromEvent, throttleTime, Subject, takeUntil } from 'rxjs';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -43,8 +44,8 @@ import { fromEvent, throttleTime, Subject, takeUntil } from 'rxjs';
           
           <div class="w-px h-4 bg-white/5 mx-4"></div>
           
-          <button (click)="toggleTheme()" appMagnetic class="p-2 rounded-xl hover:bg-white/5 text-[var(--text-secondary)] hover:text-white transition-all relative z-10" aria-label="Toggle Global Theme Mode">
-            <mat-icon class="text-base">{{ isDarkMode() ? 'nights_stay' : 'light_mode' }}</mat-icon>
+          <button (click)="toggleTheme()" appMagnetic class="p-2 rounded-xl hover:bg-white/5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all relative z-10" aria-label="Toggle Global Theme Mode">
+            <mat-icon class="text-base transition-transform duration-500" [class.rotate-[360deg]]="isDarkMode()">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
           </button>
 
           <a href="#contact" (click)="scrollToSection($event, '#contact')" appMagnetic class="ml-4 relative z-10 group" aria-label="Navigate to contact section">
@@ -57,7 +58,7 @@ import { fromEvent, throttleTime, Subject, takeUntil } from 'rxjs';
         <!-- Mobile Logic Center -->
         <div class="flex items-center gap-3 lg:hidden">
           <button (click)="toggleTheme()" class="p-2 rounded-xl bg-white/5 text-[var(--text-secondary)] transition-all" aria-label="Toggle Theme Mode">
-            <mat-icon class="text-base">{{ isDarkMode() ? 'nights_stay' : 'light_mode' }}</mat-icon>
+            <mat-icon class="text-base transition-transform duration-500" [class.rotate-[360deg]]="isDarkMode()">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
           </button>
           
           <button class="p-3 bg-[var(--text-primary)] text-[var(--bg-primary)] rounded-xl transform transition-transform active:scale-90" (click)="toggleMenu()" aria-label="Toggle Mobile Navigation Menu">
@@ -105,7 +106,9 @@ import { fromEvent, throttleTime, Subject, takeUntil } from 'rxjs';
 export class NavbarComponent implements OnInit, OnDestroy {
   scrolled = signal(false);
   mobileMenuOpen = signal(false);
-  isDarkMode = signal(true);
+  private themeService = inject(ThemeService);
+  isDarkMode = this.themeService.isDarkMode;
+  
   activeSection = signal('');
   pillStyle = signal({ left: 0, width: 0, opacity: 0 });
   hoveredSection = signal('');
@@ -128,15 +131,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      const savedTheme = localStorage.getItem('theme');
-      this.isDarkMode.set(savedTheme ? savedTheme === 'dark' : true);
-      this.applyTheme();
-
       effect(() => {
         const id = this.hoveredSection() || this.activeSection();
         setTimeout(() => this.updatePillPosition(id), 0);
       }, { allowSignalWrites: true });
     }
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 
   ngOnInit() {
@@ -187,14 +190,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   toggleMenu() { this.mobileMenuOpen.update(v => !v); }
-  toggleTheme() { this.isDarkMode.update(v => !v); this.applyTheme(); }
-
-  private applyTheme() {
-    if (isPlatformBrowser(this.platformId)) {
-      document.documentElement.classList.toggle('light', !this.isDarkMode());
-      localStorage.setItem('theme', this.isDarkMode() ? 'dark' : 'light');
-    }
-  }
+  // toggleTheme handled by separate method
 
   private setupIntersectionObserver() {
     const options = { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0.1 };
