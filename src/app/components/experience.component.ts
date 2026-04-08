@@ -26,9 +26,9 @@ import { MagneticDirective } from '../directives/magnetic.directive';
             <mat-icon class="text-emerald-500 text-sm">timeline</mat-icon>
             <span class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em]">Chronological Provenance</span>
           </div>
-          <h2 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter text-[var(--text-primary)] leading-[0.9]">
-            Strategic <br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 italic font-black">Velocity</span>
+          <h2 class="text-4xl sm:text-5xl md:text-7xl font-black mb-6 tracking-tighter text-[var(--text-primary)] leading-[1.1] md:leading-[0.9]">
+            <span class="block">Strategic</span>
+            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 italic font-black" style="-webkit-background-clip: text; -webkit-text-fill-color: transparent;">Velocity</span>
           </h2>
           <p class="text-[var(--text-secondary)] text-lg md:text-xl font-medium max-w-xl mx-auto">Career milestones engineered with mathematical precision.</p>
         </header>

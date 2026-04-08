@@ -18,102 +18,102 @@ import { ToastrService } from 'ngx-toastr';
       <div class="absolute -bottom-24 -right-24 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
       <div class="absolute top-1/2 left-0 w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[100px] -z-10 -translate-x-1/2"></div>
 
-      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
         
         <!-- Interactive Information Sidebar -->
-        <div #infoSide class="opacity-0 -translate-x-12">
-          <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full liquid-glass border border-emerald-500/30 mb-8">
+        <div #infoSide class="opacity-0 lg:-translate-x-12">
+          <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full liquid-glass border border-emerald-500/30 mb-6 md:mb-8">
             <mat-icon class="text-emerald-500 text-sm">connect_without_contact</mat-icon>
             <span class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em]">Protocol: Direct Sync</span>
           </div>
 
-          <h2 class="text-5xl md:text-7xl font-black mb-10 tracking-tighter leading-[0.9] text-[var(--text-primary)]">
+          <h2 class="text-4xl sm:text-5xl md:text-7xl font-black mb-6 md:mb-10 tracking-tighter leading-[0.9] text-[var(--text-primary)]">
              {{ displayedTitle() }}<span class="animate-pulse bg-emerald-500 w-1 h-[0.9em] inline-block ml-2 rounded-sm shadow-[0_0_20px_rgba(16,185,129,0.5)]"></span>
           </h2>
           
-          <p class="text-[var(--text-secondary)] text-xl font-medium mb-12 leading-relaxed max-w-lg">
+          <p class="text-[var(--text-secondary)] text-lg md:text-xl font-medium mb-8 md:mb-12 leading-relaxed max-w-lg">
             Ready to build your next web application? I am currently available for freelance projects and remote full-time roles. Let's collaborate to bring your vision to life using cutting-edge <span class="text-[var(--text-primary)] font-black italic">React.js and Node.js</span> technologies. Contact me today to discuss your specific technical requirements.
           </p>
 
           <!-- Contact Matrices -->
-          <div class="space-y-10">
-            <div appMagnetic class="group flex items-center gap-6 cursor-none">
-              <div class="w-16 h-16 liquid-glass rounded-2xl flex items-center justify-center border border-[var(--glass-border)] text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-700 shadow-xl">
-                <mat-icon class="scale-125">alternate_email</mat-icon>
+          <div class="space-y-6 md:space-y-10">
+            <div appMagnetic class="group flex items-center gap-4 md:gap-6 cursor-none">
+              <div class="w-12 h-12 md:w-16 md:h-16 liquid-glass rounded-xl md:rounded-2xl flex items-center justify-center border border-[var(--glass-border)] text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-700 shadow-xl">
+                <mat-icon class="scale-110 md:scale-125">alternate_email</mat-icon>
               </div>
-              <div>
-                <p class="text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.3em] font-black italic mb-1">Secure Transmission</p>
-                <a href="mailto:kumarnaveen897941@gmail.com" class="text-xl md:text-2xl font-black hover:text-emerald-400 transition-colors text-[var(--text-primary)] tracking-tighter">kumarnaveen897941&#64;gmail.com</a>
-              </div>
-            </div>
-
-            <div appMagnetic class="group flex items-center gap-6 cursor-none">
-              <div class="w-16 h-16 liquid-glass rounded-2xl flex items-center justify-center border border-[var(--glass-border)] text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-700 shadow-xl">
-                <mat-icon class="scale-125">dialpad</mat-icon>
-              </div>
-              <div>
-                <p class="text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.3em] font-black italic mb-1">Voice Frequency</p>
-                <a href="tel:+918979413404" class="text-xl md:text-2xl font-black hover:text-emerald-400 transition-colors text-[var(--text-primary)] tracking-tighter">+91 8979413404</a>
+              <div class="min-w-0 flex-1">
+                <p class="text-[9px] md:text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.3em] font-black italic mb-0.5 md:mb-1">Secure Transmission</p>
+                <a href="mailto:kumarnaveen897941@gmail.com" class="text-lg sm:text-xl md:text-2xl font-black hover:text-emerald-400 transition-colors text-[var(--text-primary)] tracking-tight md:tracking-tighter break-all">kumarnaveen897941&#64;gmail.com</a>
               </div>
             </div>
 
-            <div appMagnetic class="group flex items-center gap-6 cursor-none">
-              <div class="w-16 h-16 liquid-glass rounded-2xl flex items-center justify-center border border-[var(--glass-border)] text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-700 shadow-xl">
-                <mat-icon class="scale-125">share_location</mat-icon>
+            <div appMagnetic class="group flex items-center gap-4 md:gap-6 cursor-none">
+              <div class="w-12 h-12 md:w-16 md:h-16 liquid-glass rounded-xl md:rounded-2xl flex items-center justify-center border border-[var(--glass-border)] text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-700 shadow-xl">
+                <mat-icon class="scale-110 md:scale-125">dialpad</mat-icon>
               </div>
               <div>
-                <p class="text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.3em] font-black italic mb-1">Local Node</p>
-                <p class="text-xl md:text-2xl font-black text-[var(--text-primary)] tracking-tighter uppercase italic">India (IST UTC+5:30)</p>
+                <p class="text-[9px] md:text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.3em] font-black italic mb-0.5 md:mb-1">Voice Frequency</p>
+                <a href="tel:+918979413404" class="text-lg sm:text-xl md:text-2xl font-black hover:text-emerald-400 transition-colors text-[var(--text-primary)] tracking-tight md:tracking-tighter">+91 8979413404</a>
+              </div>
+            </div>
+
+            <div appMagnetic class="group flex items-center gap-4 md:gap-6 cursor-none">
+              <div class="w-12 h-12 md:w-16 md:h-16 liquid-glass rounded-xl md:rounded-2xl flex items-center justify-center border border-[var(--glass-border)] text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-zinc-950 transition-all duration-700 shadow-xl">
+                <mat-icon class="scale-110 md:scale-125">share_location</mat-icon>
+              </div>
+              <div>
+                <p class="text-[9px] md:text-[10px] text-[var(--text-secondary)] uppercase tracking-[0.3em] font-black italic mb-0.5 md:mb-1">Local Node</p>
+                <p class="text-lg sm:text-xl md:text-2xl font-black text-[var(--text-primary)] tracking-tight md:tracking-tighter uppercase italic">India (IST UTC+5:30)</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- High-Performance Input Terminal -->
-        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-6 md:p-12 rounded-3xl md:rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative transition-all duration-1000 group/form opacity-0 translate-x-12">
-          <div class="space-y-8 relative">
+        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative transition-all duration-1000 group/form opacity-0 lg:translate-x-12">
+          <div class="space-y-6 md:space-y-8 relative">
             <!-- Quantum Success State -->
             <div *ngIf="submitted" 
-                 class="absolute inset-0 z-50 bg-[var(--bg-secondary)]/95 backdrop-blur-xl rounded-[3rem] flex flex-col items-center justify-center text-center p-10 border border-emerald-500/30 animate-reveal">
-              <div class="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mb-8 text-emerald-400 shadow-[0_0_40px_rgba(16,185,129,0.3)]">
-                <mat-icon style="font-size: 56px; width: 56px; height: 56px;">check_circle</mat-icon>
+                 class="absolute inset-0 z-50 bg-[var(--bg-secondary)]/95 backdrop-blur-xl rounded-2xl md:rounded-[3rem] flex flex-col items-center justify-center text-center p-6 md:p-10 border border-emerald-500/30 animate-reveal">
+              <div class="w-16 h-16 md:w-24 md:h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mb-6 md:mb-8 text-emerald-400 shadow-[0_0_40px_rgba(16,185,129,0.3)]">
+                <mat-icon class="text-4xl md:text-6xl">check_circle</mat-icon>
               </div>
-              <h3 class="text-3xl font-black text-[var(--text-primary)] mb-3 tracking-tighter uppercase italic">Transmission Received</h3>
-              <p class="text-[var(--text-secondary)] mb-10 text-lg font-medium leading-relaxed">System acknowledgment sent. Strategic response pending within 24 hours.</p>
+              <h3 class="text-xl md:text-3xl font-black text-[var(--text-primary)] mb-2 md:mb-3 tracking-tighter uppercase italic">Transmission Received</h3>
+              <p class="text-sm md:text-lg text-[var(--text-secondary)] mb-6 md:mb-10 font-medium leading-relaxed">System acknowledgment sent. Strategic response pending within 24 hours.</p>
               <button type="button" (click)="resetStatus()" 
                       appMagnetic
-                      class="px-10 py-4 liquid-glass hover:bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 rounded-2xl transition-all text-xs font-black uppercase tracking-[0.3em]">
+                      class="px-8 py-3 md:px-10 md:py-4 liquid-glass hover:bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 rounded-xl md:rounded-2xl transition-all text-[10px] font-black uppercase tracking-[0.3em]">
                 New Uplink
               </button>
             </div>
 
             <div class="group/input">
-              <label class="block text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-3 ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Initiator Identity</label>
+              <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Initiator Identity</label>
               <input type="text" formControlName="name" 
-                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-2xl px-6 py-4 text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
                      placeholder="Command Input [Full Name]">
             </div>
             
             <div class="group/input">
-              <label class="block text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-3 ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Frequence Node</label>
+              <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Frequence Node</label>
               <input type="email" formControlName="email" 
-                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-2xl px-6 py-4 text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
                      placeholder="Command Input [Email Hash]">
             </div>
 
             <div class="group/input">
-              <label class="block text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-3 ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Encrypted Payload</label>
-              <textarea formControlName="message" rows="5"
-                        class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-2xl px-6 py-4 text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+              <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Encrypted Payload</label>
+              <textarea formControlName="message" rows="4" md:rows="5"
+                        class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10 resize-none"
                         placeholder="Project Narrative Architecture..."></textarea>
             </div>
 
-            <div class="mt-4">
-              <div class="h-captcha min-h-[78px] flex justify-center lg:justify-start" 
+            <div class="mt-2 md:mt-4">
+              <div class="h-captcha min-h-[78px] flex justify-center lg:justify-start transform scale-90 origin-center xs:scale-100 lg:origin-left" 
                    data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
               @if (captchaError) {
-                <p class="text-red-400 text-[10px] font-black uppercase tracking-widest mt-4 text-center lg:text-left flex items-center gap-2">
-                  <mat-icon class="text-sm">security</mat-icon>
+                <p class="text-red-400 text-[9px] font-black uppercase tracking-widest mt-3 text-center lg:text-left flex items-center gap-2">
+                  <mat-icon class="text-xs">security</mat-icon>
                   Biometric Verification Required (CAPTCHA)
                 </p>
               }
@@ -122,10 +122,10 @@ import { ToastrService } from 'ngx-toastr';
             <button type="submit" 
                     [disabled]="isSubmitting"
                     appMagnetic
-                    class="w-full bg-[var(--text-primary)] hover:scale-[1.02] disabled:opacity-30 disabled:cursor-not-allowed text-[var(--bg-primary)] font-black py-6 rounded-2xl transition-all flex items-center justify-center gap-4 uppercase text-[11px] tracking-[0.5em] shadow-2xl">
+                    class="w-full bg-[var(--text-primary)] hover:scale-[1.02] active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed text-[var(--bg-primary)] font-black py-5 md:py-6 rounded-xl md:rounded-2xl transition-all flex items-center justify-center gap-3 md:gap-4 uppercase text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.5em] shadow-2xl mb-2">
               <span>{{ isSubmitting ? 'Syncing...' : 'Initiate Contact' }}</span>
-              <mat-icon *ngIf="!isSubmitting" class="scale-125">bolt</mat-icon>
-              <div *ngIf="isSubmitting" class="w-5 h-5 border-2 border-[var(--bg-primary)]/30 border-t-[var(--bg-primary)] rounded-full animate-spin"></div>
+              <mat-icon *ngIf="!isSubmitting" class="scale-110 md:scale-125">bolt</mat-icon>
+              <div *ngIf="isSubmitting" class="w-4 h-4 md:w-5 md:h-5 border-2 border-[var(--bg-primary)]/30 border-t-[var(--bg-primary)] rounded-full animate-spin"></div>
             </button>
           </div>
         </form>

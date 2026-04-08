@@ -51,34 +51,110 @@ import { MagneticDirective } from '../directives/magnetic.directive';
         <div #grid class="grid grid-cols-1 md:grid-cols-6 gap-8 min-h-[900px]">
           @for (project of filteredProjects(); track project.id; let i = $index) {
             <article 
-                 [class]="'group relative rounded-3xl overflow-hidden liquid-glass border border-white/5 transition-colors duration-500 hover:border-emerald-500/30 shadow-2xl flex flex-col ' + 
+                 [class]="'group relative rounded-2xl md:rounded-3xl overflow-hidden liquid-glass border border-[var(--glass-border)] transition-colors duration-500 md:hover:border-emerald-500/30 shadow-lg md:shadow-2xl flex flex-col min-h-[300px] md:min-h-auto ' + 
                           (i % 3 === 0 ? 'md:col-span-4' : 'md:col-span-2')"
                  (mouseenter)="activeProject.set(project.id)"
                  (mouseleave)="activeProject.set(null)">
               
               <!-- Narrative Overlays -->
-              <div class="absolute inset-0 z-20 p-10 flex flex-col justify-between pointer-events-none">
-                <div class="flex justify-between items-start opacity-0 group-hover:opacity-100 transition-opacity duration-700 translate-y-4 group-hover:translate-y-0">
-                    <div class="px-4 py-1.5 bg-emerald-500 text-zinc-950 text-[10px] font-black tracking-[0.2em] rounded-sm transform -rotate-2">
-                        MX-LAYER / {{project.category | uppercase}}
+              <div class="absolute inset-0 z-20 p-4 md:p-10 flex flex-col justify-between pointer-events-none">
+                <!-- Mobile Top Section: Badge & Title -->
+                <div class="flex justify-between items-start mb-2">
+                    <!-- Desktop Badge -->
+                    <div class="hidden md:flex md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-700 md:translate-y-4 md:group-hover:translate-y-0">
+                        <div class="px-3 md:px-4 py-1 md:py-1.5 bg-emerald-500 text-zinc-950 text-[9px] md:text-[10px] font-black tracking-[0.2em] rounded-sm transform md:-rotate-2">
+                            MX-LAYER / {{project.category | uppercase}}
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Top Right: Quick Links -->
+                    <div class="md:hidden flex items-center gap-2">
+                      <!-- Code Button -->
+                      <a [href]="project.githubLink" 
+                         target="_blank" 
+                         class="inline-flex items-center justify-center gap-1 px-2 py-1.5 bg-white/10 hover:bg-emerald-500 hover:text-zinc-950 rounded text-[10px] font-bold text-emerald-400 border border-emerald-500/50 transition-all shadow-md pointer-events-auto" 
+                         title="View source code"
+                         (click)="$event.stopPropagation()">
+                        <mat-icon class="text-xs">code</mat-icon>
+                        <span>Code</span>
+                      </a>
+                      <!-- Live Button -->
+                      <a [href]="project.liveLink" 
+                         target="_blank" 
+                         class="inline-flex items-center justify-center gap-1 px-2 py-1.5 bg-emerald-500 text-zinc-950 rounded text-[10px] font-bold border border-emerald-500 transition-all shadow-md hover:shadow-lg hover:scale-105 pointer-events-auto" 
+                         title="View live demo"
+                         (click)="$event.stopPropagation()">
+                        <mat-icon class="text-xs">visibility</mat-icon>
+                        <span>Live</span>
+                      </a>
                     </div>
                 </div>
 
-                <div class="transform group-hover:-translate-y-4 transition-transform duration-1000 ease-out">
-                    <h3 class="text-3xl lg:text-5xl font-black text-white tracking-tighter mb-4 drop-shadow-2xl">{{ project.title }}</h3>
-                    <p class="text-zinc-400 text-sm lg:text-base line-clamp-2 max-w-lg group-hover:text-zinc-200 transition-colors opacity-0 group-hover:opacity-100 duration-700 font-semibold leading-relaxed">
-                        {{ project.description }}
-                    </p>
+                <!-- Title & Description -->
+                <div class="transform md:group-hover:-translate-y-4 transition-transform duration-1000 ease-out flex-grow flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl md:text-3xl lg:text-5xl font-black text-white tracking-tighter mb-1 md:mb-4 drop-shadow-2xl line-clamp-2 md:line-clamp-3">{{ project.title }}</h3>
+                        <p class="text-[11px] md:text-sm lg:text-base text-zinc-300 md:text-zinc-400 line-clamp-2 md:line-clamp-2 max-w-lg md:group-hover:text-zinc-200 transition-colors md:opacity-0 md:group-hover:opacity-100 duration-700 font-medium leading-relaxed">
+                            {{ project.description }}
+                        </p>
+                    </div>
                     
-                    <footer class="flex items-center gap-8 mt-10 opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-1000 pointer-events-auto">
-                        <div class="flex gap-4">
-                            <a [href]="project.githubLink" target="_blank" appMagnetic class="p-4 bg-white/5 rounded-2xl border border-white/10 text-white hover:bg-emerald-500 hover:text-zinc-950 transition-all shadow-2xl">
-                                <mat-icon class="text-sm">code</mat-icon>
+                    <!-- Mobile Footer: Always visible with prominent buttons -->
+                    <footer class="pt-3 md:pt-10 flex flex-col gap-2 md:gap-3 md:opacity-0 md:group-hover:opacity-100 md:translate-y-6 md:group-hover:translate-y-0 transition-all duration-1000 pointer-events-auto md:hidden">
+                        <!-- Action Buttons Row -->
+                        <div class="flex items-center gap-2 w-full">
+                            <!-- Code Button Mobile -->
+                            <a [href]="project.githubLink" 
+                               target="_blank" 
+                               class="flex-1 p-3 bg-white/10 hover:bg-white/20 rounded-lg border border-white/20 text-white flex items-center justify-center gap-2 font-bold text-xs uppercase transition-all shadow-lg" 
+                               title="View source code on GitHub"
+                               (click)="$event.stopPropagation()">
+                              <mat-icon class="text-sm">code</mat-icon>
+                              <span>Code</span>
                             </a>
-                            <a [href]="project.liveLink" target="_blank" appMagnetic class="p-4 bg-emerald-500 rounded-2xl text-zinc-950 hover:scale-105 transition-all shadow-[0_15px_30px_rgba(16,185,129,0.3)]">
-                                <mat-icon class="text-sm">visibility</mat-icon>
+                            
+                            <!-- Live Demo Button Mobile -->
+                            <a [href]="project.liveLink" 
+                               target="_blank" 
+                               class="flex-1 p-3 bg-emerald-500 rounded-lg text-zinc-950 flex items-center justify-center gap-2 font-bold text-xs uppercase transition-all shadow-lg hover:shadow-emerald-500/50 hover:scale-105" 
+                               title="View live project demo"
+                               (click)="$event.stopPropagation()">
+                              <mat-icon class="text-sm">visibility</mat-icon>
+                              <span>Live Demo</span>
                             </a>
                         </div>
+                        
+                        <!-- Tags --->
+                        <div class="flex gap-2 flex-wrap">
+                             @for (tag of project.tags.slice(0, 3); track tag) {
+                                <span class="px-2 py-1 bg-white/5 rounded text-[8px] font-black text-zinc-500 border border-white/5 uppercase italic tracking-tighter">{{ tag }}</span>
+                             }
+                        </div>
+                    </footer>
+                    
+                    <!-- Desktop Footer -->
+                    <footer class="hidden md:flex md:flex-col md:gap-3 md:mt-10 md:opacity-0 md:group-hover:opacity-100 md:translate-y-6 md:group-hover:translate-y-0 transition-all duration-1000 pointer-events-auto">
+                        <div class="flex items-center gap-4">
+                            <!-- Code Link Button Desktop -->
+                            <a [href]="project.githubLink" 
+                               target="_blank" 
+                               appMagnetic 
+                               class="p-4 bg-white/5 rounded-2xl border border-white/10 text-white hover:bg-emerald-500 hover:text-zinc-950 transition-all shadow-2xl" 
+                               title="View source code on GitHub">
+                              <mat-icon class="text-sm">code</mat-icon>
+                            </a>
+                            
+                            <!-- Live Demo Button Desktop -->
+                            <a [href]="project.liveLink" 
+                               target="_blank" 
+                               appMagnetic 
+                               class="p-4 bg-emerald-500 rounded-2xl text-zinc-950 hover:scale-105 transition-all shadow-[0_15px_30px_rgba(16,185,129,0.3)]" 
+                               title="View live project demo">
+                              <mat-icon class="text-sm">visibility</mat-icon>
+                            </a>
+                        </div>
+                        
+                        <!-- Desktop Tags -->
                         <div class="flex gap-3">
                              @for (tag of project.tags.slice(0, 3); track tag) {
                                 <span class="px-3 py-1 bg-white/5 rounded-lg text-[10px] font-black text-zinc-500 border border-white/5 uppercase italic tracking-tighter">{{ tag }}</span>
@@ -99,8 +175,8 @@ import { MagneticDirective } from '../directives/magnetic.directive';
                      [class]="'w-full h-full object-cover transition-all duration-[2.5s] ease-[cubic-bezier(0.2, 0, 0, 1)] group-hover:scale-110 opacity-50 group-hover:opacity-20 ' + (activeProject() === project.id ? 'opacity-20 scale-105 blur-[2px]' : '')">
                 
                 <!-- Displacement Placeholder (Liquid Distortion Effect) -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-1000"></div>
-                <div class="absolute inset-0 bg-emerald-500/10 mix-blend-color-dodge opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 md:opacity-100 md:group-hover:opacity-0 transition-opacity duration-1000"></div>
+                <div class="absolute inset-0 bg-emerald-500/10 mix-blend-color-dodge opacity-0 md:group-hover:opacity-100 transition-opacity duration-1000"></div>
               </div>
             </article>
           }
@@ -111,6 +187,61 @@ import { MagneticDirective } from '../directives/magnetic.directive';
   styles: [`
     :host { display: block; }
     .reveal-y { transform: translateY(40px); }
+    
+    /* Mobile-specific project card styles */
+    @media (max-width: 768px) {
+      article {
+        min-height: 280px;
+        position: relative;
+      }
+      
+      article img {
+        opacity: 0.5;
+      }
+      
+      /* Ensure overlay content is always visible on mobile */
+      article a[href] {
+        position: relative;
+        z-index: 30;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      /* Make buttons look like actual buttons on mobile */
+      a[appMagnetic], a[href] {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+      
+      /* Project title sizing for mobile */
+      h3 {
+        line-height: 1.2;
+      }
+      
+      /* Ensure footer is always accessible on mobile */
+      footer {
+        position: relative;
+        z-index: 25;
+      }
+      
+      /* Optimize button touch targets */
+      a[target="_blank"] {
+        min-height: 48px;
+        min-width: 48px;
+      }
+    }
+    
+    /* Desktop styles remain unchanged */
+    @media (min-width: 769px) {
+      article .md\:hidden {
+        display: none !important;
+      }
+      
+      article .hidden.md\:inline {
+        display: inline !important;
+      }
+    }
   `]
 })
 export class ProjectsComponent implements AfterViewInit, OnDestroy {
