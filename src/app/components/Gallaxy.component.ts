@@ -196,20 +196,20 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
 
   @Input() focal: [number, number] = [0.5, 0.5];
   @Input() rotation: [number, number] = [1.0, 0.0];
-  @Input() starSpeed: number = 0.5;
-  @Input() density: number = 1;
-  @Input() hueShift: number = 140;
-  @Input() disableAnimation: boolean = false;
-  @Input() speed: number = 1.0;
-  @Input() mouseInteraction: boolean = true;
-  @Input() glowIntensity: number = 0.3;
-  @Input() saturation: number = 0.0;
-  @Input() mouseRepulsion: boolean = true;
-  @Input() repulsionStrength: number = 2;
-  @Input() twinkleIntensity: number = 0.3;
-  @Input() rotationSpeed: number = 0.1;
-  @Input() autoCenterRepulsion: number = 0;
-  @Input() transparent: boolean = true;
+  @Input() starSpeed = 0.5;
+  @Input() density = 1;
+  @Input() hueShift = 140;
+  @Input() disableAnimation = false;
+  @Input() speed = 1.0;
+  @Input() mouseInteraction = true;
+  @Input() glowIntensity = 0.3;
+  @Input() saturation = 0.0;
+  @Input() mouseRepulsion = true;
+  @Input() repulsionStrength = 2;
+  @Input() twinkleIntensity = 0.3;
+  @Input() rotationSpeed = 0.1;
+  @Input() autoCenterRepulsion = 0;
+  @Input() transparent = true;
 
   private platformId = inject(PLATFORM_ID);
   private ngZone = inject(NgZone);

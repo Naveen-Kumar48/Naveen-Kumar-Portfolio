@@ -37,7 +37,7 @@ export class CursorComponent implements AfterViewInit, OnDestroy {
   private velX = 0;
   private velY = 0;
   private observer?: MutationObserver;
-  private hoverListeners: Map<Element, { enter: () => void, leave: () => void }> = new Map();
+  private hoverListeners = new Map<Element, { enter: () => void, leave: () => void }>();
 
   private xSetterCursor: any;
   private ySetterCursor: any;
