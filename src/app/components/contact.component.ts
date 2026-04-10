@@ -102,6 +102,13 @@ import { ToastrService } from 'ngx-toastr';
             </div>
 
             <div class="group/input">
+              <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Comm Channel</label>
+              <input type="tel" formControlName="phone" 
+                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+                     placeholder="Command Input [Phone Number]">
+            </div>
+
+            <div class="group/input">
               <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Encrypted Payload</label>
               <textarea formControlName="message" rows="4" md:rows="5"
                         class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10 resize-none"
@@ -150,6 +157,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   contactForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
+    phone: [''],
     message: ['', Validators.required]
   });
 
@@ -258,10 +266,32 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
         formData.append("access_key", "a8205ed1-ce6d-4713-bc3c-4510e20f664c");
         formData.append("name", this.contactForm.value.name);
         formData.append("email", this.contactForm.value.email);
+        if (this.contactForm.value.phone) {
+          formData.append("phone", this.contactForm.value.phone);
+        }
         formData.append("message", this.contactForm.value.message);
         formData.append("h-captcha-response", hcaptchaResponse);
 
-        const response = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+        // Web3Forms Submit
+        const web3Response = fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+        
+        // Google Sheets Submit
+        const googleSheetsData = {
+          name: this.contactForm.value.name,
+          email: this.contactForm.value.email,
+          phone: this.contactForm.value.phone || '',
+          message: this.contactForm.value.message
+        };
+
+        const googleSheetsResponse = fetch("https://script.google.com/macros/s/AKfycbyNAU5GieDc0IoIWSQk5wPpZjISXy9Nf6h3_JqIuAmbf9duRuxy0VTR226J7qqrX-80VA/exec", {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(googleSheetsData),
+        });
+
+        const [response] = await Promise.all([web3Response, googleSheetsResponse]);
         const data = await response.json();
 
         if (data.success) {
