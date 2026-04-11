@@ -272,10 +272,10 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
         formData.append("message", this.contactForm.value.message);
         formData.append("h-captcha-response", hcaptchaResponse);
 
-        // Web3Forms Submit
-        const web3Response = fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+        // Web3Forms Submit (Primary)
+        const web3Promise = fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
         
-        // Google Sheets Submit
+        // Google Sheets Submit (Secondary - Non-blocking for UI)
         const googleSheetsData = {
           name: this.contactForm.value.name,
           email: this.contactForm.value.email,
@@ -283,16 +283,20 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
           message: this.contactForm.value.message
         };
 
-        const googleSheetsResponse = fetch("https://script.google.com/macros/s/AKfycbyNAU5GieDc0IoIWSQk5wPpZjISXy9Nf6h3_JqIuAmbf9duRuxy0VTR226J7qqrX-80VA/exec", {
+        const googleSheetsPromise = fetch("https://script.google.com/macros/s/AKfycbyNAU5GieDc0IoIWSQk5wPpZjISXy9Nf6h3_JqIuAmbf9duRuxy0VTR226J7qqrX-80VA/exec", {
           method: "POST",
           headers: {
             "Content-Type": "text/plain;charset=utf-8"
           },
           body: JSON.stringify(googleSheetsData),
-        });
+        }).catch(err => console.warn('Google Sheets Sync Failed:', err)); // Catch cleanly so UI doesn't break
 
-        const [response] = await Promise.all([web3Response, googleSheetsResponse]);
+        // Await primary service
+        const response = await web3Promise;
         const data = await response.json();
+        
+        // Await secondary silently
+        await googleSheetsPromise;
 
         if (data.success) {
           this.submitted = true;
