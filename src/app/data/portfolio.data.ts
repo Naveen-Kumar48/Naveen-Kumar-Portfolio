@@ -93,6 +93,17 @@ export const SKILLS: Skill[] = [
 export const EXPERIENCE: Experience[] = [
   {
     id: 1,
+    role: 'Full Stack Developer',
+    company: 'Freelancer',
+    period: 'January 2026 – Present',
+    description: [
+      'I work as an independent web developer, delivering high-quality, scalable, and user-centric web solutions for clients across different domains. I have successfully collaborated with multiple clients, managing the complete project lifecycle—from initial consultation and requirement analysis to development, deployment, and ongoing support.',
+      'My expertise lies in building modern, performance-optimized web applications using technologies like React and Next.js. I focus on creating responsive, SEO-friendly interfaces while ensuring clean architecture and maintainable code.',
+      'I also handle deployment and continuous delivery workflows using platforms such as Vercel and Hostinger, ensuring seamless releases and reliable performance in production environments. Post-launch, I continue to support clients with enhancements, optimizations, and technical maintenance to ensure long-term success.'
+    ]
+  },
+  {
+    id: 2,
     role: 'Full Stack Developer Trainee (MERN)',
     company: 'Q-Spiders',
     period: 'Aug 2025 - Present',
@@ -110,7 +121,7 @@ export const ACADEMIC_ACTIVITIES: AcademicActivity[] = [
     id: 1,
     degree: 'Bachelor of Computer Applications (BCA)',
     institution: 'Indira Gandhi National Open University (IGNOU)',
-    period: '2023 - 2026',
+    period: '2023-2026',
     grade: 'A',
     icon: 'school',
     achievements: [
@@ -123,7 +134,7 @@ export const ACADEMIC_ACTIVITIES: AcademicActivity[] = [
     id: 2,
     degree: 'Class XII (CBSE)',
     institution: 'Blooming Dale School ',
-    period: '2022 - 2023',
+    period: '2022-2023',
     grade: 'A',
     icon: 'menu_book',
     achievements: []
@@ -132,7 +143,7 @@ export const ACADEMIC_ACTIVITIES: AcademicActivity[] = [
     id: 3,
     degree: 'Class X (CBSE)',
     institution: 'Maharishi Vidya Mandir ',
-    period: '2019 - 2020',
+    period: '2019-2020',
     grade: 'A',
     icon: 'menu_book',
     achievements: []

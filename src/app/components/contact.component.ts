@@ -7,10 +7,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MagneticDirective } from '../directives/magnetic.directive';
 import { ToastrService } from 'ngx-toastr';
 
+import { NgHcaptchaModule } from 'ng-hcaptcha';
+
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MagneticDirective],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, MagneticDirective, NgHcaptchaModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="contact" class="py-20 md:py-32 relative overflow-hidden transition-colors duration-500">
@@ -70,7 +72,7 @@ import { ToastrService } from 'ngx-toastr';
         </div>
 
         <!-- High-Performance Input Terminal -->
-        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative transition-all duration-1000 group/form opacity-0 lg:translate-x-12">
+        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative transition-all duration-1000 group/form lg:translate-x-12">
           <div class="space-y-6 md:space-y-8 relative">
             <!-- Quantum Success State -->
             <div *ngIf="submitted" 
@@ -90,34 +92,46 @@ import { ToastrService } from 'ngx-toastr';
             <div class="group/input">
               <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Initiator Identity</label>
               <input type="text" formControlName="name" 
-                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold input-placeholder"
+                     [class.border-red-500/50]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
                      placeholder="Command Input [Full Name]">
+              <p *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" class="text-red-400 text-[8px] font-black uppercase tracking-widest mt-2 ml-2 italic">Invalid Identity Protocol</p>
             </div>
             
             <div class="group/input">
               <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Frequence Node</label>
               <input type="email" formControlName="email" 
-                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold input-placeholder"
+                     [class.border-red-500/50]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
                      placeholder="Command Input [Email Hash]">
+              <p *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="text-red-400 text-[8px] font-black uppercase tracking-widest mt-2 ml-2 italic">Malformed Frequence Hash</p>
             </div>
 
             <div class="group/input">
               <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Comm Channel</label>
               <input type="tel" formControlName="phone" 
-                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10"
+                     class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold input-placeholder"
                      placeholder="Command Input [Phone Number]">
             </div>
 
             <div class="group/input">
               <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Encrypted Payload</label>
               <textarea formControlName="message" rows="4" md:rows="5"
-                        class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold placeholder:text-white/10 resize-none"
+                        class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold input-placeholder resize-none"
+                        [class.border-red-500/50]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
                         placeholder="Project Narrative Architecture..."></textarea>
+              <p *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="text-red-400 text-[8px] font-black uppercase tracking-widest mt-2 ml-2 italic">Payload Data Missing</p>
             </div>
 
             <div class="mt-2 md:mt-4">
-              <div class="h-captcha min-h-[78px] flex justify-center lg:justify-start transform scale-90 origin-center xs:scale-100 lg:origin-left" 
-                   data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
+              <div class="min-h-[78px] flex justify-center lg:justify-start overflow-hidden rounded-xl">
+                <ng-hcaptcha 
+                  (verify)="onCaptchaVerify($event)"
+                  (expired)="onCaptchaExpired()"
+                  (error)="onCaptchaError()"
+                  theme="dark">
+                </ng-hcaptcha>
+              </div>
               @if (captchaError) {
                 <p class="text-red-400 text-[9px] font-black uppercase tracking-widest mt-3 text-center lg:text-left flex items-center gap-2">
                   <mat-icon class="text-xs">security</mat-icon>
@@ -143,6 +157,10 @@ import { ToastrService } from 'ngx-toastr';
     :host { display: block; }
     .animate-reveal { animation: zoom-in 0.6s cubic-bezier(0.2, 0, 0, 1) forwards; }
     @keyframes zoom-in { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .input-placeholder::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.55;
+    }
   `]
 })
 export class ContactComponent implements AfterViewInit, OnDestroy {
@@ -166,44 +184,42 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   submitted = false;
   submitError = false;
   captchaError = false;
+  captchaResponse: string | null = null;
 
   private typingInterval: any;
-  private captchaCheckInterval: any;
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.initScripts();
+      this.initWeb3Forms();
       this.initAnimations();
     }
   }
 
-  private initScripts() {
-    if (!(window as any).hcaptcha) {
-      const script = document.createElement('script');
-      script.src = 'https://js.hcaptcha.com/1/api.js';
-      script.async = true; script.defer = true;
-      document.body.appendChild(script);
+  private initWeb3Forms() {
+    // Web3Forms client script for advanced features if needed
+    if (!document.querySelector('script[src*="web3forms"]')) {
+      const w3fScript = document.createElement('script');
+      w3fScript.src = 'https://web3forms.com/client/script.js';
+      w3fScript.async = true; w3fScript.defer = true;
+      document.body.appendChild(w3fScript);
     }
+  }
 
-    const w3fScript = document.createElement('script');
-    w3fScript.src = 'https://web3forms.com/client/script.js';
-    w3fScript.async = true; w3fScript.defer = true;
-    document.body.appendChild(w3fScript);
+  onCaptchaVerify(token: string) {
+    this.captchaResponse = token;
+    this.captchaError = false;
+    this.cdr.markForCheck();
+  }
 
-    const renderCaptcha = () => {
-      const hcaptcha = (window as any).hcaptcha;
-      const container = document.querySelector('.h-captcha');
-      if (hcaptcha && container && container.innerHTML === '') {
-        hcaptcha.render(container, { sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2', theme: 'dark' });
-      }
-    };
+  onCaptchaExpired() {
+    this.captchaResponse = null;
+    this.cdr.markForCheck();
+  }
 
-    this.captchaCheckInterval = setInterval(() => {
-      renderCaptcha();
-      if ((window as any).hcaptcha && document.querySelector('.h-captcha')?.innerHTML !== '') {
-        clearInterval(this.captchaCheckInterval);
-      }
-    }, 1000);
+  onCaptchaError() {
+    this.captchaResponse = null;
+    this.captchaError = true;
+    this.cdr.markForCheck();
   }
 
   private initAnimations() {
@@ -221,7 +237,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
     });
 
     gsap.to(this.formRef.nativeElement, {
-      opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', delay: 0.1, scrollTrigger: { trigger: this.formRef.nativeElement, start: 'top 80%' }
+      opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', delay: 0.1, scrollTrigger: { trigger: this.formRef.nativeElement, start: 'top 85%' }
     });
   }
 
@@ -246,10 +262,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
     }
 
     if (isPlatformBrowser(this.platformId)) {
-      const hcaptcha = (window as any).hcaptcha;
-      const hcaptchaResponse = hcaptcha?.getResponse();
-
-      if (!hcaptchaResponse) {
+      if (!this.captchaResponse) {
         this.captchaError = true;
         this.cdr.markForCheck();
         return;
@@ -270,7 +283,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
           formData.append("phone", this.contactForm.value.phone);
         }
         formData.append("message", this.contactForm.value.message);
-        formData.append("h-captcha-response", hcaptchaResponse);
+        formData.append("h-captcha-response", this.captchaResponse);
 
         // Web3Forms Submit (Primary)
         const web3Promise = fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
@@ -301,7 +314,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
         if (data.success) {
           this.submitted = true;
           this.contactForm.reset();
-          hcaptcha?.reset();
+          this.captchaResponse = null;
           this.toastr.success('System acknowledgment sent. Response pending.', 'Transmission Received');
         } else {
           this.submitError = true;
@@ -326,6 +339,5 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.typingInterval) clearInterval(this.typingInterval);
-    if (this.captchaCheckInterval) clearInterval(this.captchaCheckInterval);
   }
 }

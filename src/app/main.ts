@@ -38,7 +38,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
          [style.opacity]="contentVisible() ? '1' : '0'"
          class="transition-opacity duration-[800ms] ease-out">
       <app-cursor />
-      <main class="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] cursor-none overflow-x-hidden selection:bg-transparent">
+      <main class="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] overflow-x-hidden selection:bg-transparent">
         <app-navbar />
         <app-hero />
         
@@ -101,6 +101,13 @@ export class App implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.initSEO();
+    // Call SeoService for home page
+    this.seo.updateSeo({
+      title: 'Naveen Kumar | Full Stack Developer — React, Next.js, MERN',
+      description: 'Full Stack Developer in New Delhi, India. Expert in React.js, Next.js, Node.js, and AI-SaaS. Building scalable digital experiences.',
+      url: 'https://naveenweb.site',
+      keywords: 'Full Stack Developer India, React Developer, Next.js Developer, MERN Stack, Hire Developer New Delhi'
+    });
   }
 
   ngAfterViewInit() {
@@ -189,8 +196,8 @@ export class App implements OnInit, AfterViewInit {
             'AI Integration', 'SaaS Development', 'REST API', 'Web Performance'
           ],
           'sameAs': [
-            'https://github.com/Naveen-Kumar48',
-            'https://www.linkedin.com/in/naveen-kumar-dev/'
+            'https://www.linkedin.com/in/naveen-kumar-dev/',
+            'https://github.com/Naveen-Kumar48'
           ]
         },
         {

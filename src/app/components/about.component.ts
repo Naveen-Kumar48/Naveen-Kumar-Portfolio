@@ -20,19 +20,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
         <!-- Interactive Visual Core -->
         <div #imageSide class="relative order-2 lg:order-1 opacity-0 group perspective-1000">
           <div #tiltContainer class="relative z-10 transition-shadow duration-700 ease-out" style="transform-style: preserve-3d">
-            <div class="rounded-3xl overflow-hidden border border-[var(--glass-border)] liquid-glass shadow-2xl relative group-hover:border-emerald-500/50 transition-colors duration-1000">
-              <img src="/about_tech.webp" alt="Naveen Kumar - Freelance MERN Stack Developer and React.js Expert" width="800" height="800" loading="lazy" decoding="async" class="w-full h-auto object-cover transform scale-105 group-hover:scale-100 transition-all duration-[2s] ease-out mix-blend-luminosity group-hover:mix-blend-normal">
+            <div class="rounded-3xl overflow-hidden border border-[var(--glass-border)] liquid-glass shadow-2xl relative transition-colors duration-1000">
+              <img src="/about_tech.webp" alt="Naveen Kumar - Freelance MERN Stack Developer and React.js Expert" width="800" height="1200" loading="lazy" decoding="async" class="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover transition-all duration-[2s] ease-out">
               
-              <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+              <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-transparent to-white/5 opacity-0 transition-opacity duration-1000"></div>
               <div class="absolute inset-0 bg-[var(--bg-primary)]/40 group-hover:bg-transparent transition-colors duration-1000"></div>
             </div>
 
             <!-- Kinetic badges -->
-            <div class="absolute -top-10 -right-6 p-5 liquid-glass rounded-2xl shadow-2xl z-20" style="animation-duration: 3.5s">
-              <mat-icon class="text-emerald-500 scale-125">terminal</mat-icon>
+            <div class="absolute -top-6 -right-4 md:-top-10 md:-right-6 p-3 md:p-5 liquid-glass rounded-xl md:rounded-2xl shadow-2xl z-20" style="animation-duration: 3.5s">
+              <mat-icon class="text-emerald-500 scale-100 md:scale-125">terminal</mat-icon>
             </div>
-            <div class="absolute -bottom-8 -left-6 p-5 liquid-glass rounded-2xl shadow-2xl z-20" style="animation-duration: 4.5s; animation-delay: 1.5s">
-              <mat-icon class="text-cyan-500 scale-125">layers</mat-icon>
+            <div class="absolute -bottom-6 -left-4 md:-bottom-8 md:-left-6 p-3 md:p-5 liquid-glass rounded-xl md:rounded-2xl shadow-2xl z-20" style="animation-duration: 4.5s; animation-delay: 1.5s">
+              <mat-icon class="text-cyan-500 scale-100 md:scale-125">layers</mat-icon>
             </div>
           </div>
 
