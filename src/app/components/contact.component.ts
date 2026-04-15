@@ -72,7 +72,7 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
         </div>
 
         <!-- High-Performance Input Terminal -->
-        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative transition-all duration-1000 group/form lg:translate-x-12">
+        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative z-10 pointer-events-auto transition-all duration-1000 group/form lg:translate-x-12">
           <div class="space-y-6 md:space-y-8 relative">
             <!-- Quantum Success State -->
             <div *ngIf="submitted" 
@@ -123,8 +123,8 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
               <p *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="text-red-400 text-[8px] font-black uppercase tracking-widest mt-2 ml-2 italic">Payload Data Missing</p>
             </div>
 
-            <div class="mt-2 md:mt-4">
-              <div class="min-h-[78px] flex justify-center lg:justify-start overflow-hidden rounded-xl">
+            <div class="mt-2 md:mt-4 relative z-20">
+              <div class="min-h-[78px] flex justify-center lg:justify-start overflow-visible w-full rounded-xl">
                 <ng-hcaptcha 
                   (verify)="onCaptchaVerify($event)"
                   (expired)="onCaptchaExpired()"
@@ -143,7 +143,7 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
             <button type="submit" 
                     [disabled]="isSubmitting"
                     appMagnetic
-                    class="w-full bg-[var(--text-primary)] hover:scale-[1.02] active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed text-[var(--bg-primary)] font-black py-5 md:py-6 rounded-xl md:rounded-2xl transition-all flex items-center justify-center gap-3 md:gap-4 uppercase text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.5em] shadow-2xl mb-2">
+                    class="w-full bg-[var(--text-primary)] hover:scale-[1.02] active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed text-[var(--bg-primary)] font-black py-5 md:py-6 rounded-xl md:rounded-2xl transition-all flex items-center justify-center gap-3 md:gap-4 uppercase text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.5em] shadow-2xl mb-2 z-20 relative pointer-events-auto touch-manipulation">
               <span>{{ isSubmitting ? 'Syncing...' : 'Initiate Contact' }}</span>
               <mat-icon *ngIf="!isSubmitting" class="scale-110 md:scale-125">bolt</mat-icon>
               <div *ngIf="isSubmitting" class="w-4 h-4 md:w-5 md:h-5 border-2 border-[var(--bg-primary)]/30 border-t-[var(--bg-primary)] rounded-full animate-spin"></div>
@@ -190,20 +190,11 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.initWeb3Forms();
       this.initAnimations();
     }
   }
 
-  private initWeb3Forms() {
-    // Web3Forms client script for advanced features if needed
-    if (!document.querySelector('script[src*="web3forms"]')) {
-      const w3fScript = document.createElement('script');
-      w3fScript.src = 'https://web3forms.com/client/script.js';
-      w3fScript.async = true; w3fScript.defer = true;
-      document.body.appendChild(w3fScript);
-    }
-  }
+
 
   onCaptchaVerify(token: string) {
     this.captchaResponse = token;

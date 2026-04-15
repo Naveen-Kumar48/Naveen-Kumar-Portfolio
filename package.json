@@ -1,10 +1,11 @@
 {
-  "name": "devportfolio",
+  "name": "Naveen-Portfolio",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "dev": "ng serve --port 3000",
+    "build": "node scripts/generate-sitemap.js && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
