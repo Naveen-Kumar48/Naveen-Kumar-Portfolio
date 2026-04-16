@@ -143,7 +143,7 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
             <button type="submit" 
                     [disabled]="isSubmitting"
                     appMagnetic
-                    class="w-full bg-[var(--text-primary)] hover:scale-[1.02] active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed text-[var(--bg-primary)] font-black py-5 md:py-6 rounded-xl md:rounded-2xl transition-all flex items-center justify-center gap-3 md:gap-4 uppercase text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.5em] shadow-2xl mb-2 z-20 relative pointer-events-auto touch-manipulation">
+                    class="w-full bg-[var(--text-primary)] hover:scale-[1.02] active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed text-[var(--bg-primary)] font-black py-5 md:py-6 rounded-xl md:rounded-2xl transition-all flex items-center justify-center gap-3 md:gap-4 uppercase text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.5em] shadow-2xl mb-2 z-20 relative pointer-events-auto">
               <span>{{ isSubmitting ? 'Syncing...' : 'Initiate Contact' }}</span>
               <mat-icon *ngIf="!isSubmitting" class="scale-110 md:scale-125">bolt</mat-icon>
               <div *ngIf="isSubmitting" class="w-4 h-4 md:w-5 md:h-5 border-2 border-[var(--bg-primary)]/30 border-t-[var(--bg-primary)] rounded-full animate-spin"></div>
@@ -169,7 +169,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private toastr = inject(ToastrService);
 
-  @ViewChild('infoSide') infoRef!: ElementRef;
+  @ViewChild('infoSide') infoSide!: ElementRef;
   @ViewChild('formSide') formRef!: ElementRef;
 
   contactForm: FormGroup = this.fb.group({
@@ -217,19 +217,24 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
     gsap.registerPlugin(ScrollTrigger);
     // Precise Multi-Line Typewriter Reset
     const fullTitle = "Let's work together";
-    ScrollTrigger.create({
-      trigger: this.infoRef.nativeElement,
-      start: 'top 85%',
-      onEnter: () => this.startTyping(fullTitle)
-    });
+    
+    if (this.infoSide) {
+      ScrollTrigger.create({
+        trigger: this.infoSide.nativeElement,
+        start: 'top 85%',
+        onEnter: () => this.startTyping(fullTitle)
+      });
 
-    gsap.to(this.infoRef.nativeElement, {
-      opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', scrollTrigger: { trigger: this.infoRef.nativeElement, start: 'top 80%' }
-    });
+      gsap.to(this.infoSide.nativeElement, {
+        opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', scrollTrigger: { trigger: this.infoSide.nativeElement, start: 'top 80%' }
+      });
+    }
 
-    gsap.to(this.formRef.nativeElement, {
-      opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', delay: 0.1, scrollTrigger: { trigger: this.formRef.nativeElement, start: 'top 85%' }
-    });
+    if (this.formRef) {
+      gsap.to(this.formRef.nativeElement, {
+        opacity: 1, x: 0, duration: 0.8, ease: 'expo.out', delay: 0.1, scrollTrigger: { trigger: this.formRef.nativeElement, start: 'top 85%' }
+      });
+    }
   }
 
   private startTyping(text: string) {
@@ -249,6 +254,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   async onSubmit() {
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
+      this.toastr.warning('Please complete all required fields.', 'Validation Alert');
       return;
     }
 
@@ -256,6 +262,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
       if (!this.captchaResponse) {
         this.captchaError = true;
         this.cdr.markForCheck();
+        this.toastr.warning('Please complete the verification.', 'Security Protocol');
         return;
       }
 
@@ -266,54 +273,49 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
       this.cdr.markForCheck();
 
       try {
-        const formData = new FormData();
-        formData.append("access_key", "a8205ed1-ce6d-4713-bc3c-4510e20f664c");
-        formData.append("name", this.contactForm.value.name);
-        formData.append("email", this.contactForm.value.email);
-        if (this.contactForm.value.phone) {
-          formData.append("phone", this.contactForm.value.phone);
-        }
-        formData.append("message", this.contactForm.value.message);
-        formData.append("h-captcha-response", this.captchaResponse);
-
-        // Web3Forms Submit (Primary)
-        const web3Promise = fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
-        
-        // Google Sheets Submit (Secondary - Non-blocking for UI)
-        const googleSheetsData = {
+        const payload = {
+          access_key: "a8205ed1-ce6d-4713-bc3c-4510e20f664c",
           name: this.contactForm.value.name,
           email: this.contactForm.value.email,
-          phone: this.contactForm.value.phone || '',
-          message: this.contactForm.value.message
+          phone: this.contactForm.value.phone || 'Not Provided',
+          message: this.contactForm.value.message,
+          subject: `Portfolio Contact from ${this.contactForm.value.name}`,
+          from_name: "Portfolio Terminal",
+          "h-captcha-response": this.captchaResponse
         };
 
-        const googleSheetsPromise = fetch("https://script.google.com/macros/s/AKfycbyNAU5GieDc0IoIWSQk5wPpZjISXy9Nf6h3_JqIuAmbf9duRuxy0VTR226J7qqrX-80VA/exec", {
+        // Web3Forms Submit via JSON (more reliable on mobile)
+        const web3Promise = fetch("https://api.web3forms.com/submit", {
           method: "POST",
           headers: {
-            "Content-Type": "text/plain;charset=utf-8"
+             "Content-Type": "application/json",
+             "Accept": "application/json"
           },
-          body: JSON.stringify(googleSheetsData),
-        }).catch(err => console.warn('Google Sheets Sync Failed:', err)); // Catch cleanly so UI doesn't break
+          body: JSON.stringify(payload)
+        });
 
-        // Await primary service
+        // Background sync to Google Sheets (truly non-blocking and simplified)
+        fetch("https://script.google.com/macros/s/AKfycbyNAU5GieDc0IoIWSQk5wPpZjISXy9Nf6h3_JqIuAmbf9duRuxy0VTR226J7qqrX-80VA/exec", {
+          method: "POST",
+          mode: 'no-cors',
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(payload)
+        }).catch(() => {}); // Suppress errors for background task
+
         const response = await web3Promise;
         const data = await response.json();
-        
-        // Await secondary silently
-        await googleSheetsPromise;
 
         if (data.success) {
           this.submitted = true;
           this.contactForm.reset();
           this.captchaResponse = null;
-          this.toastr.success('System acknowledgment sent. Response pending.', 'Transmission Received');
+          this.toastr.success('Transmission received and verified.', 'Sync Successful');
         } else {
-          this.submitError = true;
-          this.toastr.error('Transmission failed. Please try again.', 'Error');
+          throw new Error(data.message || 'System gatekeeper rejected the payload.');
         }
-      } catch (error) {
+      } catch (error: any) {
         this.submitError = true;
-        this.toastr.error('Network error. Unable to establish uplink.', 'Error');
+        this.toastr.error(error.message || 'Transmission failed. Please check network connection.', 'System Error');
       } finally {
         this.isSubmitting = false;
         this.cdr.markForCheck();
