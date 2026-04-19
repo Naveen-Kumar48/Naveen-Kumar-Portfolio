@@ -14,7 +14,7 @@ import { BackToTopComponent } from './components/back-to-top.component';
 import { CookieBannerComponent } from './components/cookie-banner.component';
 import { CookiePreferencesModalComponent } from './components/cookie-preferences-modal.component';
 import { CookieSettingsButtonComponent } from './components/cookie-settings-button.component';
-import { signal, OnInit, inject, PLATFORM_ID, AfterViewInit, NgZone } from '@angular/core';
+import { OnInit, inject, PLATFORM_ID, AfterViewInit, NgZone } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { SeoService } from './services/seo.service';
 import Lenis from 'lenis';
@@ -33,65 +33,59 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
   ],
   template: `
     <app-loader />
-    
-    <div [style.visibility]="contentVisible() ? 'visible' : 'hidden'"
-         [style.opacity]="contentVisible() ? '1' : '0'"
-         class="transition-opacity duration-[800ms] ease-out">
-      <app-cursor />
-      <main class="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] overflow-x-hidden selection:bg-transparent">
-        <app-navbar />
-        <app-hero />
-        
-        @defer (on idle; on viewport; prefetch on idle) {
-          <app-about />
-        } @placeholder {
-          <div class="h-[600px] w-full bg-[var(--bg-primary)]"></div>
-        }
+    <app-cursor />
+    <main class="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)] overflow-x-hidden selection:bg-transparent">
+      <app-navbar />
+      <app-hero />
+      
+      @defer (on idle; on viewport; prefetch on idle) {
+        <app-about />
+      } @placeholder {
+        <div class="h-[600px] w-full bg-[var(--bg-primary)]"></div>
+      }
 
-        @defer (on idle; on viewport; prefetch on idle) {
-          <app-skills />
-        } @placeholder {
-          <div class="h-[500px] w-full bg-[var(--bg-secondary)]"></div>
-        }
+      @defer (on idle; on viewport; prefetch on idle) {
+        <app-skills />
+      } @placeholder {
+        <div class="h-[500px] w-full bg-[var(--bg-secondary)]"></div>
+      }
 
-        @defer (on idle; on viewport; prefetch on idle) {
-          <app-projects />
-        } @placeholder {
-          <div class="h-[800px] w-full bg-[var(--bg-primary)]"></div>
-        }
+      @defer (on idle; on viewport; prefetch on idle) {
+        <app-projects />
+      } @placeholder {
+        <div class="h-[800px] w-full bg-[var(--bg-primary)]"></div>
+      }
 
-        @defer (on idle; on viewport; prefetch on idle) {
-          <app-experience />
-        } @placeholder {
-          <div class="h-[700px] w-full bg-[var(--bg-secondary)]"></div>
-        }
+      @defer (on idle; on viewport; prefetch on idle) {
+        <app-experience />
+      } @placeholder {
+        <div class="h-[700px] w-full bg-[var(--bg-secondary)]"></div>
+      }
 
-        @defer (on idle; on viewport; prefetch on idle) {
-          <app-academic-activity />
-        } @placeholder {
-          <div class="h-[600px] w-full bg-[var(--bg-primary)]"></div>
-        }
+      @defer (on idle; on viewport; prefetch on idle) {
+        <app-academic-activity />
+      } @placeholder {
+        <div class="h-[600px] w-full bg-[var(--bg-primary)]"></div>
+      }
 
-        @defer (on idle; on viewport; prefetch on idle) {
-          <app-contact />
-        } @placeholder {
-          <div class="h-[500px] w-full bg-[var(--bg-secondary)]"></div>
-        }
+      @defer (on idle; on viewport; prefetch on idle) {
+        <app-contact />
+      } @placeholder {
+        <div class="h-[500px] w-full bg-[var(--bg-secondary)]"></div>
+      }
 
-        <app-footer />
-      </main>
-      <app-back-to-top />
-      <app-cookie-banner />
-      <app-cookie-preferences-modal />
-      <app-cookie-settings-button />
-    </div>
+      <app-footer />
+    </main>
+    <app-back-to-top />
+    <app-cookie-banner />
+    <app-cookie-preferences-modal />
+    <app-cookie-settings-button />
   `
 })
 export class App implements OnInit, AfterViewInit {
   private platformId = inject(PLATFORM_ID);
   private ngZone = inject(NgZone);
   private seo = inject(SeoService);
-  contentVisible = signal(false);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -114,7 +108,6 @@ export class App implements OnInit, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       this.initSmoothScroll();
       this.initSecurityLock();
-      this.initPageRevealer();
     }
   }
 
@@ -289,13 +282,4 @@ export class App implements OnInit, AfterViewInit {
     }
   }
 
-  private initPageRevealer() {
-    // Precise, high-speed reveal protocol
-    setTimeout(() => {
-      if (isPlatformBrowser(this.platformId)) {
-        window.scrollTo(0, 0);
-      }
-      this.contentVisible.set(true);
-    }, 800);
-  }
 }

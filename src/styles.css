@@ -1,6 +1,4 @@
 /* Global Styles - Ultra-Level 'Extreme' Framework */
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 @import "ngx-toastr/toastr";
 
@@ -51,9 +49,38 @@
 }
 
 /* Performance Optimizations */
-section {
+app-about,
+app-skills,
+app-projects,
+app-experience,
+app-academic-activity,
+app-contact {
+  display: block;
   content-visibility: auto;
-  contain-intrinsic-size: 0 500px;
+}
+
+app-about {
+  contain-intrinsic-size: auto 1120px;
+}
+
+app-skills {
+  contain-intrinsic-size: auto 1060px;
+}
+
+app-projects {
+  contain-intrinsic-size: auto 1440px;
+}
+
+app-experience {
+  contain-intrinsic-size: auto 1100px;
+}
+
+app-academic-activity {
+  contain-intrinsic-size: auto 860px;
+}
+
+app-contact {
+  contain-intrinsic-size: auto 920px;
 }
 
 @media (prefers-reduced-motion: reduce) {

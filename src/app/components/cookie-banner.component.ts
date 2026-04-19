@@ -59,14 +59,18 @@ export class CookieBannerComponent implements OnInit {
   private scriptLoader = inject(ScriptLoaderService);
   
   showBanner = signal(false);
+  private analyticsScheduled = false;
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // Always load analytics immediately
-      this.loadAnalyticsScripts();
-
       this.consentService.getConsentState().subscribe(state => {
         this.showBanner.set(!state?.hasConsent);
+
+        if (state?.hasConsent) {
+          this.loadAnalyticsScripts();
+        } else {
+          this.scheduleAnalyticsScripts();
+        }
       });
 
       setTimeout(() => this.animateBanner(), 1500);
@@ -75,6 +79,7 @@ export class CookieBannerComponent implements OnInit {
 
   acceptAll() {
     this.consentService.acceptAll();
+    this.loadAnalyticsScripts();
     this.hideBanner();
   }
 
@@ -125,8 +130,22 @@ export class CookieBannerComponent implements OnInit {
     });
   }
 
+  private scheduleAnalyticsScripts() {
+    if (this.analyticsScheduled || !isPlatformBrowser(this.platformId)) return;
+
+    this.analyticsScheduled = true;
+
+    const load = () => this.loadAnalyticsScripts();
+
+    if ('requestIdleCallback' in window) {
+      (window as Window & { requestIdleCallback?: (cb: IdleRequestCallback, options?: IdleRequestOptions) => number }).requestIdleCallback?.(load, { timeout: 3000 });
+    } else {
+      setTimeout(load, 2500);
+    }
+  }
+
   private loadAnalyticsScripts() {
-    // Always load analytics regardless of consent
+    this.scriptLoader.loadGoogleTagManager('GTM-K46JJ2G6');
     this.scriptLoader.loadGoogleAnalytics('G-RLJGE4BXLC');
     this.scriptLoader.loadMicrosoftClarity('w0n75xme9h');
   }

@@ -6,6 +6,23 @@ export class ScriptLoaderService {
   private platformId = inject(PLATFORM_ID);
   private loadedScripts = new Set<string>();
 
+  loadGoogleTagManager(containerId: string): void {
+    if (!isPlatformBrowser(this.platformId) || this.loadedScripts.has('gtm')) return;
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtm.js?id=${containerId}`;
+    document.head.appendChild(script);
+
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({
+      'gtm.start': Date.now(),
+      event: 'gtm.js'
+    });
+
+    this.loadedScripts.add('gtm');
+  }
+
   loadGoogleAnalytics(measurementId: string): void {
     if (!isPlatformBrowser(this.platformId) || this.loadedScripts.has('ga')) return;
 
