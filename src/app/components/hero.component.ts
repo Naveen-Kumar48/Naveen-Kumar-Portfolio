@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, inject, PLATFORM_ID, ViewChildren, QueryList, OnDestroy, signal, ChangeDetectionStrategy, NgZone } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, inject, PLATFORM_ID, ViewChildren, QueryList, OnDestroy, signal, ChangeDetectionStrategy, NgZone, WritableSignal } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { gsap } from 'gsap';
@@ -31,7 +31,7 @@ import { StorylineComponent } from './storyline.component';
                 <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)]"></span>
             </span>
             <span class="text-[11px] font-black text-emerald-500 uppercase tracking-[0.4em] italic leading-none">
-                {{ displayedBadge() }}<span *ngIf="activeSection() === 'badge'" class="animate-pulse bg-emerald-500 w-1 h-3 inline-block ml-1"></span>
+                {{ displayedBadge() }}<span class="animate-pulse bg-emerald-500 w-1 h-3 inline-block ml-1" [style.display]="activeSection() === 'badge' ? 'inline-block' : 'none'"></span>
             </span>
           </div>
           
@@ -39,30 +39,30 @@ import { StorylineComponent } from './storyline.component';
             <h1 class="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.82] text-[var(--text-primary)]">
                <!-- Narrative Greeting -->
                 <div class="min-h-[1.2em] mb-2">
-                  <span class="inline-block mr-4 text-[var(--text-secondary)] text-2xl md:text-4xl lg:text-5xl font-black italic">
-                    {{ displayedGreeting() }}<span *ngIf="activeSection() === 'greeting'" class="animate-pulse bg-[var(--text-secondary)] w-1 h-6 md:h-8 inline-block ml-1"></span>
+                  <span class="inline-block mr-4 text-[var(--text-secondary)] text-xl md:text-3xl lg:text-4xl font-black italic">
+                    {{ displayedGreeting() }}<span class="animate-pulse bg-[var(--text-secondary)] w-1 h-6 md:h-8 inline-block ml-1" [style.display]="activeSection() === 'greeting' ? 'inline-block' : 'none'"></span>
                   </span>
                 </div>
 
                <!-- Primary Identity -->
-               <div class="min-h-[1.1em] flex items-center tracking-tighter perspective-1500 mb-6 font-black scale-100 origin-left">
+               <div class="min-h-[1.1em] flex items-center tracking-tighter perspective-1500 mb-8 font-black scale-100 origin-left">
                  <span class="bg-clip-text text-transparent bg-gradient-to-b from-[var(--text-primary)] to-[var(--text-secondary)] drop-shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
                    {{ displayedName() }}
                  </span>
-                 <span *ngIf="activeSection() === 'name'" class="animate-pulse md:ml-4 w-4 h-[0.9em] bg-emerald-500 inline-block shadow-[0_0_40px_rgba(16,185,129,0.9)] rounded-sm"></span>
+                 <span class="animate-pulse md:ml-4 w-4 h-[0.9em] bg-emerald-500 inline-block shadow-[0_0_40px_rgba(16,185,129,0.9)] rounded-sm" [style.display]="activeSection() === 'name' ? 'inline-block' : 'none'"></span>
                </div>
 
                <!-- Kinetic Role Matrix (Infinite Cycle) -->
-                <div class="min-h-[1.2em] font-black text-4xl md:text-6xl lg:text-7xl xl:text-8xl italic uppercase leading-[1.1]">
+                <div class="min-h-[1.2em] font-black text-6xl md:text-7xl lg:text-8xl italic uppercase leading-[1.1] max-w-2xl lg:max-w-lg mb-6">
                   <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 drop-shadow-[0_10px_20px_rgba(16,185,129,0.15)] py-2">
                      {{ displayedRole() }}
-                  </span><span *ngIf="activeSection() === 'role'" class="animate-pulse bg-emerald-500 w-2 md:w-3 h-[0.85em] inline-block align-baseline ml-2 md:ml-4 rounded-sm shadow-[0_0_15px_rgba(16,185,129,0.5)]"></span>
+                  </span><span class="animate-pulse bg-emerald-500 w-2 md:w-3 h-[0.85em] inline-block align-baseline ml-2 md:ml-4 rounded-sm shadow-[0_0_15px_rgba(16,185,129,0.5)]" [style.display]="activeSection() === 'role' ? 'inline-block' : 'none'"></span>
                 </div>
             </h1>
           </div>
           
           <p #animateItem class="text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl font-bold opacity-0 translate-y-12 leading-relaxed">
-            Building Scalable Web Applications with the MERN Stack. I am Naveen Kumar, a <span class="text-[var(--text-primary)] font-black text-reveal-gradient italic">Senior Full Stack Developer</span> specializing in React.js and Node.js. I help startups and enterprises turn complex requirements into high-performance, user-centric digital products.
+            Senior Full Stack Developer specializing in React.js and Node.js. I build <span class="text-[var(--text-primary)] font-black text-reveal-gradient italic">scalable, user-centric</span> digital products for startups and enterprises.
           </p>
           
           <div #animateItem class="flex flex-wrap gap-10 mt-6 items-center opacity-0 translate-y-12">
@@ -88,7 +88,7 @@ import { StorylineComponent } from './storyline.component';
           </div>
         </header>
 
-        <aside #visual class="relative hidden lg:flex items-center justify-center h-[750px] w-full pointer-events-none opacity-0 scale-90 translate-x-20" style="transform-style: preserve-3d">
+        <aside #visual class="relative hidden lg:flex items-center justify-center h-[750px] w-full pointer-events-none opacity-0 scale-90 translate-x-20 -translate-y-32" style="transform-style: preserve-3d">
            <div #orbContainer class="w-[650px] h-[650px] pointer-events-auto filter drop-shadow-[0_0_80px_rgba(16,185,129,0.25)]">
              <app-orb [hue]="160" [hoverIntensity]="0.9" [rotateOnHover]="true" [forceHoverState]="false" backgroundColor="transparent"></app-orb>
            </div>
@@ -122,8 +122,8 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
 
   private platformId = inject(PLATFORM_ID);
   private ngZone = inject(NgZone);
-  private mouseMoveListener: any;
-  private cursorInterval: any;
+  private mouseMoveListener: ((e: MouseEvent) => void) | null = null;
+  private cursorInterval: ReturnType<typeof setInterval> | null = null;
   private isDestroyed = false;
   private mainTimeline: gsap.core.Timeline | null = null;
   private orbAnimation: gsap.core.Tween | null = null;
@@ -177,11 +177,13 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     };
 
     this.ngZone.runOutsideAngular(() => {
-      window.addEventListener('mousemove', this.mouseMoveListener);
+      if (this.mouseMoveListener) {
+        window.addEventListener('mousemove', this.mouseMoveListener);
+      }
     });
   }
 
-  private runSequeTyped(items: any[], index = 0) {
+  private runSequeTyped(items: { text: string; signal: WritableSignal<string>; type: 'badge' | 'greeting' | 'name' | 'role' }[], index = 0) {
     if (this.isDestroyed || index >= items.length) {
       if (!this.isDestroyed) this.startInfiniteRoleCycle();
       return;
@@ -243,7 +245,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   scrollToProjects(event: Event) {
     event.preventDefault();
     if (isPlatformBrowser(this.platformId)) {
-      const lenis = (window as any).lenis;
+      const lenis = (window as unknown as Window & { lenis?: { scrollTo: (target: string, options?: { offset?: number; duration?: number }) => void } }).lenis;
       if (lenis) {
         lenis.scrollTo('#projects', { offset: -80, duration: 2 });
       } else {
