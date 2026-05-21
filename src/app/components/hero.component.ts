@@ -149,12 +149,18 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   }
 
   private initAnimations() {
-    this.mainTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    this.mainTimeline = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
 
+    // Optimized badge entrance - smooth fade in
     this.mainTimeline.to(this.badgeContainer.nativeElement, {
-      opacity: 1, y: 0, duration: 0.8, delay: 0.2
+      opacity: 1, 
+      y: 0, 
+      duration: 0.7, 
+      delay: 0.25,
+      ease: 'power2.out'
     });
 
+    // Typing animation
     this.mainTimeline.add(() => {
       this.runSequeTyped([
         { text: "Extreme-Tier / Active", signal: this.displayedBadge, type: 'badge' },
@@ -163,14 +169,35 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       ]);
     }, "-=0.2");
 
+    // Optimized item entrance - smooth staggered animation
     this.mainTimeline.to(this.animateItems.map(el => el.nativeElement), {
-      opacity: 1, y: 0, duration: 0.8, stagger: 0.1
-    }, "+=1.5");
+      opacity: 1, 
+      y: 0, 
+      duration: 0.75, 
+      stagger: 0.12,
+      ease: 'power2.out'
+    }, "+=1.4");
 
-    this.mainTimeline.to(this.visualRef.nativeElement, { opacity: 1, scale: 1, x: 0, duration: 1.5 }, "-=1.0");
+    // Optimized visual entrance - smoother scale and fade
+    this.mainTimeline.to(this.visualRef.nativeElement, { 
+      opacity: 1, 
+      scale: 1, 
+      x: 0, 
+      duration: 1.2,
+      ease: 'power2.out'
+    }, "-=0.8");
 
-    this.orbAnimation = gsap.to(this.orbContainerRef.nativeElement, { y: 20, duration: 4, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    // Optimized orbit animation - smooth continuous float
+    this.orbAnimation = gsap.to(this.orbContainerRef.nativeElement, { 
+      y: 25, 
+      duration: 5, 
+      repeat: -1, 
+      yoyo: true, 
+      ease: 'sine.inOut',
+      force3D: true 
+    });
 
+    // Optimized parallax - smooth mouse tracking without jank
     this.mouseMoveListener = (e: MouseEvent) => {
       // Disable parallax logic on touch-only protocols or small screens to ensure performance
       const isTouch = window.matchMedia('(hover: none)').matches;
@@ -179,8 +206,28 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
 
       const x = (e.clientX / window.innerWidth - 0.5);
       const y = (e.clientY / window.innerHeight - 0.5);
-      gsap.to(this.contentRef.nativeElement, { x: x * -40, y: y * -40, rotateY: x * 10, duration: 2.5, ease: 'power3.out', overwrite: 'auto' });
-      gsap.to(this.visualRef.nativeElement, { x: x * 80, y: y * 80, rotateY: x * 20, rotateX: -y * 20, duration: 3, ease: 'power3.out', overwrite: 'auto' });
+      
+      // Smoother easing with GPU acceleration
+      gsap.to(this.contentRef.nativeElement, { 
+        x: x * -40, 
+        y: y * -40, 
+        rotateY: x * 10, 
+        duration: 2, 
+        ease: 'power2.out', 
+        overwrite: 'auto',
+        force3D: true
+      });
+      
+      gsap.to(this.visualRef.nativeElement, { 
+        x: x * 80, 
+        y: y * 80, 
+        rotateY: x * 20, 
+        rotateX: -y * 20, 
+        duration: 2.5, 
+        ease: 'power2.out', 
+        overwrite: 'auto',
+        force3D: true
+      });
     };
 
     this.ngZone.runOutsideAngular(() => {
@@ -205,9 +252,10 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       if (charIndex < current.text.length) {
         current.signal.set(current.text.substring(0, charIndex + 1));
         charIndex++;
-        setTimeout(type, 15 + Math.random() * 20);
+        // Optimized timing for smoother feel
+        setTimeout(type, 18 + Math.random() * 18);
       } else {
-        setTimeout(() => this.runSequeTyped(items, index + 1), 200);
+        setTimeout(() => this.runSequeTyped(items, index + 1), 250);
       }
     };
     type();
@@ -225,9 +273,10 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       if (charIndex < role.length) {
         this.displayedRole.set(role.substring(0, charIndex + 1));
         charIndex++;
-        setTimeout(type, 30 + Math.random() * 20);
+        // Optimized timing - consistent and smooth
+        setTimeout(type, 35 + Math.random() * 15);
       } else {
-        setTimeout(() => this.backspaceRole(role), 2000);
+        setTimeout(() => this.backspaceRole(role), 2200);
       }
     };
     type();
@@ -240,10 +289,11 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       if (charIndex >= 0) {
         this.displayedRole.set(role.substring(0, charIndex));
         charIndex--;
-        setTimeout(backspace, 15);
+        // Optimized backspace speed - consistent feel
+        setTimeout(backspace, 18);
       } else {
         this.currentRoleIndex = (this.currentRoleIndex + 1) % this.roles.length;
-        setTimeout(() => this.typeRole(this.roles[this.currentRoleIndex]), 200);
+        setTimeout(() => this.typeRole(this.roles[this.currentRoleIndex]), 300);
       }
     };
     backspace();
