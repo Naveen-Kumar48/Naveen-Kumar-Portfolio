@@ -17,6 +17,8 @@ import { CookieSettingsButtonComponent } from './components/cookie-settings-butt
 import { OnInit, inject, PLATFORM_ID, AfterViewInit, NgZone } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { SeoService } from './services/seo.service';
+import { LinkTrackingService } from './services/link-tracking.service';
+import { OffPageSeoService } from './services/off-page-seo.service';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -86,21 +88,39 @@ export class App implements OnInit, AfterViewInit {
   private platformId = inject(PLATFORM_ID);
   private ngZone = inject(NgZone);
   private seo = inject(SeoService);
+  private linkTracking = inject(LinkTrackingService);
+  private offPageSeo = inject(OffPageSeoService);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
       gsap.registerPlugin(ScrollTrigger);
+      // Initialize link tracking (tracks external and internal link clicks)
+      this.linkTracking.getLinkReport(); // Activate tracking
+      // Initialize off-page SEO (structured data, social signals)
+      this.offPageSeo.addIdentityVerification();
     }
   }
 
   ngOnInit() {
     this.initSEO();
+    this.initOffPageSeo();
     // Call SeoService for home page
     this.seo.updateSeo({
       title: 'Naveen Kumar | Full Stack Developer — React, Next.js, MERN',
       description: 'Full Stack Developer in New Delhi, India. Expert in React.js, Next.js, Node.js, and AI-SaaS. Building scalable digital experiences.',
       url: 'https://naveenweb.site',
       keywords: 'Full Stack Developer India, React Developer, Next.js Developer, MERN Stack, Hire Developer New Delhi'
+    });
+  }
+
+  private initOffPageSeo() {
+    // Initialize off-page SEO optimization
+    this.offPageSeo.optimizeOffPageSeo({
+      title: 'Naveen Kumar | Full Stack Developer — React, Next.js, MERN',
+      description: 'Full Stack Developer in New Delhi, India. Expert in MERN Stack, React.js, Next.js, Node.js & AI integration.',
+      url: 'https://naveenweb.site',
+      image: 'https://naveenweb.site/og-image.png',
+      author: 'Naveen Kumar'
     });
   }
 

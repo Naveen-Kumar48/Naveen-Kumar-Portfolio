@@ -85,6 +85,12 @@ export const SKILLS: Skill[] = [
   { name: 'NPM', icon: 'auto_awesome', logoUrl: 'https://skillicons.dev/icons?i=npm', level: 90, category: 'tools', description: 'Package management and ecosystem leverage.' },
   { name: 'Postman', icon: 'rocket', logoUrl: 'https://skillicons.dev/icons?i=postman', level: 90, category: 'tools', description: 'Automated API testing, documentation, and collaboration.' },
   { name: 'Vercel', icon: 'cloud_upload', logoUrl: 'https://skillicons.dev/icons?i=vercel', level: 90, category: 'tools', description: 'Cloud deployment, edge functions, and performance analytics.' },
+  { name: 'Render', icon: 'cloud', logoUrl: 'https://skillicons.dev/icons?i=linux', level: 85, category: 'tools', description: 'Cloud application hosting and deployment.' },
+  { name: 'Netlify', icon: 'cloud_done', logoUrl: 'https://skillicons.dev/icons?i=netlify', level: 90, category: 'tools', description: 'Serverless deployment and edge functions.' },
+  { name: 'Google Analytics', icon: 'analytics', logoUrl: 'https://skillicons.dev/icons?i=gcp', level: 85, category: 'tools', description: 'Web traffic and engagement analysis.' },
+  { name: 'Google Tag Manager', icon: 'tag', logoUrl: 'https://skillicons.dev/icons?i=gcp', level: 85, category: 'tools', description: 'Managing marketing tags and tracking.' },
+  { name: 'Microsoft Clarity', icon: 'visibility', logoUrl: 'https://skillicons.dev/icons?i=azure', level: 85, category: 'tools', description: 'Behavioral analytics and heatmaps.' },
+  { name: 'Search Console', icon: 'search', logoUrl: 'https://skillicons.dev/icons?i=gcp', level: 85, category: 'tools', description: 'SEO monitoring and indexing management.' },
 ];
 
 
@@ -93,9 +99,20 @@ export const SKILLS: Skill[] = [
 export const EXPERIENCE: Experience[] = [
   {
     id: 1,
+    role: 'Intern – Web Developer',
+    company: 'Diginature',
+    period: 'May 2026 - Present',
+    description: [
+      'Engaged in structured internship program providing hands-on experience in real-world development projects in an on-site environment.',
+      'Worked on both front-end and back-end development tasks, supporting live projects and learning through collaborative teamwork with experienced engineering and product teams.',
+      'Contributed to dynamic web development initiatives, gaining practical exposure to professional development workflows and industry best practices.'
+    ]
+  },
+  {
+    id: 2,
     role: 'Full Stack Developer',
     company: 'Freelancer',
-    period: 'January 2026 – Present',
+    period: 'January-April',
     description: [
       'I work as an independent web developer, delivering high-quality, scalable, and user-centric web solutions for clients across different domains. I have successfully collaborated with multiple clients, managing the complete project lifecycle—from initial consultation and requirement analysis to development, deployment, and ongoing support.',
       'My expertise lies in building modern, performance-optimized web applications using technologies like React and Next.js. I focus on creating responsive, SEO-friendly interfaces while ensuring clean architecture and maintainable code.',
@@ -103,10 +120,10 @@ export const EXPERIENCE: Experience[] = [
     ]
   },
   {
-    id: 2,
+    id: 3,
     role: 'Full Stack Developer Trainee (MERN)',
     company: 'Q-Spiders',
-    period: 'Aug 2025 - Present',
+    period: 'Aug 2025 - April',
     description: [
       'Engineered robust end-to-end web applications with scalable MERN architecture.',
       'Designed secure REST APIs implementing RBAC and middleware for protected routes.',

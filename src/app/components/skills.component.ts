@@ -13,21 +13,26 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="skills" class="py-32 bg-[var(--bg-primary)] relative overflow-hidden transition-colors duration-500">
+      <!-- Sparkle Elements -->
+      <div class="absolute top-1/4 left-20 w-1 h-1 bg-emerald-400 rounded-full opacity-0 animate-sparkle"></div>
+      <div class="absolute top-1/2 right-1/4 w-1 h-1 bg-cyan-400 rounded-full opacity-0 animate-sparkle" style="animation-delay: 1s"></div>
+      <div class="absolute bottom-1/3 right-10 w-1 h-1 bg-emerald-300 rounded-full opacity-0 animate-sparkle" style="animation-delay: 2s"></div>
+      
       <!-- Background Kinetic Patterns -->
       <div class="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none -z-10"></div>
       
       <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="mb-20 text-center">
-          <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full liquid-glass border border-emerald-500/30 mb-6">
+          <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/50 mb-6 backdrop-blur-sm hover:border-emerald-400 transition-all duration-500 shadow-lg">
             <mat-icon class="text-emerald-500 text-sm">verified</mat-icon>
-            <span class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em]">Expertise Matrix</span>
+            <span class="text-[10px] font-black bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent uppercase tracking-[0.4em]">Expertise Matrix</span>
           </div>
           <h2 class="text-5xl md:text-7xl font-black mb-8 tracking-tighter text-[var(--text-primary)] leading-[0.9]">
              Technical <br>
-             <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500">Command Center</span>
+             <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 animate-shimmer drop-shadow-lg" style="filter: drop-shadow(0 0 20px rgba(16,185,129,0.4));">Command Center</span>
           </h2>
-          <p class="text-[var(--text-secondary)] max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
-            A specialized collection of modern technologies engineered for <span class="text-[var(--text-primary)] font-black italic">peak performance</span> and <span class="text-[var(--text-primary)] font-black italic">architectural integrity</span>.
+          <p class="text-[var(--text-secondary)] max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed p-6 rounded-xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/30 hover:border-emerald-400 transition-all duration-500">
+            A specialized collection of modern technologies engineered for <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 font-black italic">peak performance</span> and <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 font-black italic">architectural integrity</span>.
           </p>
         </div>
 

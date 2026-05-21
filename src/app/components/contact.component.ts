@@ -16,21 +16,26 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="contact" class="py-20 md:py-32 relative overflow-hidden transition-colors duration-500">
+      <!-- Sparkle Elements -->
+      <div class="absolute top-1/4 left-1/4 w-1 h-1 bg-emerald-400 rounded-full opacity-0 animate-sparkle"></div>
+      <div class="absolute top-1/2 right-1/3 w-1 h-1 bg-cyan-400 rounded-full opacity-0 animate-sparkle" style="animation-delay: 1.5s"></div>
+      <div class="absolute bottom-1/4 right-20 w-1 h-1 bg-emerald-300 rounded-full opacity-0 animate-sparkle" style="animation-delay: 2s"></div>
+      
       <!-- Spatial Design Elements -->
-      <div class="absolute -bottom-24 -right-24 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
-      <div class="absolute top-1/2 left-0 w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[100px] -z-10 -translate-x-1/2"></div>
+      <div class="absolute -bottom-24 -right-24 w-[500px] h-[500px] bg-emerald-500/15 rounded-full blur-[120px] -z-10 animate-pulse-slow"></div>
+      <div class="absolute top-1/2 left-0 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[100px] -z-10 -translate-x-1/2"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
         
         <!-- Interactive Information Sidebar -->
         <div #infoSide class="opacity-0 lg:-translate-x-12">
-          <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full liquid-glass border border-emerald-500/30 mb-6 md:mb-8">
+          <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/50 mb-6 md:mb-8 backdrop-blur-sm hover:border-emerald-400 transition-all duration-500 shadow-lg">
             <mat-icon class="text-emerald-500 text-sm">connect_without_contact</mat-icon>
-            <span class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em]">Protocol: Direct Sync</span>
+            <span class="text-[10px] font-black bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent uppercase tracking-[0.4em]">Protocol: Direct Sync</span>
           </div>
 
           <h2 class="text-4xl sm:text-5xl md:text-7xl font-black mb-6 md:mb-10 tracking-tighter leading-[0.9] text-[var(--text-primary)]">
-             {{ displayedTitle() }}<span class="animate-pulse bg-emerald-500 w-1 h-[0.9em] inline-block ml-2 rounded-sm shadow-[0_0_20px_rgba(16,185,129,0.5)]"></span>
+             {{ displayedTitle() }}<span class="animate-pulse bg-gradient-to-r from-emerald-500 to-cyan-500 w-1 h-[0.9em] inline-block ml-2 rounded-sm shadow-[0_0_20px_rgba(16,185,129,0.5)]"></span>
           </h2>
           
           <p class="text-[var(--text-secondary)] text-lg md:text-xl font-medium mb-8 md:mb-12 leading-relaxed max-w-lg">

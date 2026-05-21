@@ -13,34 +13,39 @@ import { MagneticDirective } from '../directives/magnetic.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="projects" class="py-32 relative overflow-hidden bg-[var(--bg-primary)]">
+      <!-- Sparkle Elements -->
+      <div class="absolute top-20 left-1/4 w-1 h-1 bg-emerald-400 rounded-full opacity-0 animate-sparkle"></div>
+      <div class="absolute top-1/3 right-1/3 w-1 h-1 bg-cyan-400 rounded-full opacity-0 animate-sparkle" style="animation-delay: 1s"></div>
+      <div class="absolute bottom-1/4 right-20 w-1 h-1 bg-emerald-300 rounded-full opacity-0 animate-sparkle" style="animation-delay: 2.5s"></div>
+      
       <!-- Background Kinetic Energy -->
-      <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[150px] -z-10 animate-pulse"></div>
+      <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[150px] -z-10 animate-pulse-slow"></div>
 
       <div class="max-w-7xl mx-auto px-6 relative z-10">
         <header class="flex flex-col lg:flex-row justify-between items-end mb-20 gap-8">
           <div class="max-w-2xl">
             <div class="flex items-center gap-3 mb-6 reveal-y opacity-0">
-              <span class="w-16 h-[2px] bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
-              <span class="text-emerald-500 font-mono text-[11px] uppercase tracking-[0.5em] font-black italic">Curated Architectures</span>
+              <span class="w-16 h-[2px] bg-gradient-to-r from-emerald-500 to-cyan-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-cyan-500 font-mono text-[11px] uppercase tracking-[0.5em] font-black italic">Curated Architectures</span>
             </div>
             <h2 class="text-5xl lg:text-7xl font-black mb-6 tracking-tighter leading-none reveal-y opacity-0">
                Featured MERN Stack <br>
-               <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Portfolio Projects</span>
+               <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 animate-shimmer drop-shadow-lg" style="filter: drop-shadow(0 0 20px rgba(16,185,129,0.4));">Portfolio Projects</span>
             </h2>
-            <p class="text-zinc-500 text-lg md:text-xl font-medium reveal-y opacity-0">
+            <p class="text-zinc-500 text-lg md:text-xl font-medium reveal-y opacity-0 p-4 rounded-lg bg-gradient-to-r from-emerald-500/5 to-cyan-500/5 border border-emerald-500/20">
                 Explore my portfolio of custom MERN stack applications. See case studies of scalable SaaS platforms, e-commerce sites, and React.js web apps I've built.
             </p>
           </div>
           
           <!-- Liquid Filter Chips -->
-          <nav class="flex flex-wrap gap-3 p-1 rounded-2xl liquid-glass border border-white/5 reveal-y opacity-0">
+          <nav class="flex flex-wrap gap-3 p-1 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border-2 border-emerald-500/30 reveal-y opacity-0 backdrop-blur-sm">
             @for (cat of categories; track cat) {
               <button (click)="activeCategory.set(cat)"
                       appMagnetic
                       [class]="'px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-500 ' + 
                                (activeCategory() === cat 
-                                ? 'bg-emerald-500 text-zinc-950 shadow-[0_10px_25px_rgba(16,185,129,0.3)]' 
-                                : 'text-zinc-500 hover:text-white')">
+                                ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-zinc-950 shadow-[0_10px_25px_rgba(16,185,129,0.3)]' 
+                                : 'text-zinc-500 hover:text-white hover:drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]')">
                 {{ cat }}
               </button>
             }
