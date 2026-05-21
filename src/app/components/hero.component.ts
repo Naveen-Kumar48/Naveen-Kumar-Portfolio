@@ -263,40 +263,44 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
 
   private startInfiniteRoleCycle() {
     this.activeSection.set('role');
-    this.typeRole(this.roles[this.currentRoleIndex]);
+    this.swapRole(this.roles[this.currentRoleIndex]);
   }
 
-  private typeRole(role: string) {
-    let charIndex = 0;
-    const type = () => {
-      if (this.isDestroyed) return;
-      if (charIndex < role.length) {
-        this.displayedRole.set(role.substring(0, charIndex + 1));
-        charIndex++;
-        // Optimized timing - consistent and smooth
-        setTimeout(type, 35 + Math.random() * 15);
-      } else {
-        setTimeout(() => this.backspaceRole(role), 2200);
+  private swapRole(role: string) {
+    // Instantly display the new role
+    this.displayedRole.set(role);
+    
+    // Animate the role element with scale transition
+    const roleElement = document.querySelector('span.animate-shimmer');
+    if (roleElement && !this.isDestroyed) {
+      // Scale in animation
+      gsap.fromTo(roleElement,
+        { scale: 0.85, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out' }
+      );
+    }
+    
+    // Wait and then swap to next role
+    setTimeout(() => {
+      if (!this.isDestroyed) {
+        this.animateRoleOut(() => {
+          this.currentRoleIndex = (this.currentRoleIndex + 1) % this.roles.length;
+          this.swapRole(this.roles[this.currentRoleIndex]);
+        });
       }
-    };
-    type();
+    }, 2800);
   }
 
-  private backspaceRole(role: string) {
-    let charIndex = role.length;
-    const backspace = () => {
-      if (this.isDestroyed) return;
-      if (charIndex >= 0) {
-        this.displayedRole.set(role.substring(0, charIndex));
-        charIndex--;
-        // Optimized backspace speed - consistent feel
-        setTimeout(backspace, 18);
-      } else {
-        this.currentRoleIndex = (this.currentRoleIndex + 1) % this.roles.length;
-        setTimeout(() => this.typeRole(this.roles[this.currentRoleIndex]), 300);
-      }
-    };
-    backspace();
+  private animateRoleOut(callback: () => void) {
+    const roleElement = document.querySelector('span.animate-shimmer');
+    if (roleElement && !this.isDestroyed) {
+      // Scale out animation
+      gsap.to(roleElement,
+        { scale: 0.85, opacity: 0, duration: 0.5, ease: 'back.in', onComplete: callback }
+      );
+    } else {
+      callback();
+    }
   }
 
   scrollToProjects(event: Event) {
