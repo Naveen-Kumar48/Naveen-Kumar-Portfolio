@@ -4,44 +4,22 @@ const path = require('path');
 const sitemapPath = path.join(__dirname, '../src/sitemap.xml');
 const date = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
 
+const urls = [
+  { loc: 'https://naveenweb.site/', changefreq: 'weekly', priority: '1.0' },
+  { loc: 'https://naveenweb.site/web-developer-in-delhi', changefreq: 'monthly', priority: '0.9' },
+  { loc: 'https://naveenweb.site/full-stack-developer-in-delhi', changefreq: 'monthly', priority: '0.9' },
+  { loc: 'https://naveenweb.site/mern-stack-developer-delhi', changefreq: 'monthly', priority: '0.9' },
+  { loc: 'https://naveenweb.site/react-developer-in-delhi', changefreq: 'monthly', priority: '0.9' }
+];
+
 const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://naveenweb.site/</loc>
+${urls.map(url => `  <url>
+    <loc>${url.loc}</loc>
     <lastmod>${date}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://naveenweb.site/#about</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://naveenweb.site/#projects</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://naveenweb.site/#skills</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://naveenweb.site/#experience</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://naveenweb.site/#contact</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
+    <changefreq>${url.changefreq}</changefreq>
+    <priority>${url.priority}</priority>
+  </url>`).join('\n')}
 </urlset>`;
 
 fs.writeFileSync(sitemapPath, sitemapContent);

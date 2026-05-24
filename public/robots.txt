@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /assets/
 
 Sitemap: https://naveenweb.site/sitemap.xml
-Sitemap: https://www.naveenweb.site/sitemap.xml
+Sitemap: https://naveenweb.site/sitemap.xml
