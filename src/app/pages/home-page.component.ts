@@ -74,21 +74,62 @@ export class HomePageComponent implements OnInit {
   private seo = inject(SeoService);
 
   ngOnInit() {
-    const description = 'Naveen Kumar is a full stack developer in Delhi NCR building SEO-friendly websites, React apps, and MERN applications that generate leads.';
+    const description = 'Hire Naveen Kumar — a top-rated Full Stack MERN Developer from Delhi NCR, India. Expert in React.js, Next.js, Node.js, MongoDB, TypeScript & AI-integrated SaaS apps. 10+ products built. Available for freelance & full-time roles.';
 
     this.seo.updateSeo({
-      title: 'Naveen Kumar | Web Developer in Delhi NCR',
+      title: 'Naveen Kumar | MERN Stack Developer for Hire | React & Next.js Expert, Delhi NCR',
       description,
       url: 'https://naveenweb.site/',
       keywords: [
-        'Naveen Kumar',
-        'web developer in Delhi',
-        'full stack developer in Delhi',
-        'MERN stack developer Delhi',
-        'React developer in Delhi',
-        'freelance web developer Delhi NCR',
-        'SEO-friendly portfolio website',
-        'hire web developer India'
+        // Branded
+        'Naveen Kumar', 'Naveen Kumar MERN', 'Naveen Kumar developer',
+        'Naveen Kumar portfolio', 'Naveen Kumar full stack',
+        // Hire Intent (highest value)
+        'hire MERN developer India', 'hire full stack developer Delhi',
+        'hire React developer India', 'hire Next.js developer India',
+        'MERN stack developer for hire', 'full stack developer for hire India',
+        'React developer for hire India',
+        // Superlative / Competitive
+        'top React developer India', 'best Next.js developer India',
+        'best MERN developer Delhi NCR', 'best full stack developer India',
+        'experienced MERN developer India', 'senior React developer India',
+        // Tech + Location
+        'full stack developer Delhi NCR', 'MERN stack developer Delhi',
+        'React.js developer Delhi India', 'Node.js backend developer India',
+        'MongoDB developer India', 'TypeScript developer India',
+        'Express.js developer India', 'Angular developer India',
+        'JavaScript developer India',
+        // AI / Modern Stack
+        'AI SaaS developer India', 'AI web developer India', 'AI app developer India',
+        'SaaS application developer India', 'web app developer India',
+        'web application developer Delhi',
+        // Freelance
+        'freelance web developer Delhi NCR', 'freelance React developer India',
+        'freelance MERN developer India', 'freelance Next.js developer India',
+        'freelance Node.js developer India',
+        // Junior / Entry
+        'junior full stack developer India', 'junior MERN developer India',
+        'junior developer for hire India',
+        // Portfolio Discovery
+        'full stack web developer India portfolio', 'React developer portfolio India',
+        'MERN developer portfolio India', 'portfolio website developer India',
+        'developer portfolio India', 'GitHub developer India',
+        // Expert Keywords
+        'React.js expert India', 'Next.js expert India',
+        'Node.js expert India', 'MongoDB expert India',
+        // Brand + Domain
+        'Naveen Kumar naveenweb.site', 'naveenweb site developer', 'naveenweb portfolio',
+        // NCR Cities
+        'React developer Noida', 'React developer Gurgaon',
+        'full stack developer Noida', 'full stack developer Gurgaon',
+        // Startup / Remote
+        'web developer for startup India', 'web developer for agency India',
+        'remote developer India', 'open to work developer India',
+        'available for hire web developer India',
+        // Project Types
+        'MERN stack web app India', 'e-commerce developer India',
+        'SaaS platform developer India', 'REST API developer India',
+        'backend developer India', 'frontend developer India'
       ].join(', ')
     });
 
@@ -100,7 +141,7 @@ export class HomePageComponent implements OnInit {
           '@id': 'https://naveenweb.site/#person',
           'name': 'Naveen Kumar',
           'url': 'https://naveenweb.site/',
-          'jobTitle': 'Full Stack Developer',
+          'jobTitle': 'Full Stack MERN Developer | React.js, Next.js & AI Integration Expert',
           'image': 'https://naveenweb.site/og-image.png',
           'description': description,
           'email': 'kumarnaveen897941@gmail.com',
@@ -117,7 +158,12 @@ export class HomePageComponent implements OnInit {
           ],
           'knowsAbout': [
             'React.js', 'Next.js', 'Node.js', 'MERN Stack', 'Angular',
-            'TypeScript', 'JavaScript', 'SEO', 'Web Performance', 'Lead Generation'
+            'TypeScript', 'JavaScript', 'SEO', 'Web Performance', 'Lead Generation',
+            'MongoDB', 'Express.js', 'REST API', 'AI Integration', 'SaaS Development',
+            'Tailwind CSS', 'Redux', 'MySQL', 'Freelance Web Development',
+            'Hire Full Stack Developer India', 'React Developer Delhi NCR',
+            'Next.js Developer India', 'AI Web Developer India',
+            'MERN Stack Developer Delhi', 'Web Application Development'
           ]
         },
         {

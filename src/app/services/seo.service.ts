@@ -31,7 +31,40 @@ export class SeoService {
       name: 'keywords',
       content:
         config.keywords ||
-        'Full Stack Developer, React Developer India, Next.js, MERN, New Delhi'
+        [
+          // Branded
+          'Naveen Kumar', 'Naveen Kumar MERN', 'Naveen Kumar developer',
+          'Naveen Kumar portfolio', 'Naveen Kumar full stack',
+          // Hire Intent
+          'hire MERN developer India', 'hire full stack developer Delhi',
+          'hire React developer India', 'hire Next.js developer India',
+          'MERN stack developer for hire', 'full stack developer for hire India',
+          // Superlative
+          'top React developer India', 'best Next.js developer India',
+          'best MERN developer Delhi NCR', 'best full stack developer India',
+          'experienced MERN developer India', 'senior React developer India',
+          // Tech + Location
+          'full stack developer Delhi NCR', 'MERN stack developer Delhi',
+          'React.js developer Delhi India', 'Node.js backend developer India',
+          'MongoDB developer India', 'TypeScript developer India',
+          'Express.js developer India', 'Angular developer India',
+          'JavaScript developer India',
+          // AI
+          'AI SaaS developer India', 'AI web developer India',
+          'SaaS platform developer India',
+          // Freelance
+          'freelance web developer Delhi NCR', 'freelance React developer India',
+          'freelance MERN developer India', 'remote developer India',
+          // Portfolio
+          'full stack web developer India portfolio', 'MERN developer portfolio India',
+          'developer portfolio India', 'GitHub developer India',
+          // NCR Cities
+          'React developer Noida', 'React developer Gurgaon',
+          'full stack developer Noida', 'full stack developer Gurgaon',
+          // Project Types
+          'e-commerce developer India', 'REST API developer India',
+          'backend developer India', 'frontend developer India'
+        ].join(', ')
     })
 
     // Open Graph
@@ -49,7 +82,7 @@ export class SeoService {
     })
     this.meta.updateTag({
       property: 'og:image',
-      content: config.image || 'https://naveenweb.site/og-image.jpg'
+      content: config.image || 'https://naveenweb.site/og-image.png'
     })
     this.meta.updateTag({
       property: 'og:type',
@@ -75,7 +108,7 @@ export class SeoService {
     })
     this.meta.updateTag({
       name: 'twitter:image',
-      content: config.image || 'https://naveenweb.site/og-image.jpg'
+      content: config.image || 'https://naveenweb.site/og-image.png'
     })
 
     // Canonical URL
