@@ -32,6 +32,8 @@ export class OffPageSeoService {
    * Optimize off-page SEO with structured data and social signals
    */
   optimizeOffPageSeo(config: OffPageSeoConfig) {
+    this.title.setTitle(config.title);
+
     // Add structured data for rich snippets
     this.addPersonStructuredData();
     this.addOrganizationStructuredData();
@@ -172,6 +174,7 @@ export class OffPageSeoService {
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: config.title },
       { name: 'twitter:description', content: config.description },
+      { name: 'twitter:url', content: config.url },
       { name: 'twitter:image', content: config.image },
       { name: 'twitter:creator', content: '@naveenkumar_dev' },
       { name: 'twitter:site', content: '@naveenkumar_dev' }
@@ -249,27 +252,20 @@ export class OffPageSeoService {
    * Add JSON-LD structured data
    */
   private addJsonLd(schema: any) {
-    let script = this.document.querySelector('script[type="application/ld+json"]');
+    const schemaType = String(schema?.['@type'] || 'schema')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-');
+    const scriptId = `ld-json-${schemaType}`;
+
+    let script = this.document.querySelector(`script#${scriptId}`);
     if (!script) {
       script = this.document.createElement('script');
+      script.setAttribute('id', scriptId);
       script.setAttribute('type', 'application/ld+json');
       this.document.head.appendChild(script);
     }
 
-    // Merge with existing schema if needed
-    try {
-      const existing = script.textContent ? JSON.parse(script.textContent) : null;
-      if (existing && existing['@graph']) {
-        if (!existing['@graph'].find((item: any) => item['@type'] === schema['@type'])) {
-          existing['@graph'].push(schema);
-          script.textContent = JSON.stringify(existing, null, 2);
-        }
-      } else {
-        script.textContent = JSON.stringify(schema, null, 2);
-      }
-    } catch (e) {
-      script.textContent = JSON.stringify(schema, null, 2);
-    }
+    script.textContent = JSON.stringify(schema, null, 2);
   }
 
   /**

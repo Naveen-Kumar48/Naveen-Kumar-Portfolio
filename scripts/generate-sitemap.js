@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const sitemapPath = path.join(__dirname, '../src/sitemap.xml');
+const sitemapPaths = [
+  path.join(__dirname, '../src/sitemap.xml'),
+  path.join(__dirname, '../public/sitemap.xml')
+];
 const date = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
 
 const urls = [
@@ -22,5 +25,7 @@ ${urls.map(url => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-fs.writeFileSync(sitemapPath, sitemapContent);
-console.log('✅ Dynamic sitemap.xml generated at', sitemapPath, 'with lastmod:', date);
+sitemapPaths.forEach((sitemapPath) => {
+  fs.writeFileSync(sitemapPath, sitemapContent);
+  console.log('✅ Dynamic sitemap.xml generated at', sitemapPath, 'with lastmod:', date);
+});
