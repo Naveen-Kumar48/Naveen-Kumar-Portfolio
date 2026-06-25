@@ -142,7 +142,7 @@ Feel free to:
 
 *Note: Please do not copy content verbatim—create your unique narrative.*
 
----
+------------------------------------
 
 ## 🔗 CONNECT
 
