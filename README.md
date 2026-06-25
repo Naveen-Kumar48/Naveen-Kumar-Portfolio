@@ -44,7 +44,7 @@ This isn't just a portfolio—it's a **production-grade showcase** of advanced f
 
 **Live Portfolio:** [naveenweb.site](https://naveenweb.site/)
 
-*Experience the production build with optimized assets and performance tuning.*
+*Experience the production build with optimized assets and performance tuning..*
 
 ---
 
