@@ -100,7 +100,7 @@ npm run build
 - ✅ **Direct Communication Links** - Email and professional social profiles
 - ✅ **Recruiter-Friendly Layout** - Clear, scannable information hierarchy
 
----
+--------------------------------------------------------------------------------
 
 ## 📊 ENGINEERING PHILOSOPHY
 
