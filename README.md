@@ -3,7 +3,7 @@
 > **Engineering Digital Experiences at the Intersection of Quantum UX and AI-Driven Design**  
 > 🚀 MERN Stack | Next.js | AI Integration | Scalable E-commerce Systems
 
----
+---------------------------------------------------------------------------------------
 
 ## 🌌 PORTFOLIO OVERVIEW
 
@@ -17,7 +17,7 @@ This isn't just a portfolio—it's a **production-grade showcase** of advanced f
 - **UX Precision:** Responsive fluid layouts with glassmorphism aesthetics and theme persistence
 - **Code Craftsmanship:** Clean, documented, and scalable codebase following industry best practices
 
----
+------------------------------------------------
 
 ## 🛠️ TECHNOLOGICAL ARSENAL
 
@@ -38,13 +38,13 @@ This isn't just a portfolio—it's a **production-grade showcase** of advanced f
 ### Deployment Infrastructure
 - **Netlify** (CI/CD pipeline with automated builds)
 
----
+--------------------------------------------------------
 
 ## 🚀 DEPLOYMENT
 
 **Live Portfolio:** [naveenweb.site](https://naveenweb.site/)
 
-*Experience the production build with optimized assets and performance tuning.*
+*Experience the production build with optimized assets and performance tuning..*
 
 ---
 
@@ -100,7 +100,7 @@ npm run build
 - ✅ **Direct Communication Links** - Email and professional social profiles
 - ✅ **Recruiter-Friendly Layout** - Clear, scannable information hierarchy
 
----
+--------------------------------------------------------------------------------
 
 ## 📊 ENGINEERING PHILOSOPHY
 
@@ -142,7 +142,7 @@ Feel free to:
 
 *Note: Please do not copy content verbatim—create your unique narrative.*
 
----
+------------------------------------
 
 ## 🔗 CONNECT
 
