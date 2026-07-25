@@ -26,17 +26,22 @@ export class ScriptLoaderService {
   loadGoogleAnalytics(measurementId: string): void {
     if (!isPlatformBrowser(this.platformId) || this.loadedScripts.has('ga')) return;
 
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-    document.head.appendChild(script);
-
     (window as any).dataLayer = (window as any).dataLayer || [];
-    function gtag(...args: any[]) {
-      (window as any).dataLayer.push(args);
+    if (!(window as any).gtag) {
+      (window as any).gtag = function(...args: any[]) {
+        (window as any).dataLayer.push(arguments);
+      };
     }
-    gtag('js', new Date());
-    gtag('config', measurementId);
+
+    if (!document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${measurementId}"]`)) {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+      document.head.appendChild(script);
+
+      (window as any).gtag('js', new Date());
+      (window as any).gtag('config', measurementId);
+    }
 
     this.loadedScripts.add('ga');
   }
