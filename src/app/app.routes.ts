@@ -8,7 +8,11 @@ const landingCopy = {
     description: 'Hire a web developer in Delhi NCR for fast, SEO-friendly websites, landing pages, and web apps that focus on leads and performance.',
     h1: 'Web Developer in Delhi NCR',
     intro: 'I build modern websites for Delhi businesses that need speed, clean structure, and stronger search visibility. The focus is practical lead generation, not just visuals.',
-    keywordList: ['web developer in Delhi', 'freelance web developer Delhi NCR', 'website developer Delhi', 'SEO-friendly website'],
+    keywordList: [
+      'web developer in Delhi', 'freelance web developer Delhi NCR', 'website developer Delhi', 'SEO-friendly website',
+      'hire web developer Delhi NCR', 'best web developer Delhi', 'web design Delhi NCR', 'affordable web developer Delhi',
+      'web development agency Delhi', 'freelance website developer Delhi', 'custom website developer Delhi'
+    ],
     services: ['Lead-focused business websites', 'SEO-ready landing pages', 'Performance audits and fixes', 'Conversion copy support'],
     benefits: ['Local-intent pages designed for Delhi NCR searches.', 'Clean technical SEO with canonicals, schema, and metadata.', 'Fast delivery for startups, freelancers, and small businesses.'],
     faqs: [
@@ -23,7 +27,11 @@ const landingCopy = {
     description: 'Need a full stack developer in Delhi NCR? I build scalable React, Angular, Node.js, and MERN solutions with SEO and performance in mind.',
     h1: 'Full Stack Developer in Delhi NCR',
     intro: 'This page is for founders and teams looking for a full stack developer who can handle frontend, backend, deployment, and SEO-aware product structure.',
-    keywordList: ['full stack developer in Delhi', 'hire full stack developer Delhi NCR', 'MERN stack developer Delhi', 'React developer Delhi'],
+    keywordList: [
+      'full stack developer in Delhi', 'hire full stack developer Delhi NCR', 'MERN stack developer Delhi', 'React developer Delhi',
+      'full stack engineer Delhi', 'hire MERN developer India', 'full stack web developer Delhi NCR', 'senior full stack developer Delhi',
+      'full stack developer Noida', 'full stack developer Gurgaon'
+    ],
     services: ['Frontend and backend development', 'REST API design and integration', 'SEO-aware information architecture', 'Deployment and maintenance'],
     benefits: ['One developer for end-to-end execution.', 'Built for speed, usability, and search.', 'Practical communication with clear scope and milestones.'],
     faqs: [
@@ -38,7 +46,11 @@ const landingCopy = {
     description: 'Looking for a MERN stack developer in Delhi? I build scalable MongoDB, Express, React, and Node.js applications optimized for users and Google.',
     h1: 'MERN Stack Developer Delhi',
     intro: 'I help startups and small businesses ship MERN stack products with a strong focus on architecture, performance, and organic visibility.',
-    keywordList: ['mern stack developer delhi', 'MERN developer Delhi NCR', 'hire MERN stack developer', 'React Node developer'],
+    keywordList: [
+      'mern stack developer delhi', 'MERN developer Delhi NCR', 'hire MERN stack developer', 'React Node developer',
+      'MERN developer for hire India', 'full stack MERN developer Delhi NCR', 'MongoDB Express React Node developer',
+      'MERN stack web application Delhi', 'best MERN developer Delhi'
+    ],
     services: ['MERN app builds', 'Authentication and dashboards', 'Admin panels and APIs', 'SEO-friendly content structure'],
     benefits: ['Ideal for SaaS, dashboards, and business apps.', 'Engineering plus SEO from the first build.', 'Flexible for freelance and part-time delivery.'],
     faqs: [
@@ -53,7 +65,11 @@ const landingCopy = {
     description: 'Hire a React developer in Delhi NCR for fast, accessible, SEO-friendly interfaces, landing pages, and product frontends.',
     h1: 'React Developer in Delhi NCR',
     intro: 'If you need a React developer in Delhi NCR, I build interfaces that are fast, responsive, and structured to support search and conversion.',
-    keywordList: ['react developer in Delhi', 'hire React developer Delhi NCR', 'frontend developer Delhi', 'React landing page developer'],
+    keywordList: [
+      'react developer in Delhi', 'hire React developer Delhi NCR', 'frontend developer Delhi', 'React landing page developer',
+      'Next.js developer Delhi', 'React.js expert Delhi NCR', 'freelance React developer Delhi', 'React developer Noida',
+      'React developer Gurgaon', 'best React developer India'
+    ],
     services: ['Component-driven frontend builds', 'SEO-friendly landing pages', 'Responsive UI systems', 'Conversion-focused redesigns'],
     benefits: ['Great for startups, agencies, and founder-led teams.', 'Strong focus on UX, performance, and mobile first.', 'Content and metadata are aligned with search intent.'],
     faqs: [

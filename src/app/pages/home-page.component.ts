@@ -160,10 +160,12 @@ export class HomePageComponent implements OnInit {
             'React.js', 'Next.js', 'Node.js', 'MERN Stack', 'Angular',
             'TypeScript', 'JavaScript', 'SEO', 'Web Performance', 'Lead Generation',
             'MongoDB', 'Express.js', 'REST API', 'AI Integration', 'SaaS Development',
-            'Tailwind CSS', 'Redux', 'MySQL', 'Freelance Web Development',
+            'Tailwind CSS', 'Redux Toolkit', 'MySQL', 'Freelance Web Development',
             'Hire Full Stack Developer India', 'React Developer Delhi NCR',
             'Next.js Developer India', 'AI Web Developer India',
-            'MERN Stack Developer Delhi', 'Web Application Development'
+            'MERN Stack Developer Delhi', 'Web Application Development',
+            'Web Developer in Delhi', 'Hire MERN Developer India', 'Custom Web Development',
+            'GraphQL API', 'Gemini API Integration', 'OpenAI API Integration', 'SEO Friendly Web Apps'
           ]
         },
         {
