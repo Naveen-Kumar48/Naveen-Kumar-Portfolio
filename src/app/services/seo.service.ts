@@ -34,33 +34,44 @@ export class SeoService {
         [
           // Branded
           'Naveen Kumar', 'Naveen Kumar MERN', 'Naveen Kumar developer',
-          'Naveen Kumar portfolio', 'Naveen Kumar full stack',
+          'Naveen Kumar portfolio', 'Naveen Kumar full stack', 'Naveen Kumar web developer', 'Naveen Kumar Delhi NCR',
           // Hire Intent
           'hire MERN developer India', 'hire full stack developer Delhi',
           'hire React developer India', 'hire Next.js developer India',
+          'hire Node.js developer India', 'hire TypeScript developer Delhi',
+          'hire Angular developer India', 'hire frontend developer Delhi NCR',
+          'hire backend developer Delhi NCR', 'hire web developer Delhi',
           'MERN stack developer for hire', 'full stack developer for hire India',
+          'hire dedicated MERN developer', 'hire web developer for startup India',
           // Superlative
           'top React developer India', 'best Next.js developer India',
           'best MERN developer Delhi NCR', 'best full stack developer India',
+          'best web developer in Delhi', 'top MERN stack developer Delhi NCR',
           'experienced MERN developer India', 'senior React developer India',
           // Tech + Location
           'full stack developer Delhi NCR', 'MERN stack developer Delhi',
-          'React.js developer Delhi India', 'Node.js backend developer India',
-          'MongoDB developer India', 'TypeScript developer India',
-          'Express.js developer India', 'Angular developer India',
-          'JavaScript developer India',
-          // AI
-          'AI SaaS developer India', 'AI web developer India',
-          'SaaS platform developer India',
-          // Freelance
+          'React.js developer Delhi India', 'Next.js 14 developer India',
+          'Node.js backend developer India', 'MongoDB developer India',
+          'TypeScript developer India', 'Express.js developer India',
+          'Angular developer India', 'JavaScript developer India',
+          'Tailwind CSS developer India', 'Redux Toolkit developer',
+          'REST API developer India', 'GraphQL API developer India',
+          // AI & Modern Stack
+          'AI SaaS developer India', 'AI web developer India', 'AI app developer India',
+          'Gemini API developer India', 'OpenAI API integration developer',
+          'SaaS platform developer India', 'web app developer India',
+          // Freelance & Remote
           'freelance web developer Delhi NCR', 'freelance React developer India',
-          'freelance MERN developer India', 'remote developer India',
-          // Portfolio
+          'freelance MERN developer India', 'freelance Next.js developer India',
+          'remote developer India', 'open to work developer India',
+          // Portfolio & Location
           'full stack web developer India portfolio', 'MERN developer portfolio India',
           'developer portfolio India', 'GitHub developer India',
+          'SEO friendly website developer Delhi', 'custom web application development Delhi',
           // NCR Cities
           'React developer Noida', 'React developer Gurgaon',
           'full stack developer Noida', 'full stack developer Gurgaon',
+          'software engineer Delhi NCR', 'freelance developer Delhi',
           // Project Types
           'e-commerce developer India', 'REST API developer India',
           'backend developer India', 'frontend developer India'
