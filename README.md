@@ -38,7 +38,7 @@ This isn't just a portfolio—it's a **production-grade showcase** of advanced f
 ### Deployment Infrastructure
 - **Netlify** (CI/CD pipeline with automated builds)
 
---------------------------------------------------------
+--------------------------------------------------------------------------
 
 ## 🚀 DEPLOYMENT
 
@@ -156,4 +156,4 @@ Feel free to:
 
 ---
 
-*Last Updated: March 2026 | Engineered with Angular 17+ & Passion*
+
