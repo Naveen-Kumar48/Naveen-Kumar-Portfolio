@@ -3,7 +3,7 @@
 > **Engineering Digital Experiences at the Intersection of Quantum UX and AI-Driven Design**  
 > 🚀 MERN Stack | Next.js | AI Integration | Scalable E-commerce Systems
 
----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
 
 ## 🌌 PORTFOLIO OVERVIEW
 
