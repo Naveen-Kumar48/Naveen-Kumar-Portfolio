@@ -17,7 +17,7 @@ This isn't just a portfolio—it's a **production-grade showcase** of advanced f
 - **UX Precision:** Responsive fluid layouts with glassmorphism aesthetics and theme persistence
 - **Code Craftsmanship:** Clean, documented, and scalable codebase following industry best practices
 
-----------------------------------------------------------
+--------------------------------------------------------------
 
 ## 🛠️ TECHNOLOGICAL ARSENAL
 
