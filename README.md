@@ -3,7 +3,7 @@
 > **Engineering Digital Experiences at the Intersection of Quantum UX and AI-Driven Design**  
 > 🚀 MERN Stack | Next.js | AI Integration | Scalable E-commerce Systems
 
----------------------------------------------------------------------------------------
+---------------------------
 
 ## 🌌 PORTFOLIO OVERVIEW
 
@@ -17,7 +17,7 @@ This isn't just a portfolio—it's a **production-grade showcase** of advanced f
 - **UX Precision:** Responsive fluid layouts with glassmorphism aesthetics and theme persistence
 - **Code Craftsmanship:** Clean, documented, and scalable codebase following industry best practices
 
-------------------------------------------------
+---------------------------------------------------------------------
 
 ## 🛠️ TECHNOLOGICAL ARSENAL
 
@@ -38,7 +38,7 @@ This isn't just a portfolio—it's a **production-grade showcase** of advanced f
 ### Deployment Infrastructure
 - **Netlify** (CI/CD pipeline with automated builds)
 
---------------------------------------------------------
+--------------------------------------------------------------------------
 
 ## 🚀 DEPLOYMENT
 
@@ -154,6 +154,7 @@ Feel free to:
 > **🚀 Building the future, one component at a time.**  
 > *Available for challenging full-stack opportunities where innovation meets impact.*
 
----
+-------------------------------------------------------------------------------------------
+Made With ❤️ By Naveen Kumar
 
-*Last Updated: March 2026 | Engineered with Angular 17+ & Passion*
+
