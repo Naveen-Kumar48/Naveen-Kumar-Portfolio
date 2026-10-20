@@ -112,7 +112,7 @@ Every line in this portfolio represents:
 - **User-Centric Thinking** in every interaction
 - **Scalable Architecture** patterns for future growth
 
----
+-----------------------------------------
 
 ## 🎯 SPECIALIZATION DOMAINS
 
