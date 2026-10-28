@@ -110,17 +110,6 @@ export const EXPERIENCE: Experience[] = [
   },
   {
     id: 2,
-    role: 'Full Stack Developer',
-    company: 'Freelancer',
-    period: 'January-April',
-    description: [
-      'I work as an independent web developer, delivering high-quality, scalable, and user-centric web solutions for clients across different domains. I have successfully collaborated with multiple clients, managing the complete project lifecycle—from initial consultation and requirement analysis to development, deployment, and ongoing support.',
-      'My expertise lies in building modern, performance-optimized web applications using technologies like React and Next.js. I focus on creating responsive, SEO-friendly interfaces while ensuring clean architecture and maintainable code.',
-      'I also handle deployment and continuous delivery workflows using platforms such as Vercel and Hostinger, ensuring seamless releases and reliable performance in production environments. Post-launch, I continue to support clients with enhancements, optimizations, and technical maintenance to ensure long-term success.'
-    ]
-  },
-  {
-    id: 3,
     role: 'Full Stack Developer Trainee (MERN)',
     company: 'Q-Spiders',
     period: 'Aug 2025 - April',

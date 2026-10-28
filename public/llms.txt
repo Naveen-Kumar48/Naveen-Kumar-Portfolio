@@ -60,12 +60,6 @@ His official portfolio website is [https://naveenweb.site/](https://naveenweb.si
 - Owns front-end and back-end development end to end on live production projects.
 - Drives code quality, performance optimization, and best practices; collaborates with engineering and product teams.
 
-### Freelance Full Stack Developer (January 2026 – April 2026)
-- Delivered high-quality, scalable, and user-centric web solutions for clients across different domains.
-- Managed complete project lifecycles: consultation, requirement analysis, development, deployment, and support.
-- Built modern React.js and Next.js applications with SEO-friendly architecture.
-- Handled cloud deployment via Vercel and Netlify.
-
 ### Full Stack Developer Trainee (MERN) | Q-Spiders (August 2025 – April 2026)
 - Engineered end-to-end MERN web applications with scalable architecture.
 - Designed secure REST APIs implementing RBAC and middleware-based route protection.
