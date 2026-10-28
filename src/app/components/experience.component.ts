@@ -5,14 +5,18 @@ import { EXPERIENCE } from '../data/portfolio.data';
 import { gsap } from 'gsap';
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MagneticDirective } from '../directives/magnetic.directive';
+import { AsciiRippleComponent } from './ascii-ripple.component';
 
 @Component({
   selector: 'app-experience',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MagneticDirective],
+  imports: [CommonModule, MatIconModule, MagneticDirective, AsciiRippleComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="experience" class="py-32 bg-[var(--bg-primary)] border-t border-[var(--glass-border)] transition-colors duration-500 relative overflow-hidden">
+      <!-- Interactive ASCII Ripple Canvas Layer -->
+      <app-ascii-ripple class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-40 dark:opacity-35"></app-ascii-ripple>
+
       <!-- Sparkle Elements -->
       <div class="absolute top-20 right-1/4 w-1 h-1 bg-emerald-400 rounded-full opacity-0 animate-sparkle"></div>
       <div class="absolute bottom-1/3 right-10 w-1 h-1 bg-cyan-400 rounded-full opacity-0 animate-sparkle" style="animation-delay: 1.5s"></div>
