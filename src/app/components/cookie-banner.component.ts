@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, PLATFORM_ID, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ElementRef, inject, PLATFORM_ID, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CookieConsentService } from '../services/cookie-consent.service';
 import { ScriptLoaderService } from '../services/script-loader.service';
@@ -11,9 +11,9 @@ import { gsap } from 'gsap';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (showBanner()) {
-      <div #banner class="fixed bottom-0 left-0 right-0 z-[9999] p-3 sm:p-4 md:p-6 pointer-events-none will-change-transform" style="transform: translateZ(0);">
+      <div #banner class="fixed bottom-0 left-0 right-0 z-[9999] p-3 sm:p-4 md:p-6 pointer-events-none banner-enter">
         <div class="max-w-6xl mx-auto px-2 sm:px-4 pointer-events-auto">
-          <div class="liquid-glass rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-2xl border border-[var(--glass-border)] transition-colors duration-500 will-change-transform" style="transform: translateZ(0);">
+          <div class="liquid-glass rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-2xl border border-[var(--glass-border)] transition-colors duration-500">
             <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
               <!-- Icon + Content -->
               <div class="flex-1 flex items-start gap-3 md:gap-4">
@@ -51,13 +51,21 @@ import { gsap } from 'gsap';
         </div>
       </div>
     }
-  `
+  `,
+  styles: [`
+    @keyframes bannerIn {
+      from { opacity: 0; transform: translateY(100px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .banner-enter { animation: bannerIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s backwards; }
+  `]
 })
 export class CookieBannerComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private consentService = inject(CookieConsentService);
   private scriptLoader = inject(ScriptLoaderService);
   
+  private banner = viewChild<ElementRef<HTMLElement>>('banner');
   showBanner = signal(false);
   private analyticsScheduled = false;
 
@@ -72,8 +80,6 @@ export class CookieBannerComponent implements OnInit {
           this.scheduleAnalyticsScripts();
         }
       });
-
-      setTimeout(() => this.animateBanner(), 1500);
     }
   }
 
@@ -92,41 +98,28 @@ export class CookieBannerComponent implements OnInit {
     window.dispatchEvent(new CustomEvent('openCookiePreferences'));
   }
 
-  private animateBanner() {
-    if (!this.showBanner()) return;
-    
-    gsap.fromTo('.liquid-glass',
-      { y: 100, opacity: 0 },
-      { 
-        y: 0, 
-        opacity: 1, 
-        duration: 0.8, 
-        ease: 'power3.out', 
-        delay: 0.3,
-        clearProps: 'transform'
-      }
-    );
-  }
-
   private hideBanner() {
-    gsap.to('.liquid-glass', {
+    const el = this.banner()?.nativeElement;
+    const done = () => {
+      this.showBanner.set(false);
+      // Restore focus to main content for accessibility
+      setTimeout(() => {
+        const hero = document.querySelector('app-hero');
+        if (hero instanceof HTMLElement) {
+          hero.focus({ preventScroll: true });
+        }
+      }, 100);
+    };
+    if (!el) {
+      done();
+      return;
+    }
+    gsap.to(el, {
       y: 100,
       opacity: 0,
-      duration: 0.6,
+      duration: 0.5,
       ease: 'power2.inOut',
-      onComplete: () => {
-        this.showBanner.set(false);
-        // Force reflow to ensure content settles properly
-        void document.body.offsetHeight;
-        
-        // Restore focus to main content for accessibility
-        setTimeout(() => {
-          const hero = document.querySelector('app-hero');
-          if (hero instanceof HTMLElement) {
-            hero.focus();
-          }
-        }, 100);
-      }
+      onComplete: done
     });
   }
 

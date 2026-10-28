@@ -9,15 +9,13 @@ import { gsap } from 'gsap';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Main Sensory Dot -->
-    <div #cursor class="fixed top-0 left-0 w-3 h-3 bg-emerald-500 rounded-full pointer-events-none z-[9999] mix-blend-difference hidden md:block"></div>
+    <div #cursor class="fixed top-0 left-0 w-3 h-3 bg-emerald-500 rounded-full pointer-events-none z-[9999] hidden md:block"></div>
     
     <!-- Outer Interactive Ring -->
-    <div #follower class="fixed top-0 left-0 w-10 h-10 border border-emerald-500/50 rounded-full pointer-events-none z-[9998] hidden md:block transition-opacity duration-300">
-      <div class="absolute inset-0 bg-emerald-500/5 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
-    </div>
+    <div #follower class="fixed top-0 left-0 w-10 h-10 border border-emerald-500/50 rounded-full pointer-events-none z-[9998] hidden md:block transition-opacity duration-300"></div>
 
-    <!-- Global Sensory Glow -->
-    <div #glow class="fixed top-0 left-0 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none z-[1] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-1000"></div>
+    <!-- Global Sensory Glow (radial gradient instead of blur filter: far cheaper to composite) -->
+    <div #glow class="fixed top-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none z-[1] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-1000 hidden md:block" style="background: radial-gradient(closest-side, rgba(16,185,129,0.08), transparent);"></div>
   `,
   styles: [`
     :host { pointer-events: none; }

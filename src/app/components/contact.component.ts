@@ -22,8 +22,8 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
       <div class="absolute bottom-1/4 right-20 w-1 h-1 bg-emerald-300 rounded-full opacity-0 animate-sparkle" style="animation-delay: 2s"></div>
       
       <!-- Spatial Design Elements -->
-      <div class="absolute -bottom-24 -right-24 w-[500px] h-[500px] bg-emerald-500/15 rounded-full blur-[120px] -z-10 animate-pulse-slow"></div>
-      <div class="absolute top-1/2 left-0 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[100px] -z-10 -translate-x-1/2"></div>
+      <div class="absolute -bottom-24 -right-24 w-[500px] h-[500px] rounded-full -z-10 animate-pulse-slow" style="background: radial-gradient(closest-side, rgba(16,185,129,0.15), transparent);"></div>
+      <div class="absolute top-1/2 left-0 w-[300px] h-[300px] rounded-full -z-10 -translate-x-1/2" style="background: radial-gradient(closest-side, rgba(6,182,212,0.10), transparent);"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
         

@@ -19,7 +19,7 @@ import { MagneticDirective } from '../directives/magnetic.directive';
       <div class="absolute bottom-1/4 right-20 w-1 h-1 bg-emerald-300 rounded-full opacity-0 animate-sparkle" style="animation-delay: 2.5s"></div>
       
       <!-- Background Kinetic Energy -->
-      <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[150px] -z-10 animate-pulse-slow"></div>
+      <div class="absolute top-0 right-0 w-[800px] h-[800px] rounded-full -z-10 animate-pulse-slow" style="background: radial-gradient(closest-side, rgba(16,185,129,0.10), transparent);"></div>
 
       <div class="max-w-7xl mx-auto px-6 relative z-10">
         <header class="flex flex-col lg:flex-row justify-between items-end mb-20 gap-8">

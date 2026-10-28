@@ -25,7 +25,7 @@ import { StorylineComponent } from './storyline.component';
       <div class="absolute bottom-1/4 right-1/3 w-1 h-1 bg-emerald-400 rounded-full opacity-0 animate-sparkle" style="animation-delay: 2.5s"></div>
       
       <!-- Spatial Environment -->
-      <app-galaxy class="absolute inset-0 w-full h-full opacity-40 mix-blend-screen -z-10"></app-galaxy>
+      <app-galaxy class="absolute inset-0 w-full h-full opacity-40 -z-10"></app-galaxy>
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg-primary)]/20 to-[var(--bg-primary)] pointer-events-none -z-10 transition-colors duration-1000"></div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-20">
@@ -198,11 +198,12 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     });
 
     // Optimized parallax - smooth mouse tracking without jank
+    // Disable parallax logic on touch-only protocols or small screens to ensure performance
+    const isTouch = window.matchMedia('(hover: none)').matches;
     this.mouseMoveListener = (e: MouseEvent) => {
-      // Disable parallax logic on touch-only protocols or small screens to ensure performance
-      const isTouch = window.matchMedia('(hover: none)').matches;
-      const isSmallScreen = window.innerWidth < 1024;
-      if (isTouch || isSmallScreen) return;
+      if (isTouch || window.innerWidth < 1024) return;
+      // Hero is offscreen: no point running tweens
+      if (window.scrollY > window.innerHeight) return;
 
       const x = (e.clientX / window.innerWidth - 0.5);
       const y = (e.clientY / window.innerHeight - 0.5);

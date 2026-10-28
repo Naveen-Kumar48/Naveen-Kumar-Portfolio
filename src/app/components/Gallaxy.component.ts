@@ -228,6 +228,17 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
   private resizeListener?: () => void;
   private mouseMoveListener?: (e: MouseEvent) => void;
   private mouseLeaveListener?: () => void;
+  private visibilityObserver?: IntersectionObserver;
+  private inView = true;
+  private syncLoop = () => {
+    const shouldRun = this.inView && !document.hidden;
+    if (shouldRun && this.animateId === undefined) {
+      this.startAnimationLoop();
+    } else if (!shouldRun && this.animateId !== undefined) {
+      cancelAnimationFrame(this.animateId);
+      this.animateId = undefined;
+    }
+  };
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -257,8 +268,8 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
 
     this.resizeListener = () => {
       const isMobile = window.innerWidth < 768;
-      // Reduce complexity and resolution on mobile for better performance
-      const scale = isMobile ? 0.5 : 1.0;
+      // Render below native resolution: it's a soft background, so detail is invisible but GPU cost drops sharply
+      const scale = isMobile ? 0.5 : 0.75;
       this.renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
 
       if (this.program) {
@@ -267,8 +278,7 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
           this.gl.canvas.height,
           this.gl.canvas.width / this.gl.canvas.height
         );
-        // Reduce number of layers on mobile to save GPU cycles
-        this.program.uniforms['uNumLayers'] = { value: isMobile ? 2.0 : 4.0 };
+        this.program.uniforms['uNumLayers'] = { value: isMobile ? 2.0 : 3.0 };
       }
     };
     window.addEventListener('resize', this.resizeListener, false);
@@ -301,7 +311,7 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
         uMouseActiveFactor: { value: 0.0 },
         uAutoCenterRepulsion: { value: this.autoCenterRepulsion },
         uTransparent: { value: this.transparent },
-        uNumLayers: { value: window.innerWidth < 768 ? 2.0 : 4.0 }
+        uNumLayers: { value: window.innerWidth < 768 ? 2.0 : 3.0 }
       }
     });
 
@@ -328,6 +338,13 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
     }
 
     this.setupPageLifecycle();
+
+    this.visibilityObserver = new IntersectionObserver(([entry]) => {
+      this.inView = entry.isIntersecting;
+      this.syncLoop();
+    });
+    this.visibilityObserver.observe(ctn);
+    document.addEventListener('visibilitychange', this.syncLoop);
   }
 
   private startAnimationLoop() {
@@ -366,6 +383,8 @@ export class GalaxyComponent implements AfterViewInit, OnDestroy {
     if (this.animateId !== undefined) {
       cancelAnimationFrame(this.animateId);
     }
+    this.visibilityObserver?.disconnect();
+    document.removeEventListener('visibilitychange', this.syncLoop);
     if (this.resizeListener) {
       window.removeEventListener('resize', this.resizeListener);
     }

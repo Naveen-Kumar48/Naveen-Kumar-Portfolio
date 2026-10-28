@@ -12,8 +12,8 @@ import { gsap } from 'gsap';
   template: `
     <section id="about" class="py-32 relative overflow-hidden transition-colors duration-500 bg-[var(--bg-primary)]">
       <!-- High-Fidelity Glows -->
-      <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/20 rounded-full blur-[150px] -z-10 translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
-      <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[120px] -z-10 -translate-x-1/2 translate-y-1/2 animate-pulse" style="animation-duration: 5s"></div>
+      <div class="absolute top-0 right-0 w-[600px] h-[600px] rounded-full -z-10 translate-x-1/2 -translate-y-1/2 animate-pulse" style="background: radial-gradient(closest-side, rgba(16,185,129,0.20), transparent);"></div>
+      <div class="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full -z-10 -translate-x-1/2 translate-y-1/2 animate-pulse" style="animation-duration: 5s; background: radial-gradient(closest-side, rgba(6,182,212,0.15), transparent);"></div>
       
       <!-- Sparkle Elements -->
       <div class="absolute top-20 left-20 w-1 h-1 bg-emerald-400 rounded-full opacity-0 animate-sparkle"></div>

@@ -1,7 +1,6 @@
-import { Component, OnInit, inject, PLATFORM_ID, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, inject, PLATFORM_ID, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CookieConsentService } from '../services/cookie-consent.service';
-import { ScriptLoaderService } from '../services/script-loader.service';
 import { CookiePreferences } from '../models/cookie-consent.models';
 import { gsap } from 'gsap';
 
@@ -12,14 +11,18 @@ import { gsap } from 'gsap';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (isOpen()) {
-      <div class="fixed inset-0 z-[10000] flex items-center justify-center p-4" (click)="close()" style="allow-touch: manipulation;">
+      <div class="fixed inset-0 z-[10000] flex items-center justify-center p-4" (click)="close()">
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm will-change-opacity" style="transform: translateZ(0);"></div>
+        <div #backdrop class="absolute inset-0 bg-black/60 backdrop-blur-sm modal-backdrop-enter"></div>
 
         <!-- Modal -->
         <div 
-          class="relative liquid-glass rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-[var(--glass-border)] transition-colors duration-500 will-change-transform" 
-          style="transform: translateZ(0);"
+          #panel
+          role="dialog"
+          aria-modal="true"
+          aria-label="Cookie Preferences"
+          data-lenis-prevent
+          class="relative liquid-glass rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-[var(--glass-border)] transition-colors duration-500 modal-enter" 
           (click)="$event.stopPropagation()">
           
           <!-- Header -->
@@ -127,23 +130,38 @@ import { gsap } from 'gsap';
           <div class="sticky bottom-0 liquid-glass border-t border-[var(--glass-border)] p-4 sm:p-6 rounded-b-2xl sm:rounded-b-3xl flex flex-col sm:flex-row gap-3 transition-colors duration-500">
             <button 
               (click)="close()"
-              class="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]/80 border border-[var(--glass-border)] text-[var(--text-primary)] font-medium transition-all duration-300\">\n              Cancel
+              class="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]/80 border border-[var(--glass-border)] text-[var(--text-primary)] font-medium transition-all duration-300">
+              Cancel
             </button>
             <button 
               (click)="savePreferences()"
-              class="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white font-bold transition-all duration-300 shadow-lg shadow-emerald-500/25\">
+              class="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white font-bold transition-all duration-300 shadow-lg shadow-emerald-500/25">
               Save Preferences
             </button>
           </div>
         </div>
       </div>
     }
-  `
+  `,
+  styles: [`
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes backdropIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-enter { animation: modalIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+    .modal-backdrop-enter { animation: backdropIn 0.3s ease-out backwards; }
+  `]
 })
-export class CookiePreferencesModalComponent implements OnInit {
+export class CookiePreferencesModalComponent implements OnInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private consentService = inject(CookieConsentService);
-  private scriptLoader = inject(ScriptLoaderService);
+
+  private panel = viewChild<ElementRef<HTMLElement>>('panel');
+  private backdrop = viewChild<ElementRef<HTMLElement>>('backdrop');
 
   isOpen = signal(false);
   preferences = signal<CookiePreferences>({
@@ -152,63 +170,90 @@ export class CookiePreferencesModalComponent implements OnInit {
     performance: false,
     marketing: false
   });
-  private animationInProgress = false;
+  private closing = false;
+
+  private openHandler = () => this.open();
+  private keyHandler = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && this.isOpen()) this.close();
+  };
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      window.addEventListener('openCookiePreferences', () => this.open());
-      const currentPrefs = this.consentService.getPreferences();
-      // Always show analytics as ON (even though it's forced)
-      this.preferences.set(currentPrefs);
+      window.addEventListener('openCookiePreferences', this.openHandler);
+      window.addEventListener('keydown', this.keyHandler);
+      this.preferences.set(this.consentService.getPreferences());
+    }
+  }
+
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('openCookiePreferences', this.openHandler);
+      window.removeEventListener('keydown', this.keyHandler);
+      this.unlockScroll();
     }
   }
 
   open() {
+    if (this.isOpen()) return;
+    this.closing = false;
     this.preferences.set(this.consentService.getPreferences());
     this.isOpen.set(true);
-    document.body.style.overflow = 'hidden';
-    document.body.style.touchAction = 'none';
-    document.body.classList.add('modal-open');
-    
+    this.lockScroll();
+
+    // Panel is rendered after the next change detection pass
     setTimeout(() => {
-      const modal = document.querySelector('.liquid-glass');
-      if (modal instanceof HTMLElement) {
-        modal.setAttribute('tabindex', '-1');
-        modal.focus();
+      const el = this.panel()?.nativeElement;
+      if (el) {
+        el.setAttribute('tabindex', '-1');
+        el.focus({ preventScroll: true });
       }
     }, 50);
-    
-    gsap.fromTo('.liquid-glass',
-      { scale: 0.95, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.4, ease: 'power3.out' }
-    );
   }
 
   close() {
-    gsap.to('.liquid-glass', {
+    if (this.closing) return;
+    const panel = this.panel()?.nativeElement;
+    const backdrop = this.backdrop()?.nativeElement;
+    if (!panel) {
+      this.finishClose();
+      return;
+    }
+    this.closing = true;
+    if (backdrop) gsap.to(backdrop, { opacity: 0, duration: 0.25, ease: 'power2.in' });
+    gsap.to(panel, {
       scale: 0.95,
       opacity: 0,
-      duration: 0.3,
+      duration: 0.25,
       ease: 'power2.in',
-      onComplete: () => {
-        this.isOpen.set(false);
-        document.body.style.overflow = '';
-        document.body.style.touchAction = '';
-        document.body.classList.remove('modal-open');
-      }
+      onComplete: () => this.finishClose()
     });
   }
 
+  private finishClose() {
+    this.isOpen.set(false);
+    this.closing = false;
+    this.unlockScroll();
+  }
+
+  private lockScroll() {
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
+    (window as unknown as { lenis?: { stop: () => void } }).lenis?.stop();
+  }
+
+  private unlockScroll() {
+    document.body.style.overflow = '';
+    document.body.classList.remove('modal-open');
+    (window as unknown as { lenis?: { start: () => void } }).lenis?.start();
+  }
+
   togglePreference(key: keyof CookiePreferences) {
-    if (key === 'essential') return;
+    if (key === 'essential' || key === 'analytics') return;
     this.preferences.update(prefs => ({ ...prefs, [key]: !prefs[key] }));
   }
 
   savePreferences() {
     this.consentService.savePreferences(this.preferences());
-    
-    // Analytics is always loaded, so no need to conditionally load
-    // Just close the modal
     this.close();
   }
 }

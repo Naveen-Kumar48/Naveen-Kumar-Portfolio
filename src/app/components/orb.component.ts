@@ -257,9 +257,8 @@ export class OrbComponent implements AfterViewInit, OnDestroy {
 
     this.resizeHandler = () => {
       if (!container || !this.renderer || !this.program) return;
-      // Optimize: Cap DPR to 1 on mobile, 2 on desktop for better performance
-      const isMobile = window.innerWidth < 768;
-      const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+      // Cap DPR at 1: the orb is a soft glow, extra pixels only cost GPU time
+      const dpr = 1;
       const width = container.clientWidth;
       const height = container.clientHeight;
       this.renderer.setSize(width * dpr, height * dpr);
@@ -351,7 +350,29 @@ export class OrbComponent implements AfterViewInit, OnDestroy {
 
     this.rafId = requestAnimationFrame(update);
     this.setupPageLifecycle(update);
+
+    // Only render while visible on screen and tab is active
+    let inView = true;
+    const sync = () => {
+      const shouldRun = inView && !document.hidden;
+      if (shouldRun && this.rafId === undefined) {
+        this.rafId = requestAnimationFrame(update);
+      } else if (!shouldRun && this.rafId !== undefined) {
+        cancelAnimationFrame(this.rafId);
+        this.rafId = undefined;
+      }
+    };
+    this.visibilityObserver = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      sync();
+    });
+    this.visibilityObserver.observe(container);
+    this.visibilitySync = sync;
+    document.addEventListener('visibilitychange', sync);
   }
+
+  private visibilityObserver?: IntersectionObserver;
+  private visibilitySync?: () => void;
 
   private pageLifecycleCleanup?: () => void;
 
@@ -379,6 +400,8 @@ export class OrbComponent implements AfterViewInit, OnDestroy {
   }
 
   private cleanup() {
+    this.visibilityObserver?.disconnect();
+    if (this.visibilitySync) document.removeEventListener('visibilitychange', this.visibilitySync);
     if (this.rafId) {
       cancelAnimationFrame(this.rafId);
     }
