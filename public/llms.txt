@@ -55,10 +55,10 @@ His official portfolio website is [https://naveenweb.site/](https://naveenweb.si
 
 ## Career History
 
-### Intern — Web Developer | Diginature (May 2026 – Present)
-- Engaged in structured internship program with hands-on experience on real-world development projects.
-- Works on both front-end and back-end development supporting live projects.
-- Collaborates with experienced engineering and product teams.
+### Senior Full Stack Developer (Full-Time) | Diginature (May 2026 – Present)
+- Converted from Web Developer Intern to full-time Senior Full Stack Developer.
+- Owns front-end and back-end development end to end on live production projects.
+- Drives code quality, performance optimization, and best practices; collaborates with engineering and product teams.
 
 ### Freelance Full Stack Developer (January 2026 – April 2026)
 - Delivered high-quality, scalable, and user-centric web solutions for clients across different domains.

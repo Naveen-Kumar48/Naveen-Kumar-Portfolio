@@ -99,13 +99,13 @@ export const SKILLS: Skill[] = [
 export const EXPERIENCE: Experience[] = [
   {
     id: 1,
-    role: 'Intern – Web Developer',
+    role: 'Senior Full Stack Developer',
     company: 'Diginature',
-    period: 'May 2026 - Present',
+    period: 'May 2026 - Present (Full-Time)',
     description: [
-      'Engaged in structured internship program providing hands-on experience in real-world development projects in an on-site environment.',
-      'Worked on both front-end and back-end development tasks, supporting live projects and learning through collaborative teamwork with experienced engineering and product teams.',
-      'Contributed to dynamic web development initiatives, gaining practical exposure to professional development workflows and industry best practices.'
+      'Converted from Web Developer Intern to a full-time Senior Full Stack Developer after delivering consistent results on live, real-world projects in an on-site environment.',
+      'Own front-end and back-end development end to end, from architecture and API design to deployment, while collaborating with engineering and product teams.',
+      'Drive code quality, performance optimization, and industry best practices across production web applications, and support teammates through code reviews and knowledge sharing.'
     ]
   },
   {
