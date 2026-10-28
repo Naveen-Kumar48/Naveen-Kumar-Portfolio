@@ -3,7 +3,7 @@
 > **Engineering Digital Experiences at the Intersection of Quantum UX and AI-Driven Design**  
 > 🚀 MERN Stack | Next.js | AI Integration | Scalable E-commerce Systems
 
----------------------------
+---------------------------------------------------------------
 
 ## 🌌 PORTFOLIO OVERVIEW
 
@@ -17,7 +17,7 @@ This isn't just a portfolio—it's a **production-grade showcase** of advanced f
 - **UX Precision:** Responsive fluid layouts with glassmorphism aesthetics and theme persistence
 - **Code Craftsmanship:** Clean, documented, and scalable codebase following industry best practices
 
----------------------------------------------------------------------
+------------------
 
 ## 🛠️ TECHNOLOGICAL ARSENAL
 
@@ -112,7 +112,7 @@ Every line in this portfolio represents:
 - **User-Centric Thinking** in every interaction
 - **Scalable Architecture** patterns for future growth
 
----
+-----------------------------------------
 
 ## 🎯 SPECIALIZATION DOMAINS
 
