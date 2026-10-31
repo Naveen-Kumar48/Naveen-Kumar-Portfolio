@@ -3,15 +3,16 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { gsap } from 'gsap';
 import { GalaxyComponent } from './Gallaxy.component';
-import { OrbComponent } from './orb.component';
+import { CrystalizedBallComponent } from './crystalized-ball.component';
 import { DownloadResumeBtnComponent } from './download-resume.component';
 import { MagneticDirective } from '../directives/magnetic.directive';
 import { StorylineComponent } from './storyline.component';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, MatIconModule, GalaxyComponent, OrbComponent, DownloadResumeBtnComponent, MagneticDirective, StorylineComponent],
+  imports: [CommonModule, MatIconModule, GalaxyComponent, CrystalizedBallComponent, DownloadResumeBtnComponent, MagneticDirective, StorylineComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden selection:bg-emerald-500/30 will-change-transform">
@@ -95,9 +96,31 @@ import { StorylineComponent } from './storyline.component';
           </div>
         </header>
 
-        <aside #visual class="relative hidden lg:flex items-center justify-center h-[750px] w-full pointer-events-none opacity-0 scale-90 translate-x-20 -translate-y-32" style="transform-style: preserve-3d">
-           <div #orbContainer class="w-[650px] h-[650px] pointer-events-auto filter drop-shadow-[0_0_80px_rgba(16,185,129,0.25)]">
-             <app-orb [hue]="160" [hoverIntensity]="0.9" [rotateOnHover]="true" [forceHoverState]="false" backgroundColor="transparent"></app-orb>
+        <aside #visual class="relative hidden lg:flex items-center justify-center h-[750px] w-full pointer-events-none opacity-0 scale-90 -translate-x-10 -translate-y-28" style="transform-style: preserve-3d">
+           <div #orbContainer class="w-[620px] h-[620px] xl:w-[650px] xl:h-[650px] relative pointer-events-auto filter drop-shadow-[0_0_80px_rgba(92,255,200,0.3)] cursor-pointer">
+             <app-crystalized-ball
+               preset="aurora"
+               color="#5CFFC8"
+               [theme]="themeService.isDarkMode() ? 'dark' : 'light'"
+               [size]="0.78"
+               [crackle]="0.85"
+               [flares]="0.65"
+               [glow]="1.1"
+               [sparks]="0.6"
+               [particleCount]="18000"
+               [fill]="0.52"
+               motion="rise"
+               particleShape="square"
+               [depth]="0.65"
+               [sway]="0.55"
+               [twinkle]="0.6"
+               [haze]="0.75"
+               [speed]="1"
+               [dustSpeed]="1.1"
+               [interactive]="true"
+               [hoverStrength]="0.85"
+               [intro]="true">
+             </app-crystalized-ball>
            </div>
            <div class="absolute -top-12 -right-12 w-48 h-48 liquid-glass rounded-full border-2 border-emerald-500/30 -z-10 animate-float-slow opacity-10 blur-xl"></div>
         </aside>
@@ -126,6 +149,9 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   displayedRole = signal('');
   activeSection = signal<'badge' | 'greeting' | 'name' | 'role' | 'done'>('badge');
   showCursor = signal(true);
+
+  // CrystalizedBall Configuration
+  protected themeService = inject(ThemeService);
 
   private platformId = inject(PLATFORM_ID);
   private ngZone = inject(NgZone);
@@ -178,11 +204,12 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       ease: 'power2.out'
     }, "+=1.4");
 
-    // Optimized visual entrance - smoother scale and fade
+    // Optimized visual entrance - shifted up and in towards hero center
     this.mainTimeline.to(this.visualRef.nativeElement, { 
       opacity: 1, 
       scale: 1, 
-      x: 0, 
+      x: -40, 
+      y: -110, 
       duration: 1.2,
       ease: 'power2.out'
     }, "-=0.8");
@@ -220,10 +247,10 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       });
       
       gsap.to(this.visualRef.nativeElement, { 
-        x: x * 80, 
-        y: y * 80, 
-        rotateY: x * 20, 
-        rotateX: -y * 20, 
+        x: -40 + x * 60, 
+        y: -110 + y * 60, 
+        rotateY: x * 15, 
+        rotateX: -y * 15, 
         duration: 2.5, 
         ease: 'power2.out', 
         overwrite: 'auto',
