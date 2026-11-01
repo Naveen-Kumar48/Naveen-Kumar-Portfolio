@@ -76,8 +76,12 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
           </div>
         </div>
 
-        <!-- High-Performance Input Terminal -->
-        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="liquid-glass p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative z-10 pointer-events-auto transition-all duration-1000 group/form lg:translate-x-12">
+        <!-- High-Performance Input Terminal with WebMCP Integration -->
+        <form #formSide [formGroup]="contactForm" (ngSubmit)="onSubmit()"
+              toolname="send_inquiry"
+              tooldescription="Send a direct contact inquiry or hire request to Naveen Kumar with sender name, email, phone, and project narrative"
+              toolautosubmit
+              class="liquid-glass p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-[var(--glass-border)] shadow-2xl relative z-10 pointer-events-auto transition-all duration-1000 group/form lg:translate-x-12">
           <div class="space-y-6 md:space-y-8 relative">
             <!-- Quantum Success State -->
             <div *ngIf="submitted" 
@@ -89,39 +93,52 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
               <p class="text-sm md:text-lg text-[var(--text-secondary)] mb-6 md:mb-10 font-medium leading-relaxed">System acknowledgment sent. Strategic response pending within 24 hours.</p>
               <button type="button" (click)="resetStatus()" 
                       appMagnetic
+                      aria-label="Send a new uplink message"
                       class="px-8 py-3 md:px-10 md:py-4 liquid-glass hover:bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 rounded-xl md:rounded-2xl transition-all text-[10px] font-black uppercase tracking-[0.3em]">
                 New Uplink
               </button>
             </div>
 
+            <!-- Initiator Identity Input -->
             <div class="group/input">
-              <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Initiator Identity</label>
-              <input type="text" formControlName="name" 
+              <label for="contact-name" class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Initiator Identity</label>
+              <input id="contact-name" type="text" formControlName="name" name="name"
+                     toolparamdescription="Full name of the sender or organization initiating contact"
+                     aria-label="Full Name"
                      class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold input-placeholder"
                      [class.border-red-500/50]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
                      placeholder="Command Input [Full Name]">
               <p *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" class="text-red-400 text-[8px] font-black uppercase tracking-widest mt-2 ml-2 italic">Invalid Identity Protocol</p>
             </div>
             
+            <!-- Frequence Node (Email) -->
             <div class="group/input">
-              <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Frequence Node</label>
-              <input type="email" formControlName="email" 
+              <label for="contact-email" class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Frequence Node</label>
+              <input id="contact-email" type="email" formControlName="email" name="email"
+                     toolparamdescription="Valid email address for response and communication"
+                     aria-label="Email Address"
                      class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold input-placeholder"
                      [class.border-red-500/50]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
                      placeholder="Command Input [Email Hash]">
               <p *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="text-red-400 text-[8px] font-black uppercase tracking-widest mt-2 ml-2 italic">Malformed Frequence Hash</p>
             </div>
 
+            <!-- Comm Channel (Phone) -->
             <div class="group/input">
-              <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Comm Channel</label>
-              <input type="tel" formControlName="phone" 
+              <label for="contact-phone" class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Comm Channel</label>
+              <input id="contact-phone" type="tel" formControlName="phone" name="phone"
+                     toolparamdescription="Optional telephone or mobile number with country code"
+                     aria-label="Phone Number"
                      class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold input-placeholder"
                      placeholder="Command Input [Phone Number]">
             </div>
 
+            <!-- Encrypted Payload (Message) -->
             <div class="group/input">
-              <label class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Encrypted Payload</label>
-              <textarea formControlName="message" rows="4" md:rows="5"
+              <label for="contact-message" class="block text-[9px] md:text-[10px] font-black text-[var(--text-secondary)] uppercase tracking-[0.4em] mb-2 md:mb-3 ml-1 md:ml-2 group-focus-within/input:text-emerald-500 transition-colors italic">Encrypted Payload</label>
+              <textarea id="contact-message" formControlName="message" name="message" rows="4" md:rows="5"
+                        toolparamdescription="Detailed message, project description, scope, or inquiry narrative"
+                        aria-label="Project Narrative Architecture"
                         class="w-full bg-[var(--bg-primary)]/50 border border-[var(--glass-border)] rounded-xl md:rounded-2xl px-5 py-3.5 md:px-6 md:py-4 text-sm md:text-base text-[var(--text-primary)] focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/20 transition-all font-bold input-placeholder resize-none"
                         [class.border-red-500/50]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
                         placeholder="Project Narrative Architecture..."></textarea>
@@ -148,6 +165,7 @@ import { NgHcaptchaModule } from 'ng-hcaptcha';
             <button type="submit" 
                     [disabled]="isSubmitting"
                     appMagnetic
+                    aria-label="Initiate contact transmission"
                     class="w-full bg-[var(--text-primary)] hover:scale-[1.02] active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed text-[var(--bg-primary)] font-black py-5 md:py-6 rounded-xl md:rounded-2xl transition-all flex items-center justify-center gap-3 md:gap-4 uppercase text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.5em] shadow-2xl mb-2 z-20 relative pointer-events-auto">
               <span>{{ isSubmitting ? 'Syncing...' : 'Initiate Contact' }}</span>
               <mat-icon *ngIf="!isSubmitting" class="scale-110 md:scale-125">bolt</mat-icon>
@@ -196,6 +214,46 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.initAnimations();
+      this.registerWebMCPTools();
+    }
+  }
+
+  private registerWebMCPTools() {
+    try {
+      const nav = window.navigator as any;
+      const doc = document as any;
+      const mc = nav?.modelContext || doc?.modelContext;
+      if (mc && typeof mc.registerTool === 'function') {
+        mc.registerTool({
+          name: 'send_inquiry',
+          description: 'Submit a project inquiry, freelance job offer, or collaboration message directly to Naveen Kumar (Full Stack MERN Developer).',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              name: { type: 'string', description: 'Sender full name' },
+              email: { type: 'string', description: 'Sender email address' },
+              phone: { type: 'string', description: 'Optional telephone or contact number' },
+              message: { type: 'string', description: 'Detailed project requirements or message narrative' }
+            },
+            required: ['name', 'email', 'message']
+          },
+          execute: async (params: { name: string; email: string; phone?: string; message: string }) => {
+            this.contactForm.patchValue({
+              name: params.name,
+              email: params.email,
+              phone: params.phone || '',
+              message: params.message
+            });
+            this.cdr.markForCheck();
+            return {
+              status: 'success',
+              message: 'Inquiry details populated into contact form successfully.'
+            };
+          }
+        });
+      }
+    } catch {
+      // Safe fallback if WebMCP origin trial is not active in this browser
     }
   }
 

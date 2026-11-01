@@ -93,6 +93,9 @@ import { gsap } from 'gsap';
                 <div class="flex-shrink-0 mt-2 sm:mt-0">
                   <button 
                     (click)="togglePreference('performance')"
+                    role="switch"
+                    [attr.aria-checked]="preferences().performance"
+                    aria-label="Toggle Performance Cookies"
                     [class]="preferences().performance ? 'bg-emerald-500' : 'bg-[var(--bg-secondary)] border border-[var(--glass-border)]'"
                     class="w-12 h-7 rounded-full flex items-center px-1 transition-all duration-300 hover:scale-105">
                     <div 
@@ -114,6 +117,9 @@ import { gsap } from 'gsap';
                 <div class="flex-shrink-0 mt-2 sm:mt-0">
                   <button 
                     (click)="togglePreference('marketing')"
+                    role="switch"
+                    [attr.aria-checked]="preferences().marketing"
+                    aria-label="Toggle Marketing Cookies"
                     [class]="preferences().marketing ? 'bg-emerald-500' : 'bg-[var(--bg-secondary)] border border-[var(--glass-border)]'"
                     class="w-12 h-7 rounded-full flex items-center px-1 transition-all duration-300 hover:scale-105">
                     <div 

@@ -44,7 +44,7 @@ import { ThemeService } from '../services/theme.service';
           </div>
           
           <div class="flex flex-col gap-4">
-            <h1 class="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.82] text-[var(--text-primary)]">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter leading-[0.96] md:leading-[0.92] text-[var(--text-primary)] overflow-visible">
                <!-- Narrative Greeting -->
                 <div class="min-h-[1.2em] mb-2">
                   <span class="inline-block mr-4 text-[var(--text-secondary)] text-xl md:text-3xl lg:text-4xl font-black italic">
@@ -53,18 +53,18 @@ import { ThemeService } from '../services/theme.service';
                 </div>
 
                <!-- Primary Identity -->
-               <div class="min-h-[1.1em] flex items-center tracking-tighter perspective-1500 mb-8 font-black scale-100 origin-left">
-                 <span class="bg-clip-text text-transparent bg-gradient-to-b from-[var(--text-primary)] to-[var(--text-secondary)] drop-shadow-[0_10px_30px_rgba(255,255,255,0.05)]">
+               <div class="min-h-[1.15em] flex flex-wrap items-baseline tracking-tighter mb-6 md:mb-8 font-black scale-100 origin-left overflow-visible">
+                 <span class="inline-block bg-clip-text text-transparent bg-gradient-to-b from-[var(--text-primary)] via-[var(--text-primary)] to-[var(--text-secondary)] pt-1.5 pb-2 overflow-visible">
                    {{ displayedName() }}
                  </span>
-                 <span class="animate-pulse md:ml-4 w-4 h-[0.9em] bg-gradient-to-b from-emerald-500 to-cyan-500 inline-block shadow-[0_0_40px_rgba(16,185,129,0.9)] rounded-sm" [style.display]="activeSection() === 'name' ? 'inline-block' : 'none'"></span>
+                 <span class="animate-pulse ml-2 md:ml-4 w-3 md:w-4 h-[0.85em] bg-gradient-to-b from-emerald-500 to-cyan-500 inline-block shadow-[0_0_40px_rgba(16,185,129,0.9)] rounded-sm align-middle" [style.display]="activeSection() === 'name' ? 'inline-block' : 'none'"></span>
                </div>
 
                <!-- Kinetic Role Matrix (Infinite Cycle) -->
-                <div class="min-h-[1.2em] font-black text-6xl md:text-7xl lg:text-8xl italic uppercase leading-[1.1] max-w-2xl lg:max-w-lg mb-6">
-                  <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 animate-shimmer drop-shadow-[0_10px_20px_rgba(16,185,129,0.15)] py-2">
+                <div class="min-h-[2.3em] font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl italic uppercase leading-[1.08] max-w-2xl mb-6 overflow-visible">
+                  <span class="inline-block origin-left text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 animate-shimmer py-1 pr-3 overflow-visible">
                      {{ displayedRole() }}
-                  </span><span class="animate-pulse bg-gradient-to-b from-emerald-500 to-cyan-500 w-2 md:w-3 h-[0.85em] inline-block align-baseline ml-2 md:ml-4 rounded-sm shadow-[0_0_15px_rgba(16,185,129,0.5)]" [style.display]="activeSection() === 'role' ? 'inline-block' : 'none'"></span>
+                  </span><span class="animate-pulse bg-gradient-to-b from-emerald-500 to-cyan-500 w-2 md:w-2.5 h-[0.8em] inline-block align-baseline ml-2 md:ml-4 rounded-sm shadow-[0_0_15px_rgba(16,185,129,0.5)]" [style.display]="activeSection() === 'role' ? 'inline-block' : 'none'"></span>
                 </div>
             </h1>
           </div>
@@ -298,13 +298,12 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     // Instantly display the new role
     this.displayedRole.set(role);
     
-    // Animate the role element with scale transition
+    // Animate the role element with smooth slide-up and fade transition
     const roleElement = document.querySelector('span.animate-shimmer');
     if (roleElement && !this.isDestroyed) {
-      // Scale in animation
       gsap.fromTo(roleElement,
-        { scale: 0.85, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out' }
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
       );
     }
     
@@ -322,9 +321,8 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   private animateRoleOut(callback: () => void) {
     const roleElement = document.querySelector('span.animate-shimmer');
     if (roleElement && !this.isDestroyed) {
-      // Scale out animation
       gsap.to(roleElement,
-        { scale: 0.85, opacity: 0, duration: 0.5, ease: 'back.in', onComplete: callback }
+        { y: -16, opacity: 0, duration: 0.4, ease: 'power2.in', force3D: true, onComplete: callback }
       );
     } else {
       callback();

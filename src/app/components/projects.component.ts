@@ -38,10 +38,12 @@ import { MagneticDirective } from '../directives/magnetic.directive';
           </div>
           
           <!-- Liquid Filter Chips -->
-          <nav class="flex flex-wrap gap-3 p-1 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border-2 border-emerald-500/30 reveal-y opacity-0 backdrop-blur-sm">
+          <nav class="flex flex-wrap gap-3 p-1 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border-2 border-emerald-500/30 reveal-y opacity-0 backdrop-blur-sm" aria-label="Project Categories">
             @for (cat of categories; track cat) {
               <button (click)="activeCategory.set(cat)"
                       appMagnetic
+                      [attr.aria-label]="'Filter projects by ' + cat"
+                      [attr.aria-pressed]="activeCategory() === cat"
                       [class]="'px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-500 ' + 
                                (activeCategory() === cat 
                                 ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-zinc-950 shadow-[0_10px_25px_rgba(16,185,129,0.3)]' 
@@ -79,6 +81,7 @@ import { MagneticDirective } from '../directives/magnetic.directive';
                          target="_blank" 
                          class="inline-flex items-center justify-center gap-1 px-2 py-1.5 bg-white/10 hover:bg-emerald-500 hover:text-zinc-950 rounded text-[10px] font-bold text-emerald-400 border border-emerald-500/50 transition-all shadow-md pointer-events-auto" 
                          title="View source code"
+                         [attr.aria-label]="'View source code for ' + project.title + ' on GitHub'"
                          (click)="$event.stopPropagation()">
                         <mat-icon class="text-xs">code</mat-icon>
                         <span>Code</span>
@@ -88,6 +91,7 @@ import { MagneticDirective } from '../directives/magnetic.directive';
                          target="_blank" 
                          class="inline-flex items-center justify-center gap-1 px-2 py-1.5 bg-emerald-500 text-zinc-950 rounded text-[10px] font-bold border border-emerald-500 transition-all shadow-md hover:shadow-lg hover:scale-105 pointer-events-auto" 
                          title="View live demo"
+                         [attr.aria-label]="'View live demo of ' + project.title"
                          (click)="$event.stopPropagation()">
                         <mat-icon class="text-xs">visibility</mat-icon>
                         <span>Live</span>
@@ -113,6 +117,7 @@ import { MagneticDirective } from '../directives/magnetic.directive';
                                target="_blank" 
                                class="flex-1 p-3 bg-white/10 hover:bg-white/20 rounded-lg border border-white/20 text-white flex items-center justify-center gap-2 font-bold text-xs uppercase transition-all shadow-lg" 
                                title="View source code on GitHub"
+                               [attr.aria-label]="'View source code for ' + project.title + ' on GitHub'"
                                (click)="$event.stopPropagation()">
                               <mat-icon class="text-sm">code</mat-icon>
                               <span>Code</span>
@@ -123,6 +128,7 @@ import { MagneticDirective } from '../directives/magnetic.directive';
                                target="_blank" 
                                class="flex-1 p-3 bg-emerald-500 rounded-lg text-zinc-950 flex items-center justify-center gap-2 font-bold text-xs uppercase transition-all shadow-lg hover:shadow-emerald-500/50 hover:scale-105" 
                                title="View live project demo"
+                               [attr.aria-label]="'View live demo of ' + project.title"
                                (click)="$event.stopPropagation()">
                               <mat-icon class="text-sm">visibility</mat-icon>
                               <span>Live Demo</span>
@@ -145,6 +151,7 @@ import { MagneticDirective } from '../directives/magnetic.directive';
                                target="_blank" 
                                appMagnetic 
                                class="p-4 bg-white/5 rounded-2xl border border-white/10 text-white hover:bg-emerald-500 hover:text-zinc-950 transition-all shadow-2xl" 
+                               [attr.aria-label]="'View source code for ' + project.title + ' on GitHub'"
                                title="View source code on GitHub">
                               <mat-icon class="text-sm">code</mat-icon>
                             </a>
@@ -154,6 +161,7 @@ import { MagneticDirective } from '../directives/magnetic.directive';
                                target="_blank" 
                                appMagnetic 
                                class="p-4 bg-emerald-500 rounded-2xl text-zinc-950 hover:scale-105 transition-all shadow-[0_15px_30px_rgba(16,185,129,0.3)]" 
+                               [attr.aria-label]="'View live demo of ' + project.title"
                                title="View live project demo">
                               <mat-icon class="text-sm">visibility</mat-icon>
                             </a>

@@ -87,6 +87,8 @@
 .animate-shimmer {
   background-size: 200% auto;
   animation: shimmer 6s linear infinite;
+  display: inline-block;
+  overflow: visible;
   /* Filters on animated clipped text repaint every frame; keep the text gradient only */
   filter: none !important;
 }
