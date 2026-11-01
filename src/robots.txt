@@ -1,7 +1,12 @@
 User-agent: *
 Allow: /
 
-# Explicit permission rules for AI crawlers & search bots
+# -------------------------------------------------------------
+# AI Crawlers & Generative Engine Optimization (GEO)
+# Explicit permission for LLMs, Answer Engines, and AI Search Bots
+# -------------------------------------------------------------
+
+# OpenAI / ChatGPT / SearchGPT
 User-agent: GPTBot
 Allow: /
 
@@ -11,6 +16,7 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
+# Anthropic / Claude
 User-agent: ClaudeBot
 Allow: /
 
@@ -20,13 +26,61 @@ Allow: /
 User-agent: Anthropic-ai
 Allow: /
 
+# Perplexity AI
 User-agent: PerplexityBot
 Allow: /
 
+# Google Gemini / Vertex / AI Overviews
 User-agent: Google-Extended
 Allow: /
 
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Google-CloudVertexBot
+Allow: /
+
+# Apple Intelligence & Siri
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Amazon / Alexa
+User-agent: Amazonbot
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# ByteDance
+User-agent: Bytespider
+Allow: /
+
+# You.com Search
 User-agent: YouBot
 Allow: /
+
+# Common Crawl (Foundation model training)
+User-agent: CCBot
+Allow: /
+
+# Diffbot Knowledge Graph
+User-agent: Diffbot
+Allow: /
+
+# LLM Context Documents
+# See: https://llmstxt.org/
+Allow: /llms.txt
+Allow: /llms-full.txt
 
 Sitemap: https://naveenweb.site/sitemap.xml

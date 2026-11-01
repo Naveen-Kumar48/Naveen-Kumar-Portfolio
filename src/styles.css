@@ -103,6 +103,7 @@ app-skills,
 app-projects,
 app-experience,
 app-academic-activity,
+app-faq,
 app-contact {
   display: block;
   content-visibility: auto;
@@ -126,6 +127,10 @@ app-experience {
 
 app-academic-activity {
   contain-intrinsic-size: auto 860px;
+}
+
+app-faq {
+  contain-intrinsic-size: auto 720px;
 }
 
 app-contact {

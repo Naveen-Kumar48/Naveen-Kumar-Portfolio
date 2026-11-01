@@ -15,7 +15,7 @@ import { ThemeService } from '../services/theme.service';
   imports: [CommonModule, MatIconModule, GalaxyComponent, CrystalizedBallComponent, DownloadResumeBtnComponent, MagneticDirective, StorylineComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden selection:bg-emerald-500/30 will-change-transform">
+    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 md:pb-24 overflow-hidden selection:bg-emerald-500/30 will-change-transform">
       <app-storyline></app-storyline>
       
       <!-- Sparkle Elements -->
@@ -30,10 +30,10 @@ import { ThemeService } from '../services/theme.service';
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg-primary)]/20 to-[var(--bg-primary)] pointer-events-none -z-10 transition-colors duration-1000"></div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-20">
-        <header #content class="flex flex-col gap-10 will-change-transform">
+        <header #content class="flex flex-col gap-6 lg:gap-8 will-change-transform">
           
           <!-- Tactical Badge -->
-          <div #badgeContainer class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/50 w-fit opacity-0 translate-y-12 backdrop-blur-sm hover:border-emerald-400 transition-all duration-500 shadow-lg">
+          <div #badgeContainer class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/50 w-fit opacity-0 translate-y-8 backdrop-blur-sm hover:border-emerald-400 transition-all duration-500 shadow-lg">
             <span class="relative flex h-2.5 w-2.5">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)]"></span>
@@ -46,14 +46,14 @@ import { ThemeService } from '../services/theme.service';
           <div class="flex flex-col gap-4">
             <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter leading-[0.96] md:leading-[0.92] text-[var(--text-primary)] overflow-visible">
                <!-- Narrative Greeting -->
-                <div class="min-h-[1.2em] mb-2">
+                <div class="min-h-[1.2em] mb-1 md:mb-2">
                   <span class="inline-block mr-4 text-[var(--text-secondary)] text-xl md:text-3xl lg:text-4xl font-black italic">
                     {{ displayedGreeting() }}<span class="animate-pulse bg-[var(--text-secondary)] w-1 h-6 md:h-8 inline-block ml-1" [style.display]="activeSection() === 'greeting' ? 'inline-block' : 'none'"></span>
                   </span>
                 </div>
 
                <!-- Primary Identity -->
-               <div class="min-h-[1.15em] flex flex-wrap items-baseline tracking-tighter mb-6 md:mb-8 font-black scale-100 origin-left overflow-visible">
+               <div class="min-h-[1.15em] flex flex-wrap items-baseline tracking-tighter mb-3 md:mb-4 font-black scale-100 origin-left overflow-visible">
                  <span class="inline-block bg-clip-text text-transparent bg-gradient-to-b from-[var(--text-primary)] via-[var(--text-primary)] to-[var(--text-secondary)] pt-1.5 pb-2 overflow-visible">
                    {{ displayedName() }}
                  </span>
@@ -61,7 +61,7 @@ import { ThemeService } from '../services/theme.service';
                </div>
 
                <!-- Kinetic Role Matrix (Infinite Cycle) -->
-                <div class="min-h-[2.3em] font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl italic uppercase leading-[1.08] max-w-2xl mb-6 overflow-visible">
+                <div class="min-h-[2.3em] font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl italic uppercase leading-[1.08] max-w-2xl mb-2 md:mb-3 overflow-visible">
                   <span class="inline-block origin-left text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 animate-shimmer py-1 pr-3 overflow-visible">
                      {{ displayedRole() }}
                   </span><span class="animate-pulse bg-gradient-to-b from-emerald-500 to-cyan-500 w-2 md:w-2.5 h-[0.8em] inline-block align-baseline ml-2 md:ml-4 rounded-sm shadow-[0_0_15px_rgba(16,185,129,0.5)]" [style.display]="activeSection() === 'role' ? 'inline-block' : 'none'"></span>
@@ -69,15 +69,15 @@ import { ThemeService } from '../services/theme.service';
             </h1>
           </div>
           
-          <p #animateItem class="text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl font-bold opacity-0 translate-y-12 leading-relaxed p-6 rounded-xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/30 hover:border-emerald-400 hover:text-[var(--text-primary)] transition-all duration-500">
+          <p #animateItem class="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl font-bold opacity-0 translate-y-8 leading-relaxed p-5 md:p-6 rounded-xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/30 hover:border-emerald-400 hover:text-[var(--text-primary)] transition-all duration-500">
             Senior Full Stack Developer specializing in React.js and Node.js. I build <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 font-black italic">scalable, user-centric</span> digital products for startups and enterprises.
           </p>
           
-          <div #animateItem class="flex flex-wrap gap-10 mt-6 items-center opacity-0 translate-y-12">
+          <div #animateItem class="flex flex-wrap gap-6 md:gap-8 items-center opacity-0 translate-y-8">
             <a href="#projects" 
                appMagnetic
                (click)="scrollToProjects($event)"
-               class="px-12 py-6 bg-gradient-to-r from-emerald-500 to-cyan-500 text-zinc-950 font-black rounded-3xl transition-all shadow-2xl hover:scale-110 active:scale-95 flex items-center gap-3 uppercase text-[12px] tracking-[0.3em] hover:shadow-[0_0_40px_rgba(16,185,129,0.4)]">
+               class="px-8 md:px-10 py-4 md:py-5 bg-gradient-to-r from-emerald-500 to-cyan-500 text-zinc-950 font-black rounded-3xl transition-all shadow-2xl hover:scale-105 active:scale-95 flex items-center gap-3 uppercase text-[11px] md:text-[12px] tracking-[0.25em] md:tracking-[0.3em] hover:shadow-[0_0_40px_rgba(16,185,129,0.4)]">
               Explore my latest full stack MERN projects <mat-icon class="text-sm">arrow_outward</mat-icon>
             </a>
             
@@ -86,11 +86,21 @@ import { ThemeService } from '../services/theme.service';
             </div>
           </div>
 
-          <div #animateItem class="flex items-center gap-12 mt-12 opacity-0 translate-y-12">
-            <a href="https://github.com/Naveen-Kumar48" target="_blank" appMagnetic class="text-[var(--text-secondary)] hover:text-emerald-400 transition-all duration-700 hover:drop-shadow-[0_0_20px_rgba(16,185,129,0.5)]" title="GitHub">
+          <div #animateItem class="flex items-center gap-6 md:gap-8 pt-2 pb-2 opacity-0 translate-y-6">
+            <a href="https://github.com/Naveen-Kumar48" 
+               target="_blank" 
+               appMagnetic 
+               class="p-2.5 -m-2.5 rounded-full inline-flex items-center justify-center text-[var(--text-secondary)] hover:text-emerald-400 transition-all duration-700 hover:drop-shadow-[0_0_20px_rgba(16,185,129,0.5)]" 
+               title="GitHub"
+               aria-label="GitHub Profile">
               <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             </a>
-            <a href="https://www.linkedin.com/in/naveen-kumar-dev/" target="_blank" appMagnetic class="text-[var(--text-secondary)] hover:text-cyan-400 transition-all duration-700 hover:drop-shadow-[0_0_20px_rgba(0,255,200,0.5)]" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/naveen-kumar-dev/" 
+               target="_blank" 
+               appMagnetic 
+               class="p-2.5 -m-2.5 rounded-full inline-flex items-center justify-center text-[var(--text-secondary)] hover:text-cyan-400 transition-all duration-700 hover:drop-shadow-[0_0_20px_rgba(0,255,200,0.5)]" 
+               title="LinkedIn"
+               aria-label="LinkedIn Profile">
               <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
             </a>
           </div>
@@ -238,7 +248,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       // Smoother easing with GPU acceleration
       gsap.to(this.contentRef.nativeElement, { 
         x: x * -40, 
-        y: y * -40, 
+        y: y * -20, 
         rotateY: x * 10, 
         duration: 2, 
         ease: 'power2.out', 

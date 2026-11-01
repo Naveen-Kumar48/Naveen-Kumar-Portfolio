@@ -126,7 +126,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     { label: 'Stack', href: '#skills', id: 'skills' },
     { label: 'Projects', href: '#projects', id: 'projects' },
     { label: 'Experience', href: '#experience', id: 'experience' },
-    { label: 'Education', href: '#academic', id: 'academic' }
+    { label: 'Education', href: '#academic', id: 'academic' },
+    { label: 'FAQ', href: '#faq', id: 'faq' }
   ];
 
   constructor() {

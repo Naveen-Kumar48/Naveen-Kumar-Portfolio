@@ -42,6 +42,7 @@ import { MatIconModule } from '@angular/material/icon';
             <li><a href="#skills" (click)="scrollTo($event, '#skills')" class="text-[var(--text-secondary)] hover:text-white transition-all">Stack</a></li>
             <li><a href="#projects" (click)="scrollTo($event, '#projects')" class="text-[var(--text-secondary)] hover:text-white transition-all">Projects</a></li>
             <li><a href="#experience" (click)="scrollTo($event, '#experience')" class="text-[var(--text-secondary)] hover:text-white transition-all">Milestones</a></li>
+            <li><a href="#faq" (click)="scrollTo($event, '#faq')" class="text-[var(--text-secondary)] hover:text-white transition-all">FAQ & Knowledge</a></li>
           </ul>
         </div>
 
